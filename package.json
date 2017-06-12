@@ -1,0 +1,40 @@
+{
+  "name": "boilerplate",
+  "version": "1.0.0",
+  "description": "How To Cook In The Jungle",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf build/*",
+
+    "develop:cli": "NODE_ENV=development webpack-dev-server --hot --history-api-fallback --port 8080 --config .webpack.config.js",
+    "develop:api": "NODE_ENV=development node server.webpack.dev.js",
+    "develop": "npm run develop:api",
+
+    "build": "npm run clean && webpack --config .webpack.config.js --progress -p --env production",
+    "start": "npm run build && NODE_ENV=production node server.js"
+  },
+  "author": "Florian Maxim",
+  "license": "ISC",
+  "dependencies": {
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
+    "react-router": "^3.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.7.7",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-preset-latest": "^6.24.0",
+    "babel-preset-react": "^6.16.0",
+    "css-loader": "^0.27.3",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "html-webpack-plugin": "^2.24.1",
+    "node-sass": "^4.5.1",
+    "postcss": "^5.2.16",
+    "postcss-loader": "^1.3.3",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.15.0",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
+  }
+}

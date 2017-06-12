@@ -1,0 +1,97 @@
+body{
+  background-color: black;
+  color: white;
+  margin:0;
+}
+
+.pad{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row wrap;
+  border: 0px solid gold;
+}
+
+.button{
+  margin: .25em;
+  padding: .75em;
+  border: 1px solid gold;
+  border-radius: 25px;
+  flex: 0 1 calc(30px);
+  min-width: 30px;
+  max-width: 50px;
+  color: gold;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Josefin Sans, sans-serif;
+}
+
+.treasure{
+  height:110px;
+  width:50px;
+  transform: scale3d(.75,.75,.75);
+}
+
+.gold-out{
+  width: 50px;
+  height: 110px;
+  opacity: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: gold;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+@keyframes goldspin {
+  0%   {transform: rotateX(0deg);}
+  25%  {transform: rotateX(90deg);}
+  50% {transform: rotateX(180deg);}
+  100% {transform: rotateX(360deg);}
+}
+
+.gold-in{
+  width: 45px;
+  height: 19px;
+  opacity: 1;
+  background-color: black;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  // animation-name: goldspin;
+  // animation-duration: 2s;
+  // animation-iteration-count: infinite;
+}
+
+
+
+.line{
+  color:gold;
+  position:absolute;
+  left:50%;
+  bottom:7.5%;
+  transform: translateX(-50%) translateY(-50%);
+  font-size:2em;
+  font-family: Josefin Sans, sans-serif;
+  font-family: Cinzel, sans-serif;
+  user-select: none;
+}
+
+.number{
+  color:gold;
+  position:absolute;
+  left:50%;
+  top:7.5%;
+  transform: translateX(-50%) translateY(-50%);
+  font-size:2em;
+  font-family: Josefin Sans, sans-serif;
+  font-family: Cinzel, sans-serif;
+  user-select: none;
+}
