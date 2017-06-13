@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Autoprefixer = require('autoprefixer');
 
 module.exports = {
@@ -42,6 +43,12 @@ module.exports = {
   },
 
   plugins: [
+
+    new CopyWebpackPlugin([
+      { from: './source/static',
+          to: './build/static' }
+    ]),
+
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')

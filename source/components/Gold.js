@@ -17,7 +17,7 @@ function init(block){
     scene = new THREE.Scene();
 
     //test guy
-    var material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
+    // var material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
     // var geometry = new THREE.CubeGeometry(50,50,50);
     //     mesh     = new THREE.Mesh(geometry, material);
 
@@ -112,10 +112,10 @@ function init(block){
 	    combine: THREE.MixOperation,
 	    reflectivity: .25} );
 
-		let mesh2 = new THREE.Mesh( geometry, material );
-		    mesh2.name = 'gold';
+		let gold = new THREE.Mesh( geometry, material );
+		    gold.name = 'gold';
 		// mesh.scale.set(.1,.1,.1);
-		scene.add( mesh2 );
+		scene.add( gold );
 
     document.getElementById("webgl").appendChild( renderer.domElement );
 
@@ -142,8 +142,9 @@ export default class Gold extends React.Component{
 
   componentDidMount(){
 
-    // var href = window.location.href.split('/');
+    var href = window.location.href.split('/');
 
+    //3865565
     let number = 3865565;
 
     let block = {}
