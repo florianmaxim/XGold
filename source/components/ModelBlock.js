@@ -1,14 +1,18 @@
+/*
+
+ This model prepares the block data.
+
+*/
+
 export default class ModelBlock {
 
   constructor(props){
-    
+
   }
 
   get(number){
 
     let block = {}
-
-  	// var href = window.location.href.split('/');
 
   	var url = 'https://etherchain.org/api/block/'+number;
 

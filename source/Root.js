@@ -7,7 +7,8 @@ import App from './App';
 
 //Alternative: Exclude routes (see files: Routes.Dynamic.js && Routes.Static.js).
 
-import Routes from './Routes.Dynamic';
+// import Routes from './Routes.Dynamic';
+import Routes from './Routes.Static';
 
 const Root = () => <Router history={browserHistory} routes={Routes} />;
 

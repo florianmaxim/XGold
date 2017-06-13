@@ -46,18 +46,17 @@
   font-family: Cinzel;
   font-size: 1.5em;
 
-  transform: translate3d(0,85%,0);
-
   cursor: pointer;
   user-select:none;
 }
 
 .home-input{
   color: gold;
-  font-family: Open Sans;
+  font-family: sans-serif;
+  font-weight: 100;
   font-size: 1.5em;
 
-  transform: translate3d(0,-85%,0);
+  transform: translate3d(0,100%,0);
 
   cursor: pointer;
   user-select:none;

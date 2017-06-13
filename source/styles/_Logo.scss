@@ -1,7 +1,10 @@
 .treasure{
+  position:fixed;
+  bottom: 0vh;
+  left:50vw;
   height:110px;
   width:50px;
-  transform: scale3d(.75,.75,.75);
+  transform: scale3d(.5,.5,.5) translateX(-100%);
 }
 
 .gold-out{
@@ -21,6 +24,6 @@
   width: 45px;
   height: 19px;
   opacity: 1;
-  background-color: transparent;
+  background-color:rgba(80,70,25, .5);
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 }

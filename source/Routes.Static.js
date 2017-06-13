@@ -15,7 +15,7 @@ export default {
       component: About,
     },
     {
-      path: '*',
+      path: ':block',
       component: Block,
     },
   ],

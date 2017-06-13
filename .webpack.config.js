@@ -15,7 +15,7 @@ module.exports = {
 
   output: {
     filename: '[name].[hash].js',
-    path: path.join(__dirname, './build/'),
+    path: path.join(__dirname, './build/js'),
   },
 
   module: {
@@ -46,7 +46,7 @@ module.exports = {
 
     new CopyWebpackPlugin([
       { from: './source/static',
-          to: './build/static' }
+          to: path.join(__dirname, './build/static') }
     ]),
 
     new webpack.DefinePlugin({
@@ -63,7 +63,7 @@ module.exports = {
 
     new HtmlWebpackPlugin({
       template: path.join(__dirname, './source/index.html'),
-      filename: 'index.html',
+      filename: path.join(__dirname, './build/index.html'),
       inject: 'body',
     }),
     new webpack.LoaderOptionsPlugin({

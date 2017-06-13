@@ -1,9 +1,9 @@
 require('babel-core/register')({ presets: ['latest', 'react'] })
 
 const DEFAULT = {
-  _NAME: '[Custom Server]',
+  _NAME: '[Targold Server]',
   _VERSION: '0.0.1',
-  _VERSION_NAME: 'Lemon',
+  _VERSION_NAME: 'Mine',
   _URL: '0.0.0.0',
   _PORT: 8080
 }
@@ -40,6 +40,9 @@ app.get('*', (req, res) => {
     if(err) throw error();
 
     match({ routes, location: req.url }, (err, redirect, ssrData) => {
+
+      // console.log('Routes:'+JSON.stringify(routes));
+      // console.log('Location:'+JSON.stringify(req.url));
 
       if(err) throw error();
 
