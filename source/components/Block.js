@@ -1,11 +1,10 @@
 import React from 'react';
 
 import Logo from './Logo';
-import Numpad from './Numpad';
+
+import Gold from './Gold';
 
 import ModelBlock from './ModelBlock';
-
-import '../styles/Home.scss';
 
 export default class Block extends React.Component{
 
@@ -86,10 +85,17 @@ export default class Block extends React.Component{
     }else{
       return(
         <div className="home">
-          <div className="home-gold" onClick={this.handleNumpad.bind(this)}>
-            <Logo/>
+          <div className="home-gold">
+            <Gold/>
           </div>
-          <div className="home-line">Targold.</div>
+          <div className="home-interface">
+            <div className="home-logo" onClick={this.handleNumpad.bind(this)}>
+              <Logo/>
+            </div>
+            <div className="home-line">
+              Targold.
+            </div>
+          </div>
         </div>
       );
     }

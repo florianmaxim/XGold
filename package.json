@@ -5,11 +5,9 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf build/*",
-
     "develop:cli": "NODE_ENV=development webpack-dev-server --hot --history-api-fallback --port 8080 --config .webpack.config.js",
     "develop:api": "NODE_ENV=development node server.webpack.dev.js",
     "develop": "npm run develop:api",
-
     "build": "npm run clean && webpack --config .webpack.config.js --progress -p --env production",
     "start": "npm run build && NODE_ENV=production node server.js"
   },
@@ -18,7 +16,8 @@
   "dependencies": {
     "react": "15.4.2",
     "react-dom": "15.4.2",
-    "react-router": "^3.0.2"
+    "react-router": "^3.0.2",
+    "three": "^0.85.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",

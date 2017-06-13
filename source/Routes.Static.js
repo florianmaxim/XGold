@@ -1,13 +1,13 @@
 import App from './App';
 
-import Home from './components/Home';
+import Block from './components/Block';
 import About from './components/About';
 
 export default {
   path: '/',
   component: App,
   indexRoute: {
-    component: Home,
+    component: Block,
   },
   childRoutes: [
     {
@@ -16,7 +16,7 @@ export default {
     },
     {
       path: '*',
-      component: Home,
+      component: Block,
     },
   ],
 };

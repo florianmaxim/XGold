@@ -1,0 +1,26 @@
+.treasure{
+  height:110px;
+  width:50px;
+  transform: scale3d(.75,.75,.75);
+}
+
+.gold-out{
+  width: 50px;
+  height: 110px;
+  opacity: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: gold;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.gold-in{
+  width: 45px;
+  height: 19px;
+  opacity: 1;
+  background-color: transparent;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}

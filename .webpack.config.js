@@ -9,7 +9,7 @@ module.exports = {
 
   entry: {
     app: path.join(__dirname, './source'),
-    vendor: ['react', 'react-dom', 'react-router'],
+    vendor: ['react', 'react-dom', 'react-router', 'three']
   },
 
   output: {

@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Cinzel');
-
 .home{
  width:100vw;
  height:100vh;
@@ -8,27 +6,42 @@
  align-items: center;
  justify-content: center;
  flex-direction: column;
+}
 
- border:5px solid gold;
+.home-interface{
+  width:100vw;
+  height:100vh;
 
- box-sizing: border-box;
-   -moz-box-sizing: border-box;
-   -webkit-box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top:0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  border:5px solid gold;
+
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 
 .home-gold{
-
+  z-index: 0;
+  position: absolute;
+  left: 0;
+  top:0;
 }
 
-.home-display{
-  display:absolute;
-  bottom: 0;
-  left:0;
-  font-family: Cinzel;
-  color: gold;
+.home-logo{
+  z-index: 1;
 }
 
 .home-line{
+  z-index: 1;
+
   color: gold;
   font-family: Cinzel;
   font-size: 1.5em;
