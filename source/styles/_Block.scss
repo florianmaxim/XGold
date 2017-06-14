@@ -1,6 +1,5 @@
-.home{
+.block{
  width:100vw;
- height:100vh;
 
  display: flex;
  align-items: center;
@@ -8,9 +7,9 @@
  flex-direction: column;
 }
 
-.home-interface{
+.block-interface{
   width:100vw;
-  height:100vh;
+  height:100%;
 
   position: absolute;
   left: 0;
@@ -28,33 +27,33 @@
   -webkit-box-sizing: border-box;
 }
 
-.home-gold{
+.block-gold{
   z-index: 0;
   position: absolute;
   left: 0;
   top:0;
 }
 
-.home-logo{
+.block-logo{
   z-index: 1;
 }
 
-.home-line{
+.block-line{
   z-index: 1;
 
   color: gold;
   font-family: Cinzel;
-  font-size: 1.5em;
+  font-size: 2em;
 
   cursor: pointer;
   user-select:none;
 }
 
-.home-input{
+.block-input{
   color: gold;
-  font-family: sans-serif;
-  font-weight: 100;
-  font-size: 1.5em;
+  font-family: Roboto;
+  font-weight: thin;
+  font-size: 2.5em;
 
   transform: translate3d(0,100%,0);
 
