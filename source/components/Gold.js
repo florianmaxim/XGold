@@ -5,7 +5,127 @@ import {OrbitControls} from './OrbitControls';
 
 import DiamondSquare from './DiamondSquare';
 
+const isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+
 let renderer, camera, controls, scene, mesh;
+
+let alpha, beta, gamma;
+
+let mouseX = 0
+let mouseY = 0
+
+let YRotation = 0;
+let XRotation = 0;
+
+let valueY=0;
+let valueX=0;
+
+let lastValueY=0;
+let lastValueX=0;
+
+let oldYRotation = 0;
+let oldXRotation = 0;
+
+var windowHalfX;
+var windowHalfY;
+
+let mouseOut;
+
+function degToRad(degrees){
+	return degrees * Math.PI/180;
+}
+
+function rotate(){
+
+  var gold = scene.getObjectByName('gold');
+
+  if(isMobile.any())
+  {
+  	//LANDSCAPE
+  	if(window.innerWidth>window.innerHeight)
+  	{
+  		//y value
+  		var valueY=degToRad(Math.abs(alpha)+90);
+
+  		if(valueY<7 && valueY>5)
+  		{
+  		    lastValueY = valueY;
+
+            if(gold) gold.rotation.y=valueY;
+  		}else if(valueY<5 && valueY>1)
+  		{
+  	        lastValueY = valueY+3.1;
+
+  			if(gold) gold.rotation.y=valueY+3.1;
+  		}else{
+  			if(gold) gold.rotation.y=0;
+  		}
+
+
+  		//x value
+  		var valueX=degToRad(Math.abs(gamma)-45)*.5;
+
+  		if(valueX<0.4 && valueX>-0.4){
+  			lastValueX = valueX;
+  			if(gold) gold.rotation.x=valueX;
+  		}else{
+  			if(gold) gold.rotation.x=lastValueX;
+  		}
+
+  	}else{
+  	//PORTRAIT
+
+  	//gold.rotation.z=Math.degToRad(alpha);
+  	if(gold) gold.rotation.x=degToRad(beta-45);
+  	if(gold) gold.rotation.y=degToRad(gamma)*.5;
+
+  	}
+  }
+		else
+	{
+
+		//TODO clean this up!
+
+		let posX = 0;
+		let posY = 0;
+
+		posX = camera.position.x;
+		posY = camera.position.y;
+		//
+		// console.log('posX'+posX)
+		// console.log('posY'+posY)
+
+		let newPosX = posX + ( mouseX - posX ) * .05;
+		let newPosY = posY + ( - mouseY - posY ) * .05;
+
+		// console.log('newPosX: '+newPosX)
+		// console.log('newPosY: '+newPosY)
+
+		camera.position.x = newPosX;
+		camera.position.y = newPosY;
+
+	}
+
+}
 
 function init(block){
 
@@ -123,6 +243,8 @@ function init(block){
 
 function animate() {
 
+    rotate();
+
     requestAnimationFrame(animate);
 
     render();
@@ -138,6 +260,32 @@ function render(){
 export default class Gold extends React.Component{
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount(){
+
+    windowHalfX = innerWidth/2
+    windowHalfY = innerHeight/2;
+
+    addEventListener('deviceorientation', function (value){
+
+    	alpha = value.alpha;
+    	beta  = value.beta;
+    	gamma = value.gamma;
+
+    }, false);
+
+    addEventListener( 'mousemove', function(event) {
+
+    	mouseX = ( event.clientX - windowHalfX ) / 2;
+    	mouseY = ( event.clientY - windowHalfY ) / 2;
+
+    }, false );
+
+    addEventListener( 'mouseout', function(event) {
+    	mouseOut=true;
+    }, false );
+
   }
 
   componentDidMount(){
