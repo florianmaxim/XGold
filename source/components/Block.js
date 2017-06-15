@@ -41,7 +41,7 @@ export default class Block extends React.Component{
     this.block = new ModelBlock();
 
     this.state = {
-      numpad: false,
+      numpad: true,
 
       input: this.block.getLatest(),
 
@@ -71,34 +71,15 @@ export default class Block extends React.Component{
     })
 
     let url = 'https://etherchain.org/api/blocks/count';
+
     fetch(url).then(res => res.json()).then((out) => {
-
-      ///last block
-      console.log(out.data[0].count)
-
-      var block = {};
-
-      var url = 'https://etherchain.org/api/block/'+out.data[0].count;
-      fetch(url).then(res => res.json()).then((out) => {
-
-    	  block.number            = out.data[0].number;
-    	  block.hash              = out.data[0].hash;
-    	  block.size              = out.data[0].size;
-    	  block.transactionAmount = out.data[0].tx_count;
-
-        console.log(block.hash);
 
         this.setState({
           gold: this.state.gold?false:true,
           input: out.data[0].count,
-          hash: block.hash
         });
 
         this.block.get(this.state.input);
-
-        this.forceUpdate();
-
-    	});
 
     });
 
@@ -111,10 +92,16 @@ export default class Block extends React.Component{
       event.stopPropagation();
       event.preventDefault();
       this.forceUpdate();
+
+      this.setState({
+        innerWidth: innerWidth,
+        innerHeight: innerHeight,
+      })
     });
   }
 
   handleNumpad(event){
+
     event.stopPropagation();
     event.preventDefault();
 
@@ -154,7 +141,7 @@ export default class Block extends React.Component{
       //toggle gold
       gold: this.state.gold?false:true,
       //toggle numpad
-      numpad:this.state.numpad?false:true
+      // numpad:this.state.numpad?false:true
     })
     this.forceUpdate();
   }
@@ -176,6 +163,7 @@ export default class Block extends React.Component{
             ?
 
           <div className="block-interface">
+
             <form className="numpad" onSubmit={(event)=>{this.handleGold(event)}}>
 
                  <input type="text"
@@ -185,7 +173,7 @@ export default class Block extends React.Component{
                         onChange={this.onChange.bind(this)}
                         ref={(input) => {input && input.focus()}} />
 
-                 {innerWidth<innerHeight
+                 {this.state.innerWidth<this.state.innerHeight
                    ?
                    /* Portrait numpad */
                    <div className="numpad">
@@ -244,7 +232,7 @@ export default class Block extends React.Component{
           }
 
           <div className="block-branding">
-            <div className="block-logo" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
+            <div className="block-logo" onTouchEnd={(event)=>{this.handleNumpad(event).bind(this)}} onClick={()=>{this.handleNumpad(event).bind(this)}}>
               <Loader/>
             </div>
           </div>
