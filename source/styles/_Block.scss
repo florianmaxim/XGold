@@ -4,7 +4,9 @@
 .block-gold{
   width:100vw;
   height:100vh;
+
   z-index: 0;
+
   position: fixed;
   left: 0;
   top:0;
@@ -20,7 +22,7 @@
 .block-interface{
 
   z-index: 1;
-  position: fixed;
+  position: absolute;
 
   top: 0;
   left: 0;
