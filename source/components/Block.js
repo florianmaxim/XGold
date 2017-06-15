@@ -231,7 +231,7 @@ export default class Block extends React.Component{
           </div>
           }
 
-          <div className="block-branding" onTouchEnd={(event)=>{this.handleNumpad(event).bind(this)}} onClick={()=>{this.handleNumpad(event).bind(this)}}>
+          <div className="block-branding" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
             <Loader/>
           </div>
 
