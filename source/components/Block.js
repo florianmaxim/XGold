@@ -41,7 +41,7 @@ export default class Block extends React.Component{
     this.block = new ModelBlock();
 
     this.state = {
-      numpad: true,
+      numpad: false,
 
       input: this.block.getLatest(),
 
