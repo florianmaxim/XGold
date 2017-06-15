@@ -1,0 +1,62 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,300);
+
+$length: 288;
+
+.frame {
+
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 2px;
+	overflow: hidden;
+  background: transparent;
+  color: #fff;
+	font-family: 'Open Sans', Helvetica, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+  cursor: pointer;
+
+  transform: translate3d(0,-25%,0);
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.bg {
+	fill: none;
+	stroke: black;
+	stroke-width: 0;
+}
+
+.loader {
+	fill: none;
+	stroke: gold;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-dasharray: $length;
+	animation: line 4s linear infinite, spin 3s linear infinite;
+	transform-origin: 50% 50%;
+}
+
+@keyframes line {
+	0% {
+		stroke-dashoffset: ($length * 4);
+	}
+	100% {
+		stroke-dashoffset: ($length * 2);
+	}
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(-90deg) translate3d(0,0,0);
+	}
+	100% {
+		transform: rotate(270deg) translate3d(0,0,0);
+	}
+}

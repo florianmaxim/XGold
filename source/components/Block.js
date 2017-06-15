@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Logo from './Logo';
+import Loader from './Loader';
 
 import Gold from './Gold';
 
@@ -41,17 +42,66 @@ export default class Block extends React.Component{
 
     this.state = {
       numpad: false,
-      input: DEFAULT.input,
+
+      input: this.block.getLatest(),
 
       gold: false,
 
-      hash: 'Targold.'
+      hash: 'Targold',
+
+      innerWidth: 0,
+      innerHeight: 0,
+
+      isMobile: {
+        iOS: false
+      }
     }
   }
 
   componentWillMount(){}
 
   componentDidMount(){
+
+    this.setState({
+      innerWidth: innerWidth,
+      innerHeight: innerHeight,
+      isMobile: {
+        iOS: isMobile.iOS()
+      }
+    })
+
+    let url = 'https://etherchain.org/api/blocks/count';
+    fetch(url).then(res => res.json()).then((out) => {
+
+      ///last block
+      console.log(out.data[0].count)
+
+      var block = {};
+
+      var url = 'https://etherchain.org/api/block/'+out.data[0].count;
+      fetch(url).then(res => res.json()).then((out) => {
+
+    	  block.number            = out.data[0].number;
+    	  block.hash              = out.data[0].hash;
+    	  block.size              = out.data[0].size;
+    	  block.transactionAmount = out.data[0].tx_count;
+
+        console.log(block.hash);
+
+        this.setState({
+          gold: this.state.gold?false:true,
+          input: out.data[0].count,
+          hash: block.hash
+        });
+
+        this.block.get(this.state.input);
+
+        this.forceUpdate();
+
+    	});
+
+    });
+
     addEventListener('touchstart', (event) => {
       event.stopPropagation();
       event.preventDefault();
@@ -92,89 +142,113 @@ export default class Block extends React.Component{
   }
 
   handleGold(event){
+
     event.stopPropagation();
     event.preventDefault();
 
+    if(this.state.input=='') return;
+
+    this.block.get(this.state.input);
+
     this.setState({
+      //toggle gold
       gold: this.state.gold?false:true,
-      hash: this.block.get(this.state.input)
+      //toggle numpad
+      numpad:this.state.numpad?false:true
     })
     this.forceUpdate();
+  }
+
+  onChange(event) {
+    this.setState({input: event.target.value});
   }
 
   render(){
 
       return(
-        <div className="block" style={{height: isMobile.iOS&&(innerHeight>innerWidth)?'calc(100vh - 44px)':'100vh'}}>
+        <div className="block" style={{height: this.state.isMobile.iOS&&this.state.innerHeight>this.state.innerWidth?'calc(100vh - 44px)':'100vh'}}>
+
           <div className="block-gold">
             {this.state.gold? <Gold input={this.state.input}/>: ''}
           </div>
+
           {this.state.numpad
             ?
-            <div className="block-interface">
-              <div className="block-input">
-                {this.state.input}_
-              </div>
 
-               {innerWidth<innerHeight
-                 ?
-                 /* Portrait numpad */
-                 <div className="numpad">
-                  <div className="numpad-row">
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(1, event)}} onClick={(event)=>{this.handleInput(1, event)}}>1</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(2, event)}} onClick={(event)=>{this.handleInput(2, event)}}>2</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(3, event)}} onClick={(event)=>{this.handleInput(3, event)}}>3</div>
-                  </div>
-                  <div className="numpad-row">
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(4, event)}} onClick={(event)=>{this.handleInput(4, event)}}>4</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(5, event)}} onClick={(event)=>{this.handleInput(5, event)}}>5</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(6, event)}} onClick={(event)=>{this.handleInput(6, event)}}>6</div>
-                  </div>
-                  <div className="numpad-row">
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(7, event)}} onClick={(event)=>{this.handleInput(7, event)}}>7</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(8, event)}} onClick={(event)=>{this.handleInput(8, event)}}>8</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(9, event)}} onClick={(event)=>{this.handleInput(9, event)}}>9</div>
-                  </div>
-                  <div className="numpad-row">
-                   <div className="numpad-number" style={{backgroundColor:'gold', color:'black'}} onTouchStart={(event)=>{this.handleBackspace(event)}} onClick={(event)=>{this.handleBackspace(event)}}>⌥</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(0, event)}} onClick={(event)=>{this.handleInput(0, event)}}>0</div>
-                   <div className="numpad-number" style={{backgroundColor:'gold', color:'black'}} onTouchStart={(event)=>{this.handleGold(event)}} onClick={(event)=>{this.handleGold(event)}}>⌘</div>
-                  </div>
-                 </div>
+          <div className="block-interface">
+            <form className="numpad" onSubmit={(event)=>{this.handleGold(event)}}>
 
-                 :
-                 /* Landscape numpad */
-                 <div className="numpad">
-                  <div className="numpad-row">
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(1, event)}} onClick={(event)=>{this.handleInput(1, event)}}>1</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(2, event)}} onClick={(event)=>{this.handleInput(2, event)}}>2</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(3, event)}} onClick={(event)=>{this.handleInput(3, event)}}>3</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(4, event)}} onClick={(event)=>{this.handleInput(4, event)}}>4</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(5, event)}} onClick={(event)=>{this.handleInput(5, event)}}>5</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(6, event)}} onClick={(event)=>{this.handleInput(6, event)}}>6</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(7, event)}} onClick={(event)=>{this.handleInput(7, event)}}>7</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(8, event)}} onClick={(event)=>{this.handleInput(8, event)}}>8</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(9, event)}} onClick={(event)=>{this.handleInput(9, event)}}>9</div>
-                  </div>
-                  <div className="numpad-row">
-                   <div className="numpad-number" style={{backgroundColor:'gold', color:'black'}} onTouchStart={(event)=>{this.handleBackspace(event)}} onClick={(event)=>{this.handleBackspace(event)}}>⌥</div>
-                   <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(0, event)}} onClick={(event)=>{this.handleInput(0, event)}}>0</div>
-                   <div className="numpad-number" style={{backgroundColor:'gold', color:'black'}} onTouchStart={(event)=>{this.handleGold(event)}} onClick={(event)=>{this.handleGold(event)}}>⌘</div>
-                  </div>
-                 </div>
-               }
+                 <input type="text"
+                        className="numpad-input"
+                        value={this.state.input}
+                        placeholder={this.state.input}
+                        onChange={this.onChange.bind(this)}
+                        ref={(input) => {input && input.focus()}} />
 
-            </div>
-            :
-            <div className="block-interface">
-              <div className="block-line" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
-                {this.state.hash}
-              </div>
-            </div>
-          }
-          <div className="block-logo" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
-            <Logo/>
+                 {innerWidth<innerHeight
+                   ?
+                   /* Portrait numpad */
+                   <div className="numpad">
+                    <div className="numpad-row">
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(1, event)}} onClick={(event)=>{this.handleInput(1, event)}}>1</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(2, event)}} onClick={(event)=>{this.handleInput(2, event)}}>2</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(3, event)}} onClick={(event)=>{this.handleInput(3, event)}}>3</div>
+                    </div>
+                    <div className="numpad-row">
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(4, event)}} onClick={(event)=>{this.handleInput(4, event)}}>4</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(5, event)}} onClick={(event)=>{this.handleInput(5, event)}}>5</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(6, event)}} onClick={(event)=>{this.handleInput(6, event)}}>6</div>
+                    </div>
+                    <div className="numpad-row">
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(7, event)}} onClick={(event)=>{this.handleInput(7, event)}}>7</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(8, event)}} onClick={(event)=>{this.handleInput(8, event)}}>8</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(9, event)}} onClick={(event)=>{this.handleInput(9, event)}}>9</div>
+                    </div>
+                    <div className="numpad-row">
+                     <div className="numpad-number" style={{backgroundColor:'gold', color:'black'}} onTouchStart={(event)=>{this.handleBackspace(event)}} onClick={(event)=>{this.handleBackspace(event)}}>⌥</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(0, event)}} onClick={(event)=>{this.handleInput(0, event)}}>0</div>
+                     <div className="numpad-number" style={{backgroundColor:'gold', color:'black'}} onTouchStart={(event)=>{this.handleGold(event)}} onClick={(event)=>{this.handleGold(event)}}>⌘</div>
+                    </div>
+                  </div>
+
+                   :
+                   /* Landscape numpad */
+                   <div className="numpad">
+                    <div className="numpad-row">
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(1, event)}} onClick={(event)=>{this.handleInput(1, event)}}>1</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(2, event)}} onClick={(event)=>{this.handleInput(2, event)}}>2</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(3, event)}} onClick={(event)=>{this.handleInput(3, event)}}>3</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(4, event)}} onClick={(event)=>{this.handleInput(4, event)}}>4</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(5, event)}} onClick={(event)=>{this.handleInput(5, event)}}>5</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(6, event)}} onClick={(event)=>{this.handleInput(6, event)}}>6</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(7, event)}} onClick={(event)=>{this.handleInput(7, event)}}>7</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(8, event)}} onClick={(event)=>{this.handleInput(8, event)}}>8</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(9, event)}} onClick={(event)=>{this.handleInput(9, event)}}>9</div>
+                    </div>
+                    <div className="numpad-row">
+                     <div className="numpad-number" style={{backgroundColor:'gold', color:'black'}} onTouchStart={(event)=>{this.handleBackspace(event)}} onClick={(event)=>{this.handleBackspace(event)}}>⌥</div>
+                     <div className="numpad-number" onTouchStart={(event)=>{this.handleInput(0, event)}} onClick={(event)=>{this.handleInput(0, event)}}>0</div>
+                     <div className="numpad-number" style={{backgroundColor:'gold', color:'black'}} onTouchStart={(event)=>{this.handleGold(event)}} onClick={(event)=>{this.handleGold(event)}}>⌘</div>
+                    </div>
+                   </div>
+                 }
+
+            </form>
           </div>
+            :
+          <div className="block-interface">
+            <div className="block-line" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
+              {this.state.hash}
+            </div>
+          </div>
+          }
+
+          <div className="block-branding">
+            <div className="block-logo" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
+              <Loader/>
+            </div>
+          </div>
+
         </div>
     );
   }

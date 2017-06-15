@@ -10,6 +10,11 @@ export default class ModelBlock {
 
   }
 
+  getLatest(cb){
+
+    
+  }
+
   get(number){
 
     let block = {}
