@@ -153,7 +153,7 @@ export default class Block extends React.Component{
   render(){
 
       return(
-        <div className="block" style={{height: this.state.isMobile.iOS&&this.state.innerHeight>this.state.innerWidth)?'calc(100vh - 44px)':'100vh'}}>
+        <div className="block" style={{height: this.state.isMobile.iOS&&this.state.innerHeight>this.state.innerWidth?'calc(100vh - 44px)':'100vh'}}>
 
           <div className="block-gold">
             {this.state.gold? <Gold input={this.state.input}/>: ''}
