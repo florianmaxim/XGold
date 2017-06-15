@@ -224,17 +224,15 @@ export default class Block extends React.Component{
             </form>
           </div>
             :
-          <div className="block-interface">
+
             <div className="block-line" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
               {this.state.hash}
             </div>
-          </div>
+        
           }
 
-          <div className="block-branding">
-            <div className="block-logo" onTouchEnd={(event)=>{this.handleNumpad(event).bind(this)}} onClick={()=>{this.handleNumpad(event).bind(this)}}>
-              <Loader/>
-            </div>
+          <div className="block-branding" onTouchEnd={(event)=>{this.handleNumpad(event).bind(this)}} onClick={()=>{this.handleNumpad(event).bind(this)}}>
+            <Loader/>
           </div>
 
         </div>

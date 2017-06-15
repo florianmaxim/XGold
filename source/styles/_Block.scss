@@ -13,6 +13,8 @@
 }
 
 .block-gold{
+  width:100vw;
+  height:100vh;
   z-index: 0;
   position: fixed;
   left: 0;
@@ -31,10 +33,11 @@
   z-index: 1;
   position: fixed;
 
+  top: 0;
   left: 0;
 
-  width:100%;
-  height:100%;
+  width:100vw;
+  height:100vh;
 
   border:5px solid gold;
 
@@ -48,11 +51,14 @@
 }
 
 .block-branding{
-
   z-index: 2;
   position: fixed;
 
   bottom: 0;
+  left: 50%;
+  transform: translate3d(-50%,0,0);
+
+  width:100vw;
 
   display: flex;
   align-items: flex-end;
