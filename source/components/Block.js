@@ -153,7 +153,7 @@ export default class Block extends React.Component{
   render(){
 
       return(
-        <div className="block" style={{height: this.state.isMobile.iOS&&this.state.innerHeight>this.state.innerWidth?'calc(100vh - 44px)':'100vh'}}>
+        <div className="block">
 
           <div className="block-gold">
             {this.state.gold? <Gold input={this.state.input}/>: ''}
@@ -224,11 +224,11 @@ export default class Block extends React.Component{
             </form>
           </div>
             :
-
+          <div className="block-interface">
             <div className="block-line" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
               {this.state.hash}
             </div>
-        
+          </div>
           }
 
           <div className="block-branding" onTouchEnd={(event)=>{this.handleNumpad(event).bind(this)}} onClick={()=>{this.handleNumpad(event).bind(this)}}>
