@@ -83,6 +83,24 @@ export default class Block extends React.Component{
 
     });
 
+
+    window.setInterval(()={
+
+      let url = 'https://etherchain.org/api/blocks/count';
+
+      fetch(url).then(res => res.json()).then((out) => {
+
+          this.setState({
+            gold: this.state.gold?false:true,
+            input: out.data[0].count,
+          });
+
+          this.block.get(this.state.input);
+
+      });
+
+    }, 3000)
+
     addEventListener('touchstart', (event) => {
       event.stopPropagation();
       event.preventDefault();
