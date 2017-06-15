@@ -170,8 +170,7 @@ export default class Block extends React.Component{
                         className="numpad-input"
                         value={this.state.input}
                         placeholder={this.state.input}
-                        onChange={this.onChange.bind(this)}
-                        ref={(input) => {input && input.focus()}} />
+                        onChange={this.onChange.bind(this)}/>
 
                  {this.state.innerWidth<this.state.innerHeight
                    ?
