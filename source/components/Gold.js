@@ -136,13 +136,6 @@ function init(block){
 
     scene = new THREE.Scene();
 
-    //test guy
-    // var material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
-    // var geometry = new THREE.CubeGeometry(50,50,50);
-    //     mesh     = new THREE.Mesh(geometry, material);
-    //
-    // scene.add(mesh)
-
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, .1, 10000 );
     camera.position.z = 50;
     camera.position.y = 0;
@@ -154,6 +147,7 @@ function init(block){
     controls = new OrbitControls(camera);
 
     addEventListener('resize', () =>{
+      console.log('three js resize')
       renderer.setSize( window.innerWidth, window.innerHeight );
       camera.aspect = window.innerWidth / window.innerHeight
       camera.updateProjectionMatrix();

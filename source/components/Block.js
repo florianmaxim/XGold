@@ -84,7 +84,7 @@ export default class Block extends React.Component{
     });
 
 
-    window.setInterval(()={
+    window.setInterval(function(){
 
       let url = 'https://etherchain.org/api/blocks/count';
 
