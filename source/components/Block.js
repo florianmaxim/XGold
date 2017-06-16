@@ -65,7 +65,7 @@ export default class Block extends React.Component{
     let url = 'https://etherchain.org/api/blocks/count';
 
     let params = {
-                  
+
                    method: 'GET',
                    headers: {
                       Accept: 'application/json'
@@ -133,7 +133,7 @@ export default class Block extends React.Component{
     event.preventDefault();
 
     this.setState({
-      input:this.state.input.substring(0, this.state.input.length - 1)
+      input:parseInt( this.state.input.toString().slice(0, -1) );
     })
   }
 
@@ -146,7 +146,7 @@ export default class Block extends React.Component{
 
     this.setState({
       //toggle gold
-      input: this.state.input,
+      gold: this.state.input,
       //toggle numpad
       numpad:this.state.numpad?false:true
     })
@@ -166,7 +166,7 @@ export default class Block extends React.Component{
 
           <div className="block-gold">
 
-                <Gold input={this.state.input}/>
+                <Gold input={this.state.gold}/>
 
           </div>
 
