@@ -293,7 +293,7 @@ export default class Gold extends React.Component{
     var url = 'https://etherchain.org/api/block/'+number;
 
     let params = {
-                   mode: 'no-cors',
+
                    method: 'GET',
                    headers: {
                       Accept: 'application/json'
@@ -312,7 +312,7 @@ export default class Gold extends React.Component{
       let url = 'https://etherchain.org/api/block/'+number+'/tx'
 
       let params = {
-                     mode: 'no-cors',
+
                      method: 'GET',
                      headers: {
                         Accept: 'application/json'
