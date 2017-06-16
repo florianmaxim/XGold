@@ -150,7 +150,7 @@ export default class Block extends React.Component{
       //toggle numpad
       numpad:this.state.numpad?false:true
     })
-    this.forceUpdate();
+
   }
 
   onChange(event) {
