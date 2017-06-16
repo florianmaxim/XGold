@@ -156,6 +156,8 @@ export default class Block extends React.Component{
       return(
         <div className="block">
 
+          <div className="block-frame" />
+
           <div className="block-gold">
 
                 {this.state.gold? <Gold input={this.state.input}/>: ''}
