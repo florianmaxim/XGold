@@ -42,6 +42,8 @@ export default class Block extends React.Component{
 
       input: 3881441,
 
+      input: gold,
+
       hash: 'Targold',
 
       innerWidth: 0,
@@ -77,6 +79,8 @@ export default class Block extends React.Component{
         this.setState({
 
           input: out.data[0].count,
+
+          gold: out.data[0].count,
 
           numpad:this.state.numpad?false:true
 
@@ -133,7 +137,7 @@ export default class Block extends React.Component{
     event.preventDefault();
 
     this.setState({
-      input:parseInt( this.state.input.toString().slice(0, -1) );
+      input:parseInt( this.state.input.toString().slice(0, -1) )
     })
   }
 
@@ -145,7 +149,7 @@ export default class Block extends React.Component{
     //no input, no gold.
 
     this.setState({
-      //toggle gold
+      //send current inout to gold
       gold: this.state.input,
       //toggle numpad
       numpad:this.state.numpad?false:true
