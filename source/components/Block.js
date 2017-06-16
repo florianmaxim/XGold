@@ -84,7 +84,7 @@ export default class Block extends React.Component{
 
           gold: out.data[0].count,
 
-          numpad: this.state.numpad?false:true
+          // numpad: this.state.numpad?false:true
 
         });
 
