@@ -285,7 +285,7 @@ export default class Gold extends React.Component{
   componentWillReceiveProps(props){
 
     console.error('NEW GOLD!')
-    
+
     let number = this.props.input;
 
     let block = {}
@@ -331,42 +331,42 @@ export default class Gold extends React.Component{
 
   componentDidMount(){
 
-    var href = window.location.href.split('/');
-
-    let number = this.props.input;
-
-    let block = {}
-
-    var url = 'https://etherchain.org/api/block/'+number;
-
-    let params = {
-                   method: 'GET',
-                   headers: {
-                      Accept: 'application/json'
-                     }
-                 }
-
-    fetch(url, params).then(res => res.json()).then((out) => {
-
-      block.number            = out.data[0].number;
-      block.hash              = out.data[0].hash;
-      block.size              = out.data[0].size;
-      block.transactionAmount = out.data[0].tx_count;
-
-      console.log(JSON.stringify(block.hash));
-
-      let url = 'https://etherchain.org/api/block/'+number+'/tx'
-
-      fetch(url, params).then(res => res.json()).then((out) => {
-
-        block.transactions = out.data;
-
-        init(block);
-        animate();
-
-      });
-
-    });
+    // var href = window.location.href.split('/');
+    //
+    // let number = this.props.input;
+    //
+    // let block = {}
+    //
+    // var url = 'https://etherchain.org/api/block/'+number;
+    //
+    // let params = {
+    //                method: 'GET',
+    //                headers: {
+    //                   Accept: 'application/json'
+    //                  }
+    //              }
+    //
+    // fetch(url, params).then(res => res.json()).then((out) => {
+    //
+    //   block.number            = out.data[0].number;
+    //   block.hash              = out.data[0].hash;
+    //   block.size              = out.data[0].size;
+    //   block.transactionAmount = out.data[0].tx_count;
+    //
+    //   console.log(JSON.stringify(block.hash));
+    //
+    //   let url = 'https://etherchain.org/api/block/'+number+'/tx'
+    //
+    //   fetch(url, params).then(res => res.json()).then((out) => {
+    //
+    //     block.transactions = out.data;
+    //
+    //     init(block);
+    //     animate();
+    //
+    //   });
+    //
+    // });
   }
 
   render(){
