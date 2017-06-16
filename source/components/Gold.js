@@ -28,6 +28,8 @@ const isMobile = {
 
 let renderer, camera, controls, scene, mesh;
 
+let lastBlock = 0;
+
 let alpha, beta, gamma;
 
 let mouseX = 0
@@ -284,6 +286,10 @@ export default class Gold extends React.Component{
 
   componentWillReceiveProps(props){
 
+    //TODO only rerender if the block changed!
+
+    if(this.props.input===lastBlock) return;
+
     console.error('NEW GOLD!')
 
     let number = this.props.input;
@@ -320,6 +326,8 @@ export default class Gold extends React.Component{
       fetch(url, params).then(res => res.json()).then((out) => {
 
         block.transactions = out.data;
+
+        lastBlock = block;
 
         init(block);
         animate();
