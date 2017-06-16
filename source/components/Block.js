@@ -84,8 +84,6 @@ export default class Block extends React.Component{
 
           gold: out.data[0].count,
 
-          numpad:this.state.numpad?false:true
-
         });
 
     });
@@ -181,7 +179,7 @@ export default class Block extends React.Component{
                      value={this.state.input}
                      placeholder={this.state.input}
                      onChange={this.onChange.bind(this)}
-                     ref={input => input && input.focus()} />
+                     />
               </form>
             </div>
 
