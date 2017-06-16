@@ -82,6 +82,12 @@ export default class Block extends React.Component{
 
     });
 
+    addEventListener('click', (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      console.log(this.state.input)
+    });
+
     addEventListener('touchstart', (event) => {
       event.stopPropagation();
       event.preventDefault();
