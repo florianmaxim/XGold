@@ -114,8 +114,8 @@ function rotate(){
 		// console.log('posX'+posX)
 		// console.log('posY'+posY)
 
-		let newPosX = posX + ( mouseX - posX ) * .05;
-		let newPosY = posY + ( - mouseY - posY ) * .05;
+		let newPosX = posX + ( mouseX - posX ) * .01;
+		let newPosY = posY + ( - mouseY - posY ) * .01;
 
 		// console.log('newPosX: '+newPosX)
 		// console.log('newPosY: '+newPosY)
