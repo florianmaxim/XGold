@@ -117,7 +117,7 @@
   and (max-device-width: 480px)
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: portrait) {
-  .block{
+  .block-frame{
    height:calc(100vh-69px);
   }
 }
@@ -128,7 +128,7 @@
   and (max-device-width: 480px)
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: landscape) {
-  .block{
+  .block-frame{
    height:100vh;
   }
 }
@@ -149,7 +149,7 @@
   and (max-device-width: 568px)
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: portrait) {
-    .block{
+    .block-frame{
      height:calc(100vh - 69px)
     }
 }
@@ -160,7 +160,7 @@
   and (max-device-width: 568px)
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: landscape) {
-  .block{
+  .block-frame{
    height:100vh;
   }
 }
@@ -181,7 +181,7 @@
   and (max-device-width: 667px)
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: portrait) {
-    .block{
+    .block-frame{
      height:calc(100vh - 69px)
     }
 }
@@ -192,7 +192,7 @@
   and (max-device-width: 667px)
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: landscape) {
-  .block{
+  .block-frame{
    height:100vh;
   }
 }
@@ -213,7 +213,7 @@
   and (max-device-width: 736px)
   and (-webkit-min-device-pixel-ratio: 3)
   and (orientation: portrait) {
-  .block{
+  .block-frame{
    height:calc(100vh - 69px)
   }
 }
@@ -224,7 +224,7 @@
   and (max-device-width: 736px)
   and (-webkit-min-device-pixel-ratio: 3)
   and (orientation: landscape) {
-  .block{
+  .block-frame{
    height:100vh;
   }
 }
