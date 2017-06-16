@@ -76,7 +76,7 @@ export default class Block extends React.Component{
                      }
                  }
 
-    fetch(url, params).then(res => res.json()).then((out) => {
+    fetch(url).then(res => res.json()).then((out) => {
 
         this.setState({
 

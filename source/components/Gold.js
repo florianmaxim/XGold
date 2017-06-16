@@ -305,7 +305,7 @@ export default class Gold extends React.Component{
                      }
                  }
 
-    fetch(url, params).then(res => res.json()).then((out) => {
+    fetch(url).then(res => res.json()).then((out) => {
 
       block.number            = out.data[0].number;
       block.hash              = out.data[0].hash;
@@ -323,7 +323,7 @@ export default class Gold extends React.Component{
                        }
                    }
 
-      fetch(url, params).then(res => res.json()).then((out) => {
+      fetch(url).then(res => res.json()).then((out) => {
 
         block.transactions = out.data;
 
