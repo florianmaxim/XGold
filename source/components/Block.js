@@ -142,7 +142,7 @@ export default class Block extends React.Component{
       //toggle gold
       gold: this.state.gold?false:true,
       //toggle numpad
-      numpad:this.state.numpad?false:true
+      // numpad:this.state.numpad?false:true
     })
     this.forceUpdate();
   }
