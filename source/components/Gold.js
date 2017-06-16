@@ -288,6 +288,9 @@ export default class Gold extends React.Component{
 
     //TODO only rerender if the block changed!
 
+    console.log('Gold last block: '+lastBlock);
+    console.log('Gold new block: '+this.props.input);
+
     if(this.props.input===lastBlock) return;
 
     console.log('Gold received a new block.')
@@ -338,43 +341,58 @@ export default class Gold extends React.Component{
   }
 
   componentDidMount(){
-    //
-    // var href = window.location.href.split('/');
-    //
-    // let number = this.props.input;
-    //
-    // let block = {}
-    //
-    // var url = 'https://etherchain.org/api/block/'+number;
-    //
-    // let params = {
-    //                method: 'GET',
-    //                headers: {
-    //                   Accept: 'application/json'
-    //                  }
-    //              }
-    //
-    // fetch(url).then(res => res.json()).then((out) => {
-    //
-    //   block.number            = out.data[0].number;
-    //   block.hash              = out.data[0].hash;
-    //   block.size              = out.data[0].size;
-    //   block.transactionAmount = out.data[0].tx_count;
-    //
-    //   console.log(JSON.stringify(block.hash));
-    //
-    //   let url = 'https://etherchain.org/api/block/'+number+'/tx'
-    //
-    //   fetch(url, params).then(res => res.json()).then((out) => {
-    //
-    //     block.transactions = out.data;
-    //
-    //     init(block);
-    //     animate();
-    //
-    //   });
-    //
-    // });
+    //TODO only rerender if the block changed!
+
+    console.log('Gold last block: '+lastBlock);
+    console.log('Gold new block: '+this.props.input);
+
+    if(this.props.input===lastBlock) return;
+
+    console.log('Gold received a new block.')
+
+    let number = this.props.input;
+
+    let block = {}
+
+    var url = 'https://etherchain.org/api/block/'+number;
+
+    let params = {
+                   method: 'GET',
+                   headers: {
+                      Accept: 'application/json'
+                     }
+                 }
+
+    fetch(url).then(res => res.json()).then((out) => {
+
+      block.number            = out.data[0].number;
+      block.hash              = out.data[0].hash;
+      block.size              = out.data[0].size;
+      block.transactionAmount = out.data[0].tx_count;
+
+      console.log(JSON.stringify(block.hash));
+
+      let url = 'https://etherchain.org/api/block/'+number+'/tx';
+
+      let params = {
+                     method: 'GET',
+                     headers: {
+                        Accept: 'application/json'
+                       }
+                   }
+
+      fetch(url).then(res => res.json()).then((out) => {
+
+        block.transactions = out.data;
+
+        lastBlock = block;
+
+        init(block);
+        animate();
+
+      });
+
+    });
   }
 
   render(){
