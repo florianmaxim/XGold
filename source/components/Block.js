@@ -36,8 +36,6 @@ export default class Block extends React.Component{
   constructor(props){
     super(props);
 
-    this.block = new ModelBlock();
-
     this.state = {
 
       numpad: true,
