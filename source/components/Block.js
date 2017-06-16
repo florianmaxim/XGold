@@ -46,7 +46,7 @@ export default class Block extends React.Component{
 
       input: '123456',
 
-      gold: false,
+      gold: true,
 
       hash: 'Targold',
 
@@ -75,7 +75,7 @@ export default class Block extends React.Component{
         this.block.get(out.data[0].count);
 
         this.setState({
-          gold: this.state.gold?false:true,
+          // gold: this.state.gold?false:true,
           input: out.data[0].count,
         });
 
