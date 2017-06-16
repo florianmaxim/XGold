@@ -20,10 +20,11 @@
 }
 
 .block-display{
-  // border:10px solid red;
   z-index: 2;
+  // border:10px solid red;
+  margin-top: -5vh;
 
-  margin: 5vh;
+  text-align: center;
 
   display:flex;
   align-items: center;
