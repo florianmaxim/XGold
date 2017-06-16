@@ -20,10 +20,10 @@
 }
 
 .block-display{
-  z-index: 2;
   // border:10px solid red;
+  z-index: 2;
+
   margin: 5vh;
-  margin-top: -5vh;
 
   display:flex;
   align-items: center;
@@ -53,6 +53,12 @@
   position: fixed;
   left: 0;
   top:0;
+
+  border:5px solid gold;
+
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 
 .block-logo{
