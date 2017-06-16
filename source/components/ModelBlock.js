@@ -23,7 +23,7 @@ export default class ModelBlock {
 
     console.log(url)
 
-  	fetch(url, {'mode': 'no-cors'}).then(res => res.json()).then((out) => {
+  	fetch(url, {mode: 'no-cors'}).then(res => res.json()).then((out) => {
 
   	  block.number            = out.data[0].number;
   	  block.hash              = out.data[0].hash;
@@ -34,7 +34,7 @@ export default class ModelBlock {
 
   		let url = 'https://etherchain.org/api/block/'+block.number+'/tx';
 
-  		fetch(url, {'mode': 'no-cors'}).then(res => res.json()).then((out) => {
+  		fetch(url, {mode: 'no-cors'}).then(res => res.json()).then((out) => {
 
   			block.transactions = out.data;
 
