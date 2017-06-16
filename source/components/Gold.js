@@ -283,6 +283,9 @@ export default class Gold extends React.Component{
   }
 
   componentWillReceiveProps(props){
+
+    console.error('NEW GOLD!')
+    
     let number = this.props.input;
 
     let block = {}
@@ -307,7 +310,7 @@ export default class Gold extends React.Component{
 
       let url = 'https://etherchain.org/api/block/'+number+'/tx';
 
-      let params = { 
+      let params = {
                      method: 'GET',
                      headers: {
                         Accept: 'application/json'
