@@ -68,9 +68,7 @@ export default class Block extends React.Component{
 
     let url = 'https://etherchain.org/api/blocks/count';
 
-    fetch(url).then(res => res.json()).then((out) => {
-
-        this.block.get(out.data[0].count);
+    fetch(url, {'mode': 'no-cors'}).then(res => res.json()).then((out) => {
 
         this.setState({
 
