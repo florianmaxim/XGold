@@ -5,8 +5,6 @@ import Loader from './Loader';
 
 import Gold from './Gold';
 
-import ModelBlock from './ModelBlock';
-
 const isMobile = {
     Android: function() {
         return navigator.userAgent.match(/Android/i);
@@ -68,11 +66,15 @@ export default class Block extends React.Component{
 
     let url = 'https://etherchain.org/api/blocks/count';
 
-    fetch(url,  {mode: 'no-cors',
-               method: 'GET',
-              headers: {
-                Accept: 'application/json',
-              }}).then(res => res.json()).then((out) => {
+    let params = {
+                   mode: 'no-cors',
+                   method: 'GET',
+                   headers: {
+                      Accept: 'application/json'
+                     }
+                 }
+
+    fetch(url, params).then(res => res.json()).then((out) => {
 
         this.setState({
 

@@ -292,11 +292,15 @@ export default class Gold extends React.Component{
 
     var url = 'https://etherchain.org/api/block/'+number;
 
-    fetch(url,  {mode: 'no-cors',
-               method: 'GET',
-              headers: {
-                Accept: 'application/json',
-              }}).then(res => res.json()).then((out) => {
+    let params = {
+                   mode: 'no-cors',
+                   method: 'GET',
+                   headers: {
+                      Accept: 'application/json'
+                     }
+                 }
+
+    fetch(url, params).then(res => res.json()).then((out) => {
 
       block.number            = out.data[0].number;
       block.hash              = out.data[0].hash;
@@ -307,11 +311,15 @@ export default class Gold extends React.Component{
 
       let url = 'https://etherchain.org/api/block/'+number+'/tx'
 
-      fetch(url,  {mode: 'no-cors',
-                 method: 'GET',
-                headers: {
-                  Accept: 'application/json',
-                }}).then(res => res.json()).then((out) => {
+      let params = {
+                     mode: 'no-cors',
+                     method: 'GET',
+                     headers: {
+                        Accept: 'application/json'
+                       }
+                   }
+
+      fetch(url, params).then(res => res.json()).then((out) => {
 
         block.transactions = out.data;
 
