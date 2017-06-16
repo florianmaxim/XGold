@@ -1,13 +1,12 @@
 .numpad{
-  width:100%;
-  display: flex;
-  flex-direction: column;
+  // border:10px solid red;
+  display:flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .numpad-input{
-  margin: 5%;
   width: 100%;
 
   font-family: Roboto;
@@ -26,7 +25,6 @@
 }
 
 .numpad-row{
-  width:100%;
   display: flex;
   flex-direction: row;
   align-items: center;
