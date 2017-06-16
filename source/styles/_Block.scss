@@ -16,9 +16,11 @@
 
 .block-numpad{
   // border:10px solid blue;
+  z-index: 1;
 }
 
 .block-display{
+  z-index: 2;
   // border:10px solid red;
   margin: 5vh;
   margin-top: -5vh;

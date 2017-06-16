@@ -42,7 +42,7 @@ export default class Block extends React.Component{
 
     this.state = {
 
-      numpad: false,
+      numpad: true,
 
       input: '123456',
 
@@ -159,7 +159,7 @@ export default class Block extends React.Component{
           <div className="block-gold">
 
                 {this.state.gold? <Gold input={this.state.input}/>: ''}
-                
+
           </div>
 
           {
