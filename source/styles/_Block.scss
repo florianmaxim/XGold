@@ -14,6 +14,15 @@
   -webkit-box-sizing: border-box;
 }
 
+.block-gold{
+  // border:10px solid red;
+  z-index: 0;
+
+  position: fixed;
+  left: 0;
+  top:0;
+}
+
 .block-numpad{
   // border:10px solid blue;
   z-index: 1;
@@ -46,20 +55,6 @@
   border-style: solid;
   border-width: 50px 50px 0 0;
   border-color: gold transparent transparent transparent;
-}
-
-.block-gold{
-  z-index: 0;
-
-  position: fixed;
-  left: 0;
-  top:0;
-
-  border:5px solid gold;
-
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
 }
 
 .block-logo{
