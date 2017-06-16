@@ -46,8 +46,6 @@ export default class Block extends React.Component{
 
       input: 3881441,
 
-      gold: true,
-
       hash: 'Targold',
 
       innerWidth: 0,
@@ -75,8 +73,11 @@ export default class Block extends React.Component{
         this.block.get(out.data[0].count);
 
         this.setState({
-          // gold: this.state.gold?false:true,
+
           input: out.data[0].count,
+
+          numpad:this.state.numpad?false:true
+
         });
 
     });
@@ -139,9 +140,9 @@ export default class Block extends React.Component{
 
     this.setState({
       //toggle gold
-      gold: this.state.gold?false:true,
+      // gold: this.state.gold?false:true,
       //toggle numpad
-      // numpad:this.state.numpad?false:true
+      numpad:this.state.numpad?false:true
     })
     this.forceUpdate();
   }
