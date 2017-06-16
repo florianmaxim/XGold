@@ -42,7 +42,7 @@ export default class Block extends React.Component{
 
       input: 3881441,
 
-      input: gold,
+      gold: 3881441,
 
       hash: 'Targold',
 
