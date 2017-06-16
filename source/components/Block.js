@@ -134,7 +134,6 @@ export default class Block extends React.Component{
     event.preventDefault();
 
     //no input, no gold.
-    if(this.state.input=='') return;
 
     this.block.get(this.state.input);
 
