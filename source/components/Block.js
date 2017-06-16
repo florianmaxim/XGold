@@ -68,7 +68,11 @@ export default class Block extends React.Component{
 
     let url = 'https://etherchain.org/api/blocks/count';
 
-    fetch(url, {mode: 'no-cors'}).then(res => res.json()).then((out) => {
+    fetch(url,  {mode: 'no-cors',
+               method: 'GET',
+              headers: {
+                Accept: 'application/json',
+              }}).then(res => res.json()).then((out) => {
 
         this.setState({
 
@@ -140,11 +144,9 @@ export default class Block extends React.Component{
 
     //no input, no gold.
 
-    this.block.get(this.state.input);
-
     this.setState({
       //toggle gold
-      // gold: this.state.gold?false:true,
+      input: this.state.input,
       //toggle numpad
       numpad:this.state.numpad?false:true
     })
