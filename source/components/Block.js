@@ -38,8 +38,10 @@ export default class Block extends React.Component{
 
     this.state = {
 
+      //toggle numpad
       numpad: true,
 
+      //display input
       input: 3881441,
 
       gold: 3881441,
@@ -86,12 +88,6 @@ export default class Block extends React.Component{
 
         });
 
-    });
-
-    addEventListener('mousemove', (event) => {
-      event.stopPropagation();
-      event.preventDefault();
-      console.log(this.state.input)
     });
 
     addEventListener('touchstart', (event) => {
