@@ -246,8 +246,10 @@ export default class Block extends React.Component{
 
             </div>
             :
-            <div className="block-line" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
-              {this.state.hash}
+            <div className="block-numpad">
+              <div className="block-line" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
+                {this.state.hash}
+              </div>
             </div>
           }
 
