@@ -9,7 +9,7 @@
 
   display:flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: column;
 
 }
@@ -123,7 +123,9 @@
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: portrait) {
   .block{
-   height:calc(100vh-69px);
+    height:calc(100vh-69px);
+    margin-top: 64px;   // minus 5px frame
+    justify-content: flex-start;
   }
 }
 
@@ -158,6 +160,7 @@
   .block{
    height:calc(100vh-69px);
    margin-top: 64px;   // minus 5px frame
+   justify-content: flex-start;
   }
 }
 
@@ -167,10 +170,10 @@
   and (max-device-width: 568px)
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: landscape) {
-    .block{
-     height:100vh;
-     justify-content: center;
-    }
+  .block{
+   height:100vh;
+   justify-content: center;
+  }
 }
 
 /* ----------- iPhone 6 ----------- */
@@ -190,8 +193,9 @@
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: portrait) {
   .block{
-   height:calc(100vh-69px);
-   margin-top: 64px; // minus 5px frame
+    height:calc(100vh-69px);
+    margin-top: 64px;   // minus 5px frame
+    justify-content: flex-start;
   }
 }
 
@@ -201,10 +205,10 @@
   and (max-device-width: 667px)
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: landscape) {
-    .block{
-     height:100vh;
-     justify-content: center;
-    }
+  .block{
+   height:100vh;
+   justify-content: center;
+  }
 }
 
 /* ----------- iPhone 6+ ----------- */
@@ -224,8 +228,9 @@
   and (-webkit-min-device-pixel-ratio: 3)
   and (orientation: portrait) {
   .block{
-   height:calc(100vh-69px);
-   margin-top: 64px; // minus 5px frame
+    height:calc(100vh-69px);
+    margin-top: 64px;   // minus 5px frame
+    justify-content: flex-start;
   }
 }
 
@@ -235,8 +240,8 @@
   and (max-device-width: 736px)
   and (-webkit-min-device-pixel-ratio: 3)
   and (orientation: landscape) {
-    .block{
-     height:100vh;
-     justify-content: center;
-    }
+  .block{
+   height:100vh;
+   justify-content: center;
+  }
 }
