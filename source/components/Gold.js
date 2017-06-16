@@ -290,7 +290,7 @@ export default class Gold extends React.Component{
 
     if(this.props.input===lastBlock) return;
 
-    console.error('NEW GOLD!')
+    console.log('Gold received a new block.')
 
     let number = this.props.input;
 
