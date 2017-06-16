@@ -44,7 +44,7 @@ export default class Block extends React.Component{
 
       numpad: true,
 
-      input: '123456',
+      input: 3881441,
 
       gold: true,
 
