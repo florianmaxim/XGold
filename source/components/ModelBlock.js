@@ -12,7 +12,7 @@ export default class ModelBlock {
 
   getLatest(cb){
 
-    
+
   }
 
   get(number){
@@ -30,7 +30,7 @@ export default class ModelBlock {
   	  block.size              = out.data[0].size;
   	  block.transactionAmount = out.data[0].tx_count;
 
-      console.log(block.hash);
+      // console.log(block.hash);
 
   		let url = 'https://etherchain.org/api/block/'+block.number+'/tx';
 
