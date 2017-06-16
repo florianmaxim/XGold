@@ -82,7 +82,7 @@ export default class Block extends React.Component{
 
     });
 
-    addEventListener('click', (event) => {
+    addEventListener('mousemove', (event) => {
       event.stopPropagation();
       event.preventDefault();
       console.log(this.state.input)
