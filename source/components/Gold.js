@@ -305,7 +305,14 @@ export default class Gold extends React.Component{
 
       console.log(JSON.stringify(block.hash));
 
-      let url = 'https://etherchain.org/api/block/'+number+'/tx'
+      let url = 'https://etherchain.org/api/block/'+number+'/tx';
+
+      let params = { 
+                     method: 'GET',
+                     headers: {
+                        Accept: 'application/json'
+                       }
+                   }
 
       fetch(url, params).then(res => res.json()).then((out) => {
 
