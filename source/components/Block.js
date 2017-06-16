@@ -44,7 +44,7 @@ export default class Block extends React.Component{
       //display input
       input: 3881441,
 
-      gold: 3881441,
+      gold: false,
 
       hash: 'Targold',
 
@@ -163,7 +163,15 @@ export default class Block extends React.Component{
 
           <div className="block-gold">
 
-                <Gold input={this.state.gold}/>
+          {
+            this.state.gold!==false
+            ?
+              <Gold input={this.state.gold}/>
+            :
+             ''  
+          }
+
+
 
           </div>
 
