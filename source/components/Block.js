@@ -39,7 +39,11 @@ export default class Block extends React.Component{
 
       gold: '3881441',
 
-      hash: '',
+      hash: 'flflf',
+
+      //TODO
+      //logo, block info, enter menu, general, menu
+      displayMode: 0,
 
       innerWidth: 0,
       innerHeight: 0,
@@ -69,6 +73,48 @@ export default class Block extends React.Component{
       })
     }, DEFAULT.goldrush+10)
 
+
+    /////////////////////////////////////////
+    //
+    // function get(url) {
+    //   // Return a new promise.
+    //   return new Promise(function(resolve, reject) {
+    //     // Do the usual XHR stuff
+    //     var req = new XMLHttpRequest();
+    //     req.open('GET', url);
+    //
+    //     req.onload = function() {
+    //       // This is called even on 404 etc
+    //       // so check the status
+    //       if (req.status == 200) {
+    //         // Resolve the promise with the response text
+    //         resolve(req.response);
+    //       }
+    //       else {
+    //         // Otherwise reject with the status text
+    //         // which will hopefully be a meaningful error
+    //         reject(Error(req.statusText));
+    //       }
+    //     };
+    //
+    //     // Handle network errors
+    //     req.onerror = function() {
+    //       reject(Error("Network Error"));
+    //     };
+    //
+    //     // Make the request
+    //     req.send();
+    //   });
+    // }
+
+    // get('https://etherchain.org/api/blocks/count')
+    //  .then(function(response) {
+    //       console.log("Success!", response);
+    //     }, function(error) {
+    //       console.error("Failed!", error);
+    //     });
+    /////////////////////////////////////////
+
     let that = this;
 
     let block = {}
@@ -78,17 +124,9 @@ export default class Block extends React.Component{
       let url = 'https://etherchain.org/api/blocks/count';
       fetch(url, _GOLD, that).then(res => res.json()).then((out) => {
 
-        let number = out.data[0].count;
+        let lastBlock = out.data[0].count;
 
-        var url = 'https://etherchain.org/api/block/'+number;
-        let params = {
-                       method: 'GET',
-                       headers: {
-                          Accept: 'application/json'
-                         }
-                     }
-
-        let that = this;
+        var url = 'https://etherchain.org/api/block/'+lastBlock;
 
         fetch(url, _GOLD, that).then(res => res.json()).then((out) => {
 
@@ -97,9 +135,9 @@ export default class Block extends React.Component{
           block.size              = out.data[0].size;
           block.transactionAmount = out.data[0].tx_count;
 
-          console.log(JSON.stringify(block.hash));
+          console.log(JSON.stringify(out.data[0]));
 
-          let url = 'https://etherchain.org/api/block/'+number+'/tx';
+          let url = 'https://etherchain.org/api/block/'+lastBlock+'/tx';
 
           let params = {
                          method: 'GET',
@@ -111,6 +149,10 @@ export default class Block extends React.Component{
           fetch(url, _GOLD, that).then(res => res.json()).then((out) => {
 
             block.transactions = out.data;
+
+            this.setState({
+              hash: JSON.stringify(out.data[0])
+            });
 
             _GOLD.gold(block);
 
@@ -226,9 +268,18 @@ export default class Block extends React.Component{
               </div>
 
               :
-
-              <div className="block-line">
-                {this.state.hash}
+              <div>
+               {
+                /*this.state.hash
+                 ?
+                 <div className="block-info">
+                   {this.state.hash}
+                 </div>
+                 :*/
+                 <div className="block-line">
+                   Targold
+                 </div>
+               }
               </div>
               }
 

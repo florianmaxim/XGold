@@ -1,5 +1,8 @@
 @import "_Block_IPhone";
 
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+
 // helpers
 
 $help_border: 0px;
@@ -37,6 +40,18 @@ $position: auto;
   -webkit-box-sizing: border-box;
 
   border:0px solid gold;
+}
+
+.block-info{
+  color: black;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2em;
+  width: 50vw;
+  height: 50vw;
+
+  overflow: hidden;
+  word-wrap: break-word;
+
 }
 
 /* --------------- CONTAINER ------------- */
