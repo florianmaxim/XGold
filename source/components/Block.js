@@ -8,27 +8,6 @@ import Loader      from './Loader';
 import EthereumApi from './EthereumApi';
 import Gold        from './Gold';
 
-const isMobile = {
-    Android: function() {
-        return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function() {
-        return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function() {
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: function() {
-        return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: function() {
-        return navigator.userAgent.match(/IEMobile/i);
-    },
-    any: function() {
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-    }
-};
-
 const DEFAULT = {
   line: 'Targold',
   input: ':number',
@@ -37,10 +16,6 @@ const DEFAULT = {
 
 const _GOLD     = new Gold();
 const _ETHEREUM = new EthereumApi();
-
-// const _GOLD_MODEL = new
-
-console.log(_GOLD);
 
 export default class Block extends React.Component{
 
@@ -82,7 +57,7 @@ export default class Block extends React.Component{
     require('viewport-units-buggyfill').init();
 
     //append gold context to view
-    // this.refs.gold.appendChild(_GOLD.init());
+    this.refs.gold.appendChild(_GOLD.init());
 
     //TODO this is so ugly, what the fuck I hate css.
     setInterval(() => {
@@ -98,9 +73,10 @@ export default class Block extends React.Component{
     }, DEFAULT.goldrush+10)
 
     let that = this;
+
     let block = {}
 
-    setInterval(function(that){
+    setInterval(()=>{
 
       let url = 'https://etherchain.org/api/blocks/count';
       fetch(url, _GOLD, that).then(res => res.json()).then((out) => {
@@ -284,7 +260,7 @@ export default class Block extends React.Component{
 
             <div className="block-bottom">
               <div className="block-logo" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
-                <Logo onClick={()=>{this.sayHi()}}/>
+                <Logo/>
               </div>
             </div>
 

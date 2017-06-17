@@ -10,7 +10,7 @@ let alpha, beta, gamma;
 let windowHalfX, windowHalfY;
 
 let mesh;
-let gold = false;
+let gold;
 
 export default class Gold{
 
@@ -80,17 +80,10 @@ export default class Gold{
 
     /* --- Helper --- */
 
-    // let geometry = new THREE.CubeGeometry(10,10,10)
-    // let material = new THREE.MeshBasicMaterial({wireframe:true, color: 0xff0000})
-    //     mesh = new THREE.Mesh(geometry, material);
-    // scene.add(mesh);
 
     /* --- Run --- */
 
     (function animate(){
-
-        // mesh.rotation.x += 0.1;
-        // mesh.rotation.z += 0.1;
 
         controls.update();
 
