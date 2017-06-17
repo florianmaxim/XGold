@@ -10,7 +10,7 @@ let alpha, beta, gamma;
 let windowHalfX, windowHalfY;
 
 let mesh;
-let gold;
+let gold = false;
 
 export default class Gold{
 
