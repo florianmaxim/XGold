@@ -82,7 +82,7 @@ export default class Block extends React.Component{
     require('viewport-units-buggyfill').init();
 
     //append gold context to view
-    this.refs.gold.appendChild(_GOLD.init());
+    // this.refs.gold.appendChild(_GOLD.init());
 
     //TODO this is so ugly, what the fuck I hate css.
     setInterval(() => {
@@ -284,7 +284,7 @@ export default class Block extends React.Component{
 
             <div className="block-bottom">
               <div className="block-logo" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
-                <Loader onClick={()=>{this.sayHi()}}/>
+                <Logo onClick={()=>{this.sayHi()}}/>
               </div>
             </div>
 
