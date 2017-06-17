@@ -1,10 +1,107 @@
+$help_border: 0px;
+
+//numpad
+
+$number_size: 15vh;
+
+$number_rows_landscape: 9;
+$number_rows_portrait: 3;
+
+@media(orientation: portrait){
+  .numpad-row{
+    width: $number_size*$number_rows_portrait;
+  }
+
+  .numpad-number-field{
+     width: $number_size;
+    height: $number_size;
+  }
+
+  .numpad-number{
+     width: $number_size*.85;
+    height: $number_size*.85;
+
+    border-radius: $number_size*.85;
+  }
+}
+
+@media(orientation: landscape){
+  .numpad-row{
+    width: $number_size*$number_rows_landscape;
+  }
+
+  .numpad-number-field{
+     width: $number_size;
+    height: $number_size;
+  }
+
+  .numpad-number{
+     width: $number_size*.85;
+    height: $number_size*.85;
+
+    border-radius: $number_size*.85;
+  }
+}
+
 .numpad{
-  // border:10px solid red;
+  border:$help_border solid blue;
   display:flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
+
+.numpad-row{
+  border:$help_border solid red;
+  display: flex;
+
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+}
+
+.numpad-number-field{
+
+  border:$help_border solid red;
+
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+
+  cursor: pointer;
+  user-select:none;
+
+  display: flex;
+
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.numpad-number{
+  border:1px solid gold;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: Roboto;
+  font-weight: thin;
+  font-size: 1.5em;
+  color: gold;
+}
+
+.numpad-number:active{
+  background-color:gold;
+  color:black;
+}
+
 
 .numpad-input{
   width: 100%;
@@ -22,49 +119,4 @@
   color: gold;
 
   cursor: pointer;
-}
-
-.numpad-row{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.numpad-number{
-  margin:1.5vw;
-  padding: 0em;
-
-  border:2px solid gold;
-
-  width:50px;
-  height:50px;
-
-  border-radius: 50px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-family: Roboto;
-  font-weight: thin;
-  font-size: 1.5em;
-  color: gold;
-
-  cursor: pointer;
-  user-select:none;
-}
-
-@media(orientation: portrait){
-  .numpad-number{
-    width:10vh;
-    height:10vh;
-    border-radius: 10vh;
-    margin:1.1vh;
-  }
-}
-
-.numpad-number:active{
-  background-color:gold;
-  color:black;
 }

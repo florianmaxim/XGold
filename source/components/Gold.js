@@ -1,135 +1,26 @@
-import      React from 'react';
-
 import * as THREE from 'three';
 import {OrbitControls} from './OrbitControls';
 
 import DiamondSquare from './DiamondSquare';
 
-const isMobile = {
-    Android: function() {
-        return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function() {
-        return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function() {
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: function() {
-        return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: function() {
-        return navigator.userAgent.match(/IEMobile/i);
-    },
-    any: function() {
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-    }
-};
 
-let renderer, camera, controls, scene, mesh;
-
-let lastBlock = 0;
-
+let renderer, scene, camera, controls;
+let mouseX, mouseY;
 let alpha, beta, gamma;
+let windowHalfX, windowHalfY;
 
-let mouseX = 0
-let mouseY = 0
+let mesh;
+let gold;
 
-let YRotation = 0;
-let XRotation = 0;
+export default class Gold{
 
-let valueY=0;
-let valueX=0;
+  constructor(){}
 
-let lastValueY=0;
-let lastValueX=0;
-
-let oldYRotation = 0;
-let oldXRotation = 0;
-
-var windowHalfX;
-var windowHalfY;
-
-let mouseOut;
-
-function degToRad(degrees){
-	return degrees * Math.PI/180;
-}
-
-function rotate(){
-
-  var gold = scene.getObjectByName('gold');
-
-  if(isMobile.any())
-  {
-  	//LANDSCAPE
-  	if(window.innerWidth>window.innerHeight)
-  	{
-  		//y value
-  		var valueY=degToRad(Math.abs(alpha)+90);
-
-  		if(valueY<7 && valueY>5)
-  		{
-  		    lastValueY = valueY;
-
-            if(gold) gold.rotation.y=valueY;
-  		}else if(valueY<5 && valueY>1)
-  		{
-  	        lastValueY = valueY+3.1;
-
-  			if(gold) gold.rotation.y=valueY+3.1;
-  		}else{
-  			if(gold) gold.rotation.y=0;
-  		}
-
-
-  		//x value
-  		var valueX=degToRad(Math.abs(gamma)-45)*.5;
-
-  		if(valueX<0.4 && valueX>-0.4){
-  			lastValueX = valueX;
-  			if(gold) gold.rotation.x=valueX;
-  		}else{
-  			if(gold) gold.rotation.x=lastValueX;
-  		}
-
-  	}else{
-  	//PORTRAIT
-
-  	//gold.rotation.z=Math.degToRad(alpha);
-  	if(gold) gold.rotation.x=degToRad(beta-45);
-  	if(gold) gold.rotation.y=degToRad(gamma)*.5;
-
-  	}
+  getContext(){
+    return renderer.domElement;
   }
-		else
-	{
 
-		//TODO clean this up!
-
-		let posX = 0;
-		let posY = 0;
-
-		posX = camera.position.x;
-		posY = camera.position.y;
-		//
-		// console.log('posX'+posX)
-		// console.log('posY'+posY)
-
-		let newPosX = posX + ( mouseX - posX ) * .01;
-		let newPosY = posY + ( - mouseY - posY ) * .01;
-
-		// console.log('newPosX: '+newPosX)
-		// console.log('newPosY: '+newPosY)
-
-		camera.position.x = newPosX;
-		camera.position.y = newPosY;
-
-	}
-
-}
-
-function init(block){
+  init(){
 
     renderer = new THREE.WebGLRenderer({antialias:true});
     renderer.setSize( window.innerWidth, window.innerHeight );
@@ -139,24 +30,15 @@ function init(block){
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, .1, 10000 );
-    camera.position.z = 50;
-    camera.position.y = 0;
-    camera.name = 'camera';
+    camera.position.set(0,0,100);
+
     camera.lookAt(scene.position);
 
     scene.add(camera);
 
     controls = new OrbitControls(camera);
 
-    addEventListener('resize', () =>{
-      console.log('three js resize')
-      renderer.setSize( window.innerWidth, window.innerHeight );
-      camera.aspect = window.innerWidth / window.innerHeight
-      camera.updateProjectionMatrix();
-    });
-
-    var ambient = new THREE.AmbientLight( 0xffffff );
-  	scene.add( ambient );
+    /* --- Lights --- */
 
     var light = new THREE.PointLight(0xffffff,2);
     light.position.y=100;
@@ -172,232 +54,124 @@ function init(block){
     light.position.set(0, 10, 1).normalize();
     scene.add(light);
 
-    //gold
+    var ambient = new THREE.AmbientLight( 0xffffff );
+    scene.add( ambient );
 
-    var length   = block.transactions.length===0?1:block.transactions.length;
+    /* --- Event Listener --- */
 
-		var width    = length*2;
-		var height   = length*2;
+    addEventListener('resize', () =>{
+      windowHalfX = innerWidth/2
+      windowHalfY = innerHeight/2;
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      camera.aspect = window.innerWidth / window.innerHeight
+      camera.updateProjectionMatrix();
+    });
 
-		var segments = Math.pow(2, Math.ceil(Math.log(length)/Math.log(2)));
-		var transactions = block.transactions;
-
-		//TODO USE! not used so far- stupid
-		var smooth   =  .25
-
-	  var ground = new DiamondSquare(width, height, segments, smooth, transactions);
-	  var ground = ground.generate();
-
-		var geometry = new THREE.PlaneGeometry(width, height, segments, segments);
-
-		var index = 0;
-
-		for(var i = 0; i <= segments; i++) {
-			for(var j = 0; j <= segments; j++) {
-				geometry.vertices[index].z = ground[i][j];
-				index++;
-			}
-		}
-
-	  geometry.computeFaceNormals();
-	  geometry.computeVertexNormals();
-
-	  var path = "static/textures/cube/";
-		var format = '.jpg';
-		var urls = [
-				path + 'px' + format, path + 'nx' + format,
-				path + 'py' + format, path + 'ny' + format,
-				path + 'pz' + format, path + 'nz' + format
-			];
-
-		var reflectionCube = new THREE.CubeTextureLoader().load( urls );
-		    reflectionCube.format = THREE.RGBFormat;
-
-	  var refractionCube = new THREE.CubeTextureLoader().load( urls );
-				refractionCube.mapping = THREE.CubeRefractionMapping;
-				refractionCube.format = THREE.RGBAFormat;
-
-	  var material = new THREE.MeshPhongMaterial( {
-	    side: THREE.DoubleSide,
-	    color: 0x564100,
-	    specular:0x937300,
-	    emissive:0xffffff,
-	    emissiveIntensity:.1,
-	    envMap: reflectionCube,
-	    displacementMap: reflectionCube,
-	    combine: THREE.MixOperation,
-	    reflectivity: .25} );
-
-		let gold = new THREE.Mesh( geometry, material );
-		    gold.name = 'gold';
-
-		scene.add( gold );
-
-    document.getElementById("webgl").appendChild( renderer.domElement );
-
-}
-
-function animate() {
-
-    rotate();
-
-    requestAnimationFrame(animate);
-
-    render();
-}
-
-function render(){
-
-    renderer.render( scene, camera );
-
-    controls.update();
-}
-
-export default class Gold extends React.Component{
-  constructor(props) {
-    super(props);
-  }
-
-  componentWillMount(){
-
-    windowHalfX = innerWidth/2
-    windowHalfY = innerHeight/2;
-
-    addEventListener('deviceorientation', function (value){
-
-    	alpha = value.alpha;
-    	beta  = value.beta;
-    	gamma = value.gamma;
-
+    addEventListener('deviceorientation', (value) => {
+      alpha = value.alpha;
+      beta  = value.beta;
+      gamma = value.gamma;
     }, false);
 
     addEventListener( 'mousemove', function(event) {
-
-    	mouseX = ( event.clientX - windowHalfX ) / 2;
-    	mouseY = ( event.clientY - windowHalfY ) / 2;
-
+      mouseX = ( event.clientX - windowHalfX ) / 2;
+      mouseY = ( event.clientY - windowHalfY ) / 2;
     }, false );
 
-    addEventListener( 'mouseout', function(event) {
-    	mouseOut=true;
-    }, false );
+    /* --- Helper --- */
 
+    // let geometry = new THREE.CubeGeometry(10,10,10)
+    // let material = new THREE.MeshBasicMaterial({wireframe:true, color: 0xff0000})
+    //     mesh = new THREE.Mesh(geometry, material);
+    // scene.add(mesh);
+
+    /* --- Run --- */
+
+    (function animate(){
+
+        // mesh.rotation.x += 0.1;
+        // mesh.rotation.z += 0.1;
+
+        controls.update();
+
+        requestAnimationFrame(animate);
+
+        render();
+    })();
+
+    function render(){
+
+        renderer.render( scene, camera );
+
+    }
+
+    return renderer.domElement;
   }
 
-  componentWillReceiveProps(props){
+  gold(block){
 
-    //TODO only rerender if the block changed!
+    var length   = block.transactions.length===0?1:block.transactions.length;
 
-    console.log('Gold last block: '+lastBlock);
-    console.log('Gold new block: '+this.props.input);
+    var width    = length*2;
+    var height   = length*2;
 
-    if(this.props.input===lastBlock) return;
+    var segments = Math.pow(2, Math.ceil(Math.log(length)/Math.log(2)));
+    var transactions = block.transactions;
 
-    console.log('Gold received a new block.')
+    //TODO NO MAGIC NUMBER - RANDOMNESS ALREADY COMES FROM TEH BLOCK
+    var smooth   =  .25
 
-    let number = this.props.input;
+    var ground = new DiamondSquare(width, height, segments, smooth, transactions);
+    var ground = ground.generate();
 
-    let block = {}
+    var geometry = new THREE.PlaneGeometry(width, height, segments, segments);
 
-    var url = 'https://etherchain.org/api/block/'+number;
+    var index = 0;
+    for(var i = 0; i <= segments; i++) {
+      for(var j = 0; j <= segments; j++) {
+        geometry.vertices[index].z = ground[i][j];
+        index++;
+      }
+    }
 
-    let params = {
-                   method: 'GET',
-                   headers: {
-                      Accept: 'application/json'
-                     }
-                 }
+    geometry.computeFaceNormals();
+    geometry.computeVertexNormals();
 
-    fetch(url).then(res => res.json()).then((out) => {
+    var path = "static/textures/cube/";
+    var format = '.jpg';
+    var urls = [
+        path + 'px' + format, path + 'nx' + format,
+        path + 'py' + format, path + 'ny' + format,
+        path + 'pz' + format, path + 'nz' + format
+      ];
 
-      block.number            = out.data[0].number;
-      block.hash              = out.data[0].hash;
-      block.size              = out.data[0].size;
-      block.transactionAmount = out.data[0].tx_count;
+    var reflectionCube = new THREE.CubeTextureLoader().load( urls );
+        reflectionCube.format = THREE.RGBFormat;
 
-      console.log(JSON.stringify(block.hash));
+    var refractionCube = new THREE.CubeTextureLoader().load( urls );
+        refractionCube.mapping = THREE.CubeRefractionMapping;
+        refractionCube.format = THREE.RGBAFormat;
 
-      let url = 'https://etherchain.org/api/block/'+number+'/tx';
+    var material = new THREE.MeshPhongMaterial( {
+      side: THREE.DoubleSide,
+      color: 0x564100,
+      specular:0x937300,
+      emissive:0xffffff,
+      emissiveIntensity:.1,
+      envMap: reflectionCube,
+      displacementMap: reflectionCube,
+      combine: THREE.MixOperation,
+      reflectivity: .25} );
 
-      let params = {
-                     method: 'GET',
-                     headers: {
-                        Accept: 'application/json'
-                       }
-                   }
+      //remove the gold gold, its time for the new bar.
 
-      fetch(url).then(res => res.json()).then((out) => {
+    if(gold) scene.remove(gold);
 
-        block.transactions = out.data;
+    gold = new THREE.Mesh( geometry, material );
+    gold.name = 'gold';
+    // gold.scale(.1,.1,.1);
 
-        lastBlock = block;
-
-        init(block);
-        animate();
-
-      });
-
-    });
+    scene.add( gold );
   }
 
-  componentDidMount(){
-    //TODO only rerender if the block changed!
-
-    console.log('Gold last block: '+lastBlock);
-    console.log('Gold new block: '+this.props.input);
-
-    if(this.props.input===lastBlock) return;
-
-    console.log('Gold received a new block.')
-
-    let number = this.props.input;
-
-    let block = {}
-
-    var url = 'https://etherchain.org/api/block/'+number;
-
-    let params = {
-                   method: 'GET',
-                   headers: {
-                      Accept: 'application/json'
-                     }
-                 }
-
-    fetch(url).then(res => res.json()).then((out) => {
-
-      block.number            = out.data[0].number;
-      block.hash              = out.data[0].hash;
-      block.size              = out.data[0].size;
-      block.transactionAmount = out.data[0].tx_count;
-
-      console.log(JSON.stringify(block.hash));
-
-      let url = 'https://etherchain.org/api/block/'+number+'/tx';
-
-      let params = {
-                     method: 'GET',
-                     headers: {
-                        Accept: 'application/json'
-                       }
-                   }
-
-      fetch(url).then(res => res.json()).then((out) => {
-
-        block.transactions = out.data;
-
-        lastBlock = block;
-
-        init(block);
-        animate();
-
-      });
-
-    });
-  }
-
-  render(){
-    return(
-      <div className="gold" id="webgl"></div>
-    );
-  }
 }
