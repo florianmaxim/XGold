@@ -44,9 +44,6 @@ export default class Block extends React.Component{
       innerWidth: 0,
       innerHeight: 0,
 
-      isMobile: {
-        iOS: false
-      }
     }
   }
 
@@ -125,27 +122,6 @@ export default class Block extends React.Component{
 
     }, DEFAULT.goldrush);
 
-    addEventListener('load', ()=>{
-
-    })
-
-    addEventListener('touchstart', (event) => {
-      event.stopPropagation();
-      event.preventDefault();
-    });
-
-    addEventListener('resize', (event) => {
-      event.stopPropagation();
-      event.preventDefault();
-
-      this.setState({
-        innerWidth: innerWidth,
-        innerHeight: innerHeight,
-        isMobile: {
-          iOS: isMobile.iOS()
-        }
-      })
-    });
   }
 
   handleNumpad(event){
