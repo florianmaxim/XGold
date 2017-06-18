@@ -8,6 +8,8 @@ import Loader      from './Loader';
 import EthereumApi from './EthereumApi';
 import Gold        from './Gold';
 
+const _ON = true;
+
 const DEFAULT = {
   line: 'Targold',
   input: ':number',
@@ -39,7 +41,7 @@ export default class Block extends React.Component{
 
       gold: '3881441',
 
-      hash: 'flflf',
+      hash: 'Targold',
 
       //TODO
       //logo, block info, enter menu, general, menu
@@ -58,21 +60,8 @@ export default class Block extends React.Component{
     require('viewport-units-buggyfill').init();
 
     //append gold context to view
+    if(_ON)
     this.refs.gold.appendChild(_GOLD.init());
-
-    //TODO this is so ugly, what the fuck I hate css.
-    setInterval(() => {
-      that.setState({
-        animation: this.state.animation?false:true
-      })
-    }, DEFAULT.goldrush)
-
-    setInterval(() => {
-      that.setState({
-        animation: this.state.animation?false:true
-      })
-    }, DEFAULT.goldrush+10)
-
 
     /////////////////////////////////////////
     //
@@ -106,7 +95,6 @@ export default class Block extends React.Component{
     //     req.send();
     //   });
     // }
-
     // get('https://etherchain.org/api/blocks/count')
     //  .then(function(response) {
     //       console.log("Success!", response);
@@ -115,20 +103,78 @@ export default class Block extends React.Component{
     //     });
     /////////////////////////////////////////
 
-    let that = this;
+    console.error('BLOCK #:'+this.props.params.id)
 
-    let block = {}
+    if(this.props.params.id!==undefined)
+    {
+
+      let blockNumber = this.props.params.id;
+      var url = 'https://etherchain.org/api/block/'+blockNumber;
+
+      let block = {}
+
+      fetch(url, _GOLD).then(res => res.json()).then((out) => {
+
+        block.number            = out.data[0].number;
+        block.hash              = out.data[0].hash;
+        block.size              = out.data[0].size;
+        block.transactionAmount = out.data[0].tx_count;
+
+        console.log(JSON.stringify(out.data[0]));
+
+        let url = 'https://etherchain.org/api/block/'+blockNumber+'/tx';
+
+        fetch(url, _GOLD).then(res => res.json()).then((out) => {
+
+          block.transactions = out.data;
+
+          this.setState({
+            hash: JSON.stringify(out.data[0])
+          });
+
+          if(_ON)
+          _GOLD.gold(block);
+
+        });
+
+      });
+
+      return;
+    }
+
+
+    /////////////////////////////////////////
+    // JUST FOLLOW THE BLOCKCHAIN
+    /////////////////////////////////////////
+
+    console.log('JUST FOLLOW THE CHAIN!')
+
+    //TODO this is so ugly, what the fuck I hate css.
+    setInterval(() => {
+      this.setState({
+        animation: this.state.animation?false:true
+      })
+    }, DEFAULT.goldrush)
+
+    setInterval(() => {
+      this.setState({
+        animation: this.state.animation?false:true
+      })
+    }, DEFAULT.goldrush+10)
+
 
     setInterval(()=>{
 
+      let block = {}
+
       let url = 'https://etherchain.org/api/blocks/count';
-      fetch(url, _GOLD, that).then(res => res.json()).then((out) => {
+      fetch(url, _GOLD).then(res => res.json()).then((out) => {
 
         let lastBlock = out.data[0].count;
 
         var url = 'https://etherchain.org/api/block/'+lastBlock;
 
-        fetch(url, _GOLD, that).then(res => res.json()).then((out) => {
+        fetch(url, _GOLD).then(res => res.json()).then((out) => {
 
           block.number            = out.data[0].number;
           block.hash              = out.data[0].hash;
@@ -139,21 +185,18 @@ export default class Block extends React.Component{
 
           let url = 'https://etherchain.org/api/block/'+lastBlock+'/tx';
 
-          let params = {
-                         method: 'GET',
-                         headers: {
-                            Accept: 'application/json'
-                           }
-                       }
-
-          fetch(url, _GOLD, that).then(res => res.json()).then((out) => {
+          fetch(url, _GOLD).then(res => res.json()).then((out) => {
 
             block.transactions = out.data;
 
             this.setState({
-              hash: JSON.stringify(out.data[0])
+              hash: '#'+block.number
             });
 
+            //TODO replace window location
+            window.history.pushState('block', '#'+block.number, 'block/'+block.number);
+
+            if(_ON)
             _GOLD.gold(block);
 
           });
@@ -268,19 +311,13 @@ export default class Block extends React.Component{
               </div>
 
               :
-              <div>
-               {
-                /*this.state.hash
-                 ?
-                 <div className="block-info">
-                   {this.state.hash}
-                 </div>
-                 :*/
-                 <div className="block-line">
-                   Targold
-                 </div>
-               }
-              </div>
+
+               <div className="block-line">
+
+                 {this.state.hash}
+
+               </div>
+
               }
 
             </div>

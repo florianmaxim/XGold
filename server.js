@@ -14,23 +14,33 @@ const fs             = require('fs');
 
 const express        = require('express');
 
-const react          = require('react')
-const reactDomServer = require('react-dom/server')
-const reactRouter    = require('react-router')
+const react          = require('react');
+const reactDomServer = require('react-dom/server');
+const reactRouter    = require('react-router');
 
-const renderToString = reactDomServer.renderToString
-const match          = reactRouter.match
-const RouterContext  = reactRouter.RouterContext
+const renderToString = reactDomServer.renderToString;
+const match          = reactRouter.match;
+const RouterContext  = reactRouter.RouterContext;
 
 const routes         = require('./source/Routes.Static').default
 
 const app = express()
 app.server = http.createServer(app)
 
-app.use(express.static('./build'))
+// Mount the middleware at "/static" to serve static content only when their request path is prefixed with "/static".
+
+// GET /static/style.css etc.
+
+// THATS IT:
+app.use('/js', express.static(__dirname + '/build/js'));
+app.use('/static', express.static(__dirname + '/build/static'));
+
+app.use('/:block/js', express.static(__dirname + '/build/js'));
+app.use('/:block/static', express.static(__dirname + '/build/static'));
 
 app.get('*', (req, res) => {
 
+  // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', 'https://etherchain.org');
 
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -42,16 +52,13 @@ app.get('*', (req, res) => {
 
   const error = () => res.status(404).send('404')
 
-  const htmlFilePath = path.join( __dirname, './build', 'index.html' )
+  const htmlFilePath = path.join( __dirname, './build', 'index.html' );
 
   fs.readFile( htmlFilePath, 'utf8', (err, htmlData) => {
 
     if(err) throw error();
 
     match({ routes, location: req.url }, (err, redirect, ssrData) => {
-
-      // console.log('Routes:'+JSON.stringify(routes));
-      // console.log('Location:'+JSON.stringify(req.url));
 
       if(err) throw error();
 
@@ -61,11 +68,22 @@ app.get('*', (req, res) => {
 
       else if(ssrData) {
 
+        console.log('Got a match here: '+req.url);
+
+        console.log(JSON.stringify(req.params));
+
         const ReactApp = renderToString( react.createElement(RouterContext, ssrData) );
 
         const RenderedApp = htmlData.replace(`<div id="root"></div>`, `<div id="root">${ReactApp}</div>`);
 
         res.status(200).send(RenderedApp);
+
+      } else {
+
+        let msg = `Not found: ${req.url}`;
+
+        console.log(msg);
+        res.status(404).send(msg);
 
       }
 

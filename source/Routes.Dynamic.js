@@ -28,7 +28,7 @@ export default {
       },
     },
     {
-      path: ':block',
+      path: '/block',
       getComponent(location, cb) {
         System.import('./components/Block')
           .then(loadRoute(cb))

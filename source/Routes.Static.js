@@ -11,11 +11,15 @@ export default {
   },
   childRoutes: [
     {
-      path: 'about',
+      path: '/about',
       component: About,
     },
     {
-      path: ':block',
+      path: '/block',
+      component: Block,
+    },
+    {
+      path: '/block/:id',
       component: Block,
     },
   ],
