@@ -80,7 +80,7 @@ app.get('*', (req, res) => {
 
       } else {
 
-        let msg = `Not found: ${req.url}`;
+        var msg = `Not found: ${req.url}`;
 
         console.log(msg);
         res.status(404).send(msg);
