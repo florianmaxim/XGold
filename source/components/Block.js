@@ -194,7 +194,7 @@ export default class Block extends React.Component{
             });
 
             //TODO replace window location
-            window.history.pushState('block', '#'+block.number, 'block/'+block.number);
+            // window.history.pushState('block', '#'+block.number, 'block/'+block.number);
 
             if(_ON)
             _GOLD.gold(block);

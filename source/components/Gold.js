@@ -3,14 +3,47 @@ import {OrbitControls} from './OrbitControls';
 
 import DiamondSquare from './DiamondSquare';
 
+const isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
 
 let renderer, scene, camera, controls;
+
 let mouseX, mouseY;
+let YRotation = 0;
+let XRotation = 0;
+let posX = 0;
+let posY = 0;
+let valueY=0;
+let valueX=0;
+let lastValueY=0;
+let lastValueX=0;
 let alpha, beta, gamma;
 let windowHalfX, windowHalfY;
 
 let mesh;
-let gold;
+let gold = false;
+
+function degToRad(degrees){
+	return degrees * Math.PI/180;
+}
 
 export default class Gold{
 
@@ -22,6 +55,8 @@ export default class Gold{
 
   init(){
 
+    /* --- System --- */
+
     renderer = new THREE.WebGLRenderer({antialias:true});
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.setPixelRatio( window.devicePixelRatio);
@@ -30,7 +65,7 @@ export default class Gold{
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, .1, 10000 );
-    camera.position.set(0,0,100);
+    camera.position.set(0,.01,100);
 
     camera.lookAt(scene.position);
 
@@ -59,6 +94,9 @@ export default class Gold{
 
     /* --- Event Listener --- */
 
+    windowHalfX = innerWidth/2
+    windowHalfY = innerHeight/2;
+
     addEventListener('resize', () =>{
       windowHalfX = innerWidth/2
       windowHalfY = innerHeight/2;
@@ -81,9 +119,73 @@ export default class Gold{
     /* --- Helper --- */
 
 
+    /* --- Rotation --- */
+
+    function rotate(){
+
+      if(isMobile.any())
+      {
+        //LANDSCAPE
+        if(window.innerWidth>window.innerHeight)
+        {
+          //y value
+          var valueY=degToRad(Math.abs(alpha)+90);
+
+          if(valueY<7 && valueY>5)
+          {
+              lastValueY = valueY;
+
+                if(gold) gold.rotation.y=valueY;
+          }else if(valueY<5 && valueY>1)
+          {
+                lastValueY = valueY+3.1;
+
+            if(gold) gold.rotation.y=valueY+3.1;
+          }else{
+            if(gold) gold.rotation.y=0;
+          }
+
+          //x value
+          var valueX=degToRad(Math.abs(gamma)-45)*.5;
+
+          if(valueX<0.4 && valueX>-0.4){
+
+            if(gold) gold.rotation.x=valueX;
+            lastValueX = valueX;
+
+          }else{
+            if(gold) gold.rotation.x=lastValueX;
+          }
+
+        }else{
+
+          if(gold) gold.rotation.x=degToRad(beta-45);
+          if(gold) gold.rotation.y=degToRad(gamma)*.5;
+
+        }
+      }
+        else
+      {
+
+        posX = camera.position.x;
+        posY = camera.position.y;
+
+        let newPosX = posX + ( mouseX - posX ) * .05;
+        let newPosY = posY + ( - mouseY - posY ) * .05;
+
+        camera.position.x = newPosX;
+        camera.position.y = newPosY;
+
+      }
+
+    }
+
     /* --- Run --- */
 
     (function animate(){
+
+        if(gold)
+        rotate();
 
         controls.update();
 
