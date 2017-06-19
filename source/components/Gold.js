@@ -188,14 +188,14 @@ export default class Gold{
         if(gold&&camera)
         rotate();
 
+        controls.update();
+
         requestAnimationFrame(animate);
 
         render();
     })();
 
     function render(){
-
-        controls.update();
 
         renderer.render( scene, camera );
 

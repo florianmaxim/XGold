@@ -13,7 +13,12 @@ const _ON = true;
 const DEFAULT = {
   line: 'Ex.gold',
   input: ':number',
-  goldrush: 20000
+  goldrush: 20000,
+  title: [
+    'ex.gold',
+    'my.gold',
+    '79.money'
+  ]
 }
 
 const _GOLD     = new Gold();
@@ -191,8 +196,7 @@ export default class Block extends React.Component{
               hash: '#'+block.number
             });
 
-            //TODO replace window location
-            // window.history.pushState('block', '#'+block.number, 'block/'+block.number);
+            history.pushState(null, null, '/'+block.number);
 
             if(_ON)
             _GOLD.gold(block);
