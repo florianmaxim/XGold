@@ -26,19 +26,20 @@ const isMobile = {
 
 let renderer, scene, camera, controls;
 
-let mouseX, mouseY;
+let mouseX, mouseY = 0;
 let YRotation = 0;
 let XRotation = 0;
 let posX = 0;
 let posY = 0;
 let valueY=0;
 let valueX=0;
+let newPosX = 0;
+let newPosY = 0;
 let lastValueY=0;
 let lastValueX=0;
 let alpha, beta, gamma;
 let windowHalfX, windowHalfY;
 
-let mesh;
 let gold = false;
 
 function degToRad(degrees){
@@ -135,14 +136,14 @@ export default class Gold{
           {
               lastValueY = valueY;
 
-                if(gold) gold.rotation.y=valueY;
+                gold.rotation.y=valueY;
           }else if(valueY<5 && valueY>1)
           {
                 lastValueY = valueY+3.1;
 
-            if(gold) gold.rotation.y=valueY+3.1;
+            gold.rotation.y=valueY+3.1;
           }else{
-            if(gold) gold.rotation.y=0;
+            gold.rotation.y=0;
           }
 
           //x value
@@ -150,17 +151,17 @@ export default class Gold{
 
           if(valueX<0.4 && valueX>-0.4){
 
-            if(gold) gold.rotation.x=valueX;
+            gold.rotation.x=valueX;
             lastValueX = valueX;
 
           }else{
-            if(gold) gold.rotation.x=lastValueX;
+            gold.rotation.x=lastValueX;
           }
 
         }else{
 
-          if(gold) gold.rotation.x=degToRad(beta-45);
-          if(gold) gold.rotation.y=degToRad(gamma)*.5;
+          gold.rotation.x=degToRad(beta-45);
+          gold.rotation.y=degToRad(gamma)*.5;
 
         }
       }
@@ -170,8 +171,8 @@ export default class Gold{
         posX = camera.position.x;
         posY = camera.position.y;
 
-        let newPosX = posX + ( mouseX - posX ) * .05;
-        let newPosY = posY + ( - mouseY - posY ) * .05;
+        newPosX = posX + ( mouseX - posX ) * .05;
+        newPosY = posY + ( - mouseY - posY ) * .05;
 
         camera.position.x = newPosX;
         camera.position.y = newPosY;
@@ -184,10 +185,8 @@ export default class Gold{
 
     (function animate(){
 
-        if(gold)
+        if(gold&&camera)
         rotate();
-
-        controls.update();
 
         requestAnimationFrame(animate);
 
@@ -195,6 +194,8 @@ export default class Gold{
     })();
 
     function render(){
+
+        controls.update();
 
         renderer.render( scene, camera );
 

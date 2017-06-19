@@ -11,7 +11,7 @@ import Gold        from './Gold';
 const _ON = true;
 
 const DEFAULT = {
-  line: 'Targold',
+  line: 'Ex.gold',
   input: ':number',
   goldrush: 20000
 }
@@ -41,7 +41,7 @@ export default class Block extends React.Component{
 
       gold: '3881441',
 
-      hash: 'Targold',
+      hash: 'ex.gold',
 
       //TODO
       //logo, block info, enter menu, general, menu
@@ -103,7 +103,6 @@ export default class Block extends React.Component{
     //     });
     /////////////////////////////////////////
 
-    console.error('BLOCK #:'+this.props.params.id)
 
     if(this.props.params.id!==undefined)
     {
@@ -129,7 +128,7 @@ export default class Block extends React.Component{
           block.transactions = out.data;
 
           this.setState({
-            hash: JSON.stringify(out.data[0])
+            hash: block.number
           });
 
           if(_ON)
@@ -141,7 +140,6 @@ export default class Block extends React.Component{
 
       return;
     }
-
 
     /////////////////////////////////////////
     // JUST FOLLOW THE BLOCKCHAIN
