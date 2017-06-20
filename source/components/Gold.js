@@ -181,8 +181,8 @@ export default class Gold{
 
     (function animate(){
 
-        if(gold&&camera)
-        rotate();
+        // if(gold&&camera)
+        // rotate();
 
         controls.update();
 
