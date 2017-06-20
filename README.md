@@ -25,3 +25,13 @@ https://www.youtube.com/watch?v=Qbz95LdqMko
 https://www.youtube.com/watch?v=6xHb0A4Sndw
 
 https://www.youtube.com/watch?v=IvKt98rPkg8
+
+#fonts
+
+http://www.dafont.com/de/florencesans.font?text=1234567890
+
+http://www.dafont.com/de/market-fresh.font?text=1234567890
+
+HELVETICA
+
+ARIAL
