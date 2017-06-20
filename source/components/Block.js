@@ -23,7 +23,7 @@ const DEFAULT = {
     '79.money'
   ],
 
-  modes: ['logo','buy','input', 'none', 'info', 'about']
+  modes: ['logo','buy','input', 'about', 'none']
 }
 
 const _GOLD     = new Gold();
