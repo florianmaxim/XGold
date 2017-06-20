@@ -23,7 +23,7 @@ const DEFAULT = {
     '79.money'
   ],
 
-  modes: ['logo','buy','input', 'none', 'about']
+  modes: ['logo','buy','input', 'none', 'info', 'about']
 }
 
 const _GOLD     = new Gold();
@@ -55,6 +55,8 @@ export default class Block extends React.Component{
       gold: '3881441',
 
       hash: 'ex.gold',
+
+      sold: false,
 
       //TODO
       //logo, block info, enter menu, general, menu
@@ -237,6 +239,10 @@ export default class Block extends React.Component{
     this.setState({input: event.target.value});
   }
 
+  buy(event) {
+    this.setState({sold: this.state.sold?false:true});
+  }
+
   display(mode){
 
     console.log('DISPLAY:'+this.state.mode);
@@ -246,13 +252,19 @@ export default class Block extends React.Component{
         return(
           <div className="block-buy">
 
-           <div className="block-button">
+          {!this.state.sold?
+
+           <div className="block-button" onTouchEnd={(event)=>{this.buy(event)}} onClick={()=>{this.buy(event)}}>
              buy
            </div>
 
-           <div className="block-button block-button-sold">
+           :
+
+           <div className="block-button block-button-sold" onTouchEnd={(event)=>{this.buy(event)}} onClick={()=>{this.buy(event)}}>
              sold
            </div>
+
+          }
 
           </div>
         );
