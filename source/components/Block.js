@@ -64,7 +64,8 @@ export default class Block extends React.Component{
 
     require('viewport-units-buggyfill').init();
 
-    //append gold context to view
+    //prepare the gold
+    if(_ON) this.refs.gold.appendChild(_GOLD.init());
 
     if(this.props.params.id!==undefined)
     {
@@ -91,13 +92,9 @@ export default class Block extends React.Component{
 
           block.transactions = out.data;
 
-          this.setState({
-            hash: blockNumber
-          });
-
-
-          if(_ON)
-          this.refs.gold.appendChild(_GOLD.init());
+          // this.setState({
+          //   hash: blockNumber
+          // });
 
           if(_ON)
           _GOLD.gold(block);
