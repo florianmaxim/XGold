@@ -24,7 +24,9 @@ const isMobile = {
     }
 };
 
-let renderer, scene, camera, controls;
+let renderer, scene, camera, controls = false;
+
+let gold = false;
 
 let mouseX, mouseY = 0;
 let YRotation = 0;
@@ -37,10 +39,8 @@ let newPosX = 0;
 let newPosY = 0;
 let lastValueY=0;
 let lastValueX=0;
-let alpha, beta, gamma;
-let windowHalfX, windowHalfY;
-
-let gold = false;
+let alpha, beta, gamma = 0;
+let windowHalfX, windowHalfY = 0;
 
 function degToRad(degrees){
 	return degrees * Math.PI/180;
