@@ -9,7 +9,7 @@ import EthereumApi from './EthereumApi';
 import Gold        from './Gold';
 
 /* little dev helper */
-const _ON    = false;
+const _ON    = true;
 const _LIGHT = false;
 
 const DEFAULT = {
