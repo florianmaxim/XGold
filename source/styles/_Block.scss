@@ -64,6 +64,8 @@ $position: auto;
    width: 100vw;
   height: 100vh;
 
+  user-select:none;
+
 }
 
 @media(orientation:landscape){
@@ -351,28 +353,6 @@ $fill: forwards;
 }
 
 .block-about{
-  margin-left: 10px;
-  margin-right: 10px;
-
-  position: relative;
-  font-family: Lato;
-  font-size: 7em;
-
-  word-wrap: break-word;
-  word-wrap: break-word;
-
-  text-align: justify;
-
-  color: gold;
-
-  overflow: scroll;
-
-  width: 100vw;
-}
-
-.block-info{
-  margin-left: 10px;
-  margin-right: 10px;
 
   position: relative;
   font-family: Lato;
@@ -385,7 +365,38 @@ $fill: forwards;
 
   color: gold;
 
-  overflow: scroll;
+}
 
-  width: 100vw;
+.block-chain{
+  border: $help_border solid blue;
+
+  width: 100%;
+
+  position: absolute;
+
+  bottom: 0;
+
+  min-height: 100vh;
+
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  word-wrap: break-word;
+
+  font-family: Lato;
+  font-size: 3em;
+
+  word-wrap: break-word;
+  word-wrap: break-word;
+
+  text-align: center;
+
+  color: gold;
+
 }

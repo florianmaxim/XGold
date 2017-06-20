@@ -8,6 +8,8 @@ import Loader      from './Loader';
 import EthereumApi from './EthereumApi';
 import Gold        from './Gold';
 
+import Chain        from './Chain';
+
 /* little dev helper */
 const _ON    = true;
 const _LIGHT = false;
@@ -23,7 +25,7 @@ const DEFAULT = {
     '79.money'
   ],
 
-  modes: ['logo','buy','input', 'about', 'none']
+  modes: ['chain','buy','input', 'logo', 'about', 'none']
 }
 
 const _GOLD     = new Gold();
@@ -75,13 +77,13 @@ export default class Block extends React.Component{
     require('viewport-units-buggyfill').init();
 
     //prepare the gold
-    if(_ON) this.refs.gold.appendChild(_GOLD.init());
+    this.refs.gold.appendChild(_GOLD.init());
 
     if(this.props.params.id!==undefined)
     {
 
       let blockNumber = this.props.params.id;
-      console.log('BLOCK: #'+blockNumber)
+      //console.log('BLOCK: #'+blockNumber)
 
       var url = 'https://etherchain.org/api/block/'+blockNumber;
 
@@ -103,7 +105,7 @@ export default class Block extends React.Component{
         block.size              = out.data[0].size;
         block.transactionAmount = out.data[0].tx_count;
 
-        console.log(JSON.stringify(out.data[0]));
+        //console.log(JSON.stringify(out.data[0]));
 
         let url = 'https://etherchain.org/api/block/'+blockNumber+'/tx';
 
@@ -131,7 +133,7 @@ export default class Block extends React.Component{
     // JUST FOLLOW THE BLOCKCHAIN
     /////////////////////////////////////////
 
-    console.log('JUST FOLLOW THE CHAIN!')
+    //console.log('JUST FOLLOW THE CHAIN!')
 
     //TODO this is so ugly, what the fuck I hate css.
     setInterval(() => {
@@ -150,6 +152,8 @@ export default class Block extends React.Component{
     if(_ON)
     setInterval(()=>{
 
+      if(_ON)  _GOLD.toggleLoader();
+
       let block = {}
 
       let url = 'https://etherchain.org/api/blocks/count';
@@ -166,7 +170,7 @@ export default class Block extends React.Component{
           block.size              = out.data[0].size;
           block.transactionAmount = out.data[0].tx_count;
 
-          console.log(JSON.stringify(out.data[0]));
+          //console.log(JSON.stringify(out.data[0]));
 
           let url = 'https://etherchain.org/api/block/'+lastBlock+'/tx';
 
@@ -204,7 +208,7 @@ export default class Block extends React.Component{
 
   handleInput(v, event){
 
-    console.log('pressed key '+v);
+    //console.log('pressed key '+v);
     event.stopPropagation();
     event.preventDefault();
 
@@ -245,22 +249,22 @@ export default class Block extends React.Component{
 
   display(mode){
 
-    console.log('DISPLAY:'+this.state.mode);
+    //console.log('DISPLAY:'+this.state.mode);
 
     switch(mode){
       case 'buy':
         return(
           <div className="block-buy">
 
-          {!this.state.sold?
+          {this.state.sold?
 
-           <div className="block-button" onTouchEnd={(event)=>{this.buy(event)}} onClick={()=>{this.buy(event)}}>
+           <div className="block-button" onClick={()=>{this.buy(event)}}>
              buy
            </div>
 
            :
 
-           <div className="block-button block-button-sold" onTouchEnd={(event)=>{this.buy(event)}} onClick={()=>{this.buy(event)}}>
+           <div className="block-button block-button-sold" onClick={()=>{this.buy(event)}}>
              sold
            </div>
 
@@ -312,12 +316,22 @@ export default class Block extends React.Component{
         </div>
       );
       break;
+
+      case 'chain':
+       return(
+        <div className="block-chain">
+          <Chain/>
+        </div>
+      );
+      break;
+
       case 'none':
        return(
         <div>
         </div>
       );
       break;
+
       case 'about':
        return(
         <div className="block-about">
@@ -333,8 +347,8 @@ export default class Block extends React.Component{
       mode: this.state.mode<DEFAULT.modes.length-1?(this.state.mode+1):0
     })
 
-    console.log('MODE:'+this.state.mode);
-    console.log('LENGTH:'+DEFAULT.modes.length);
+    //console.log('MODE:'+this.state.mode);
+    //console.log('LENGTH:'+DEFAULT.modes.length);
 
   }
 
@@ -363,7 +377,7 @@ export default class Block extends React.Component{
             </div>
 
             <div className="block-bottom">
-              <div className="block-logo" onTouchEnd={(event)=>{this.toggleDisplay(event)}} onClick={()=>{this.toggleDisplay(event)}}>
+              <div className="block-logo" onClick={()=>{this.toggleDisplay(event)}}>
                 <Logo/>
               </div>
             </div>

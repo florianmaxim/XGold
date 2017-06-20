@@ -27,6 +27,7 @@ const isMobile = {
 let renderer, scene, camera, controls = false;
 
 let gold = false;
+let mesh = false;
 
 let mouseX, mouseY = 0;
 let YRotation = 0;
@@ -115,6 +116,11 @@ export default class Gold{
 
     /* --- Helper --- */
 
+    let mat = new THREE.MeshPhongMaterial({color: 0xffd700})
+    let geo = new THREE.SphereGeometry(50,1,1);
+    mesh = new THREE.Mesh(geo, mat);
+    mesh.name = 'mesh';
+    scene.add(mesh);
 
     /* --- Rotation --- */
 
@@ -187,6 +193,13 @@ export default class Gold{
 
     (function animate(){
 
+       //any helpers in here?
+       if(mesh){
+
+           mesh.rotation.x += .01;
+           mesh.rotation.z += .01;
+       }
+
         // rotate();
 
         controls.update();
@@ -205,7 +218,13 @@ export default class Gold{
     return renderer.domElement;
   }
 
+  toggleLoader(){
+    scene.add(mesh);
+  }
+
   gold(block, lightMode){
+
+
 
     var length   = block.transactions.length===0?1:block.transactions.length;
 
@@ -270,7 +289,10 @@ export default class Gold{
 
     gold = new THREE.Mesh( geometry, material );
     gold.name = 'gold';
-    // gold.scale(.1,.1,.1);
+
+
+    //remove loader
+    scene.remove(scene.getObjectByName('mesh'));
 
     scene.add( gold );
   }
