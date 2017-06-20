@@ -120,6 +120,12 @@ export default class Gold{
 
     function rotate(){
 
+      if(!camera) return;
+
+      let object = scene.getObjectByName('gold');
+
+      if(!object) return;
+
       if(isMobile.any())
       {
         //LANDSCAPE
@@ -132,14 +138,14 @@ export default class Gold{
           {
               lastValueY = valueY;
 
-                gold.rotation.y=valueY;
+                object.rotation.y=valueY;
           }else if(valueY<5 && valueY>1)
           {
                 lastValueY = valueY+3.1;
 
-            gold.rotation.y=valueY+3.1;
+            object.rotation.y=valueY+3.1;
           }else{
-            gold.rotation.y=0;
+            object.rotation.y=0;
           }
 
           //x value
@@ -147,17 +153,17 @@ export default class Gold{
 
           if(valueX<0.4 && valueX>-0.4){
 
-            gold.rotation.x=valueX;
+            object.rotation.x=valueX;
             lastValueX = valueX;
 
           }else{
-            gold.rotation.x=lastValueX;
+            object.rotation.x=lastValueX;
           }
 
         }else{
 
-          gold.rotation.x=degToRad(beta-45);
-          gold.rotation.y=degToRad(gamma)*.5;
+          object.rotation.x=degToRad(beta-45);
+          object.rotation.y=degToRad(gamma)*.5;
 
         }
       }
@@ -181,8 +187,7 @@ export default class Gold{
 
     (function animate(){
 
-        // if(gold&&camera)
-        // rotate();
+        rotate();
 
         controls.update();
 
