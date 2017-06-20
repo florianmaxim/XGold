@@ -8,7 +8,8 @@ import Loader      from './Loader';
 import EthereumApi from './EthereumApi';
 import Gold        from './Gold';
 
-const _ON = true;
+const _ON    = true;
+const _LIGHT = true;
 
 const DEFAULT = {
   line: 'Ex.gold',
@@ -97,7 +98,7 @@ export default class Block extends React.Component{
           });
 
           if(_ON)
-          _GOLD.gold(block);
+          _GOLD.gold(block, _LIGHT);
 
         });
 
@@ -159,7 +160,7 @@ export default class Block extends React.Component{
             history.pushState(null, null, '/'+block.number);
 
             if(_ON)
-            _GOLD.gold(block);
+            _GOLD.gold(block, _LIGHT);
 
           });
 

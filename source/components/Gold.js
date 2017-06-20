@@ -204,7 +204,7 @@ export default class Gold{
     return renderer.domElement;
   }
 
-  gold(block){
+  gold(block, lightMode){
 
     var length   = block.transactions.length===0?1:block.transactions.length;
 
@@ -222,12 +222,16 @@ export default class Gold{
 
     var geometry = new THREE.PlaneGeometry(width, height, segments, segments);
 
-    var index = 0;
-    for(var i = 0; i <= segments; i++) {
-      for(var j = 0; j <= segments; j++) {
-        geometry.vertices[index].z = ground[i][j];
-        index++;
+    if(lightMode===false||lightMode===undefined){
+
+      var index = 0;
+      for(var i = 0; i <= segments; i++) {
+        for(var j = 0; j <= segments; j++) {
+          geometry.vertices[index].z = ground[i][j];
+          index++;
+        }
       }
+
     }
 
     geometry.computeFaceNormals();
