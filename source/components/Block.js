@@ -95,11 +95,12 @@ export default class Block extends React.Component{
             hash: blockNumber
           });
 
-          if(_ON)
-          _GOLD.gold(block);
 
           if(_ON)
           this.refs.gold.appendChild(_GOLD.init());
+
+          if(_ON)
+          _GOLD.gold(block);
 
         });
 
