@@ -10,7 +10,7 @@ import Gold        from './Gold';
 
 /* little dev helper */
 const _ON    = true;
-const _LIGHT = true;
+const _LIGHT = false;
 
 const DEFAULT = {
   line: 'Ex.gold',

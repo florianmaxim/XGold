@@ -187,7 +187,7 @@ export default class Gold{
 
     (function animate(){
 
-        rotate();
+        // rotate();
 
         controls.update();
 
