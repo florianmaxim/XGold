@@ -72,6 +72,8 @@ export default class Block extends React.Component{
     {
 
       let blockNumber = this.props.params.id;
+      console.log('BLOCK: #'+blockNumber)
+
       var url = 'https://etherchain.org/api/block/'+blockNumber;
 
       let block = {}
@@ -92,7 +94,7 @@ export default class Block extends React.Component{
           block.transactions = out.data;
 
           this.setState({
-            hash: block.number
+            hash: blockNumber
           });
 
           if(_ON)
