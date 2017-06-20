@@ -10,12 +10,12 @@ import Gold        from './Gold';
 
 /* little dev helper */
 const _ON    = true;
-const _LIGHT = false;
+const _LIGHT = true;
 
 const DEFAULT = {
   line: 'Ex.gold',
   input: ':number',
-  goldrush: 20000,
+  goldrush: 20000, //timeout to load next block
   title: [
     'ex.gold',
     'my.gold',
