@@ -81,6 +81,15 @@ export default class Block extends React.Component{
 
       fetch(url, _GOLD).then(res => res.json()).then((out) => {
 
+        //TODO handle no result
+        if(out.data[0].length===0){
+          let msg = 'Block '+blockNumber+' does not exits (yet).';
+          alert(msg);
+          this.setState({
+            hash: msg
+          });
+        }
+
         block.number            = out.data[0].number;
         block.hash              = out.data[0].hash;
         block.size              = out.data[0].size;
