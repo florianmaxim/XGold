@@ -10,6 +10,10 @@ export default class Chain extends Component{
     this.state = {
       blocks: []
     }
+  }
+
+  componentDidMount(){
+
 
     addEventListener('load', () => {
 
@@ -55,9 +59,6 @@ export default class Chain extends Component{
         });
 
       })
-  }
-
-  componentDidMount(){
 
   }
 
