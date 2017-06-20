@@ -9,7 +9,7 @@ import EthereumApi from './EthereumApi';
 import Gold        from './Gold';
 
 /* little dev helper */
-const _ON    = true;
+const _ON    = false;
 const _LIGHT = false;
 
 const DEFAULT = {
@@ -17,10 +17,13 @@ const DEFAULT = {
   input: ':number',
   goldrush: 20000, //timeout to load next block
   title: [
+    'Tar.gold',
     'ex.gold',
     'my.gold',
     '79.money'
-  ]
+  ],
+
+  modes: ['logo','buy','input', 'none', 'about']
 }
 
 const _GOLD     = new Gold();
@@ -32,6 +35,9 @@ export default class Block extends React.Component{
     super(props);
 
     this.state = {
+
+      mode: 0, //init (DEFAULT.modes)
+      title:0,
 
       animation:true,
 
@@ -104,7 +110,9 @@ export default class Block extends React.Component{
           block.transactions = out.data;
 
           this.setState({
-            hash: block.number
+            hash: block.number,
+
+            animation: this.state.animation?false:true
           });
 
           if(_ON)
@@ -137,6 +145,7 @@ export default class Block extends React.Component{
     }, DEFAULT.goldrush+10)
 
 
+    if(_ON)
     setInterval(()=>{
 
       let block = {}
@@ -169,8 +178,7 @@ export default class Block extends React.Component{
 
             history.pushState(null, null, '/'+block.number);
 
-            if(_ON)
-            _GOLD.gold(block, _LIGHT);
+            if(_ON)  _GOLD.gold(block, _LIGHT);
 
           });
 
@@ -229,6 +237,95 @@ export default class Block extends React.Component{
     this.setState({input: event.target.value});
   }
 
+  display(mode){
+
+    console.log('DISPLAY:'+this.state.mode);
+
+    switch(mode){
+      case 'buy':
+        return(
+          <div className="block-buy">
+
+           <div className="block-button">
+             buy
+           </div>
+
+           <div className="block-button block-button-sold">
+             sold
+           </div>
+
+          </div>
+        );
+      break;
+
+      //numpad
+      case 'input':
+        return(
+          <div className="numpad">
+            <form className="block-input" onSubmit={(event)=>{this.handleGold(event)}}>
+              <input type="text"
+                     className="numpad-input"
+                     value={this.state.input}
+                     placeholder={this.state.input}
+                     onChange={this.onChange.bind(this)}
+                     />
+            </form>
+            <div className="numpad-row">
+
+            {
+              this.state.keys.map((key,index) => {
+                return <div className="numpad-number-field" key={key} onTouchStart={(event)=>{this.handleInput(index, event)}} onClick={(event)=>{this.handleInput(index, event)}}><div className="numpad-number">{index}</div></div>
+              })
+            }
+
+            </div>
+            <div className="numpad-row">
+             <div className="numpad-number-field" onTouchStart={(event)=>{this.handleBackspace(event)}} onClick={(event)=>{this.handleBackspace(event)}}><div className="numpad-number">⌥</div></div>
+             <div className="numpad-number-field" onTouchStart={(event)=>{this.handleInput(0, event)}} onClick={(event)=>{this.handleInput(0, event)}}><div className="numpad-number">0</div></div>
+             <div className="numpad-number-field" onTouchStart={(event)=>{this.handleGold(event)}} onClick={(event)=>{this.handleGold(event)}}><div className="numpad-number">⌘</div></div>
+            </div>
+          </div>
+        );
+      break;
+
+      case 'logo':
+       return(
+        <div>
+          <div className="block-logo" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
+            <Logo/>
+          </div>
+          <div className="block-line">
+           TARGOLD.
+          </div>
+        </div>
+      );
+      break;
+      case 'none':
+       return(
+        <div>
+        </div>
+      );
+      break;
+      case 'about':
+       return(
+        <div className="block-about">
+        What is the ideal state of money?
+        </div>
+      );
+      break;
+    }
+  }
+
+  toggleDisplay(){
+    this.setState({
+      mode: this.state.mode<DEFAULT.modes.length-1?(this.state.mode+1):0
+    })
+
+    console.log('MODE:'+this.state.mode);
+    console.log('LENGTH:'+DEFAULT.modes.length);
+
+  }
+
   render(){
 
       return(
@@ -245,58 +342,16 @@ export default class Block extends React.Component{
 
             <div className="block-top">
 
-            {this.state.numpad
-              ?
-
-              <form className="block-input" onSubmit={(event)=>{this.handleGold(event)}}>
-                <input type="text"
-                       className="numpad-input"
-                       value={this.state.input}
-                       placeholder={this.state.input}
-                       onChange={this.onChange.bind(this)}
-                       />
-              </form>
-              :
-              ''
-            }
             </div>
 
             <div className="block-middle">
 
-              {this.state.numpad
-              ?
-
-              <div className="numpad">
-                <div className="numpad-row">
-
-                {
-                  this.state.keys.map((key,index) => {
-                    return <div className="numpad-number-field" key={key} onTouchStart={(event)=>{this.handleInput(index, event)}} onClick={(event)=>{this.handleInput(index, event)}}><div className="numpad-number">{index}</div></div>
-                  })
-                }
-
-                </div>
-                <div className="numpad-row">
-                 <div className="numpad-number-field" onTouchStart={(event)=>{this.handleBackspace(event)}} onClick={(event)=>{this.handleBackspace(event)}}><div className="numpad-number">⌥</div></div>
-                 <div className="numpad-number-field" onTouchStart={(event)=>{this.handleInput(0, event)}} onClick={(event)=>{this.handleInput(0, event)}}><div className="numpad-number">0</div></div>
-                 <div className="numpad-number-field" onTouchStart={(event)=>{this.handleGold(event)}} onClick={(event)=>{this.handleGold(event)}}><div className="numpad-number">⌘</div></div>
-                </div>
-              </div>
-
-              :
-
-               <div className="block-line">
-
-                 {this.state.hash}
-
-               </div>
-
-              }
+              {this.display(DEFAULT.modes[this.state.mode])}
 
             </div>
 
             <div className="block-bottom">
-              <div className="block-logo" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
+              <div className="block-logo" onTouchEnd={(event)=>{this.toggleDisplay(event)}} onClick={()=>{this.toggleDisplay(event)}}>
                 <Logo/>
               </div>
             </div>

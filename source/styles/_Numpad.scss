@@ -82,7 +82,7 @@ $number_rows_portrait: 3;
 }
 
 .numpad-number{
-  border:1px solid gold;
+  border:2px solid gold;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -91,7 +91,7 @@ $number_rows_portrait: 3;
   align-items: center;
   justify-content: center;
 
-  font-family: Roboto;
+  font-family: Lato;
   font-weight: thin;
   font-size: 1.5em;
   color: gold;
@@ -106,7 +106,7 @@ $number_rows_portrait: 3;
 .numpad-input{
   width: 100%;
 
-  font-family: Roboto;
+  font-family: Lato;
   font-weight: thin;
   font-size: 2.5em;
 

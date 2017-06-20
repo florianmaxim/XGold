@@ -2,11 +2,14 @@
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
 // helpers
 
 $help_border: 0px;
 $position: auto;
+
+
 
 /* The Gold (web__gl container) */
 .block-gold{
@@ -263,6 +266,16 @@ $fill: forwards;
 
 /* -------------- MODULES -------------- */
 
+.block-buy{
+  min-width:200px;
+}
+
+@media(orientation:portrait){
+  .block-buy{
+    width:75vw;
+  }
+}
+
 .block-input{
   border:$help_border solid pink;
 
@@ -306,6 +319,9 @@ $fill: forwards;
 
 .block-line{
 
+  margin-top:10px;
+  margin-bottom:10px;
+
   border:$help_border solid pink;
 
   text-align: center;
@@ -326,6 +342,30 @@ $fill: forwards;
   font-family: Cinzel;
   font-size: 2em;
 
+  // text-shadow: 1px 1px 5px rgba(0,0,0,.5);
+  text-shadow: 10px 10px 5px rgba(0,0,0,.75);
+
+
   cursor: pointer;
   user-select:none;
+}
+
+.block-about{
+  margin-left: 10px;
+  margin-right: 10px;
+
+  position: relative;
+  font-family: Lato;
+  font-size: 7em;
+
+  word-wrap: break-word;
+  word-wrap: break-word;
+
+  text-align: justify;
+
+  color: gold;
+
+  overflow: scroll;
+
+  width: 100vw;
 }
