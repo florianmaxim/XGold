@@ -50,10 +50,6 @@ export default class Gold{
 
   constructor(){}
 
-  getContext(){
-    return renderer.domElement;
-  }
-
   init(){
 
     /* --- System --- */
@@ -185,8 +181,8 @@ export default class Gold{
 
     (function animate(){
 
-        // if(gold&&camera)
-        // rotate();
+        if(gold&&camera)
+        rotate();
 
         controls.update();
 
