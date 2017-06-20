@@ -92,9 +92,9 @@ export default class Block extends React.Component{
 
           block.transactions = out.data;
 
-          // this.setState({
-          //   hash: blockNumber
-          // });
+          this.setState({
+            hash: block.number
+          });
 
           if(_ON)
           _GOLD.gold(block);
@@ -152,9 +152,9 @@ export default class Block extends React.Component{
 
             block.transactions = out.data;
 
-            // this.setState({
-            //   hash: '#'+block.number
-            // });
+            this.setState({
+              hash: block.number
+            });
 
             history.pushState(null, null, '/'+block.number);
 
