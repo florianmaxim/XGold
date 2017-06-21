@@ -11,8 +11,9 @@ import Gold        from './Gold';
 import Chain        from './Chain';
 
 /* little dev helper */
-const _ON    = false;
-const _LIGHT = false;
+const _ON     = true;
+const _LIGHT  = false;
+const _BORDER = true;
 
 const DEFAULT = {
   line: 'Ex.gold',
@@ -25,8 +26,8 @@ const DEFAULT = {
     '79.money'
   ],
 
-  // modes: ['chain','buy','input', 'logo', 'about', 'none']
-  modes: ['chain','none']
+  modes: ['chain','buy','input', 'logo', 'about', 'none']
+  // modes: ['chain','none']
 }
 
 const _GOLD     = new Gold();
@@ -58,6 +59,8 @@ export default class Block extends React.Component{
       gold: '3881441',
 
       hash: 'ex.gold',
+
+      value: 0,
 
       sold: false,
 
@@ -163,6 +166,12 @@ export default class Block extends React.Component{
         block.size              = out.data[0].size;
         block.transactionAmount = out.data[0].tx_count;
 
+        block.reward            = out.data[0].reward;
+
+        let usd = 320.83;
+
+        block.dollar = (block.reward/1000000000000000000)*usd;
+
         //console.log(JSON.stringify(out.data[0]));
 
         let url = 'https://etherchain.org/api/block/'+blockNumber+'/tx';
@@ -172,9 +181,12 @@ export default class Block extends React.Component{
           block.transactions = out.data;
 
           this.setState({
-            hash: block.number,
+            value: '$' +block.dollar.toFixed(2),
 
-            animation: this.state.animation?false:true
+            mode: 1,
+
+            //TODO this should be everything
+            block: block
           });
 
           if(_ON)
@@ -316,14 +328,14 @@ export default class Block extends React.Component{
 
           {this.state.sold?
 
-           <div className="block-button" onClick={()=>{this.buy(event)}}>
-             buy
-           </div>
+            <div className="block-button block-button-sold" onClick={()=>{this.buy(event)}}>
+              sold
+            </div>
 
            :
 
-           <div className="block-button block-button-sold" onClick={()=>{this.buy(event)}}>
-             sold
+           <div className="block-button" onClick={()=>{this.buy(event)}}>
+             {this.state.value}
            </div>
 
           }
@@ -365,9 +377,6 @@ export default class Block extends React.Component{
       case 'logo':
        return(
         <div>
-          <div className="block-logo" onTouchEnd={(event)=>{this.handleNumpad(event)}} onClick={()=>{this.handleNumpad(event)}}>
-            <Logo/>
-          </div>
           <div className="block-line">
            TARGOLD.
           </div>
