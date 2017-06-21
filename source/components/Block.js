@@ -11,7 +11,7 @@ import Gold        from './Gold';
 import Chain        from './Chain';
 
 /* little dev helper */
-const _ON    = true;
+const _ON    = false;
 const _LIGHT = false;
 
 const DEFAULT = {
@@ -25,7 +25,8 @@ const DEFAULT = {
     '79.money'
   ],
 
-  modes: ['chain','buy','input', 'logo', 'about', 'none']
+  // modes: ['chain','buy','input', 'logo', 'about', 'none']
+  modes: ['chain','none']
 }
 
 const _GOLD     = new Gold();
@@ -74,10 +75,67 @@ export default class Block extends React.Component{
 
   componentDidMount(){
 
+    //iphone buggyfill
     require('viewport-units-buggyfill').init();
 
-    //prepare the gold
+    //attach the gold canvas
     this.refs.gold.appendChild(_GOLD.init());
+
+    // //connect to web3
+    // addEventListener('load', () => {
+    //
+    //     // Dependencies
+    //     var Web3 = require('web3');
+    //     // Initialize connection
+    //     var web3 = new Web3();
+    //
+    //         web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
+    //
+    //     // can be 'latest' or 'pending'
+    //     var filter = web3.eth.filter('latest');
+    //
+    //     // watch for changes
+    //     filter.watch((error, result)=>{
+    //       if (!error)
+    //
+    //         console.log(JSON.stringify(result));
+    //
+    //         var block = web3.eth.getBlock(result);
+    //
+    //
+    //         //organise block data
+    //
+    //         block.number            = out.data[0].number;
+    //         block.hash              = out.data[0].hash;
+    //         block.size              = out.data[0].size;
+    //         block.transactionAmount = out.data[0].tx_count;
+    //
+    //         // console.log(JSON.stringify(block));
+    //
+    //         // let transactions = [];
+    //         //
+    //         // block.transactions.forEach((txId) => {
+    //         //
+    //         //   // transactions.push(web3.eth.getTransaction(txId))
+    //         //   transactions.push(web3.eth.getTransaction(JSON.stringify(block)))
+    //         //
+    //         // })
+    //
+    //
+    //         var _blocks = this.state.blocks;
+    //
+    //             //TODO _blocks.push(transactions);
+    //             _blocks.unshift(`#${block.number} - (${block.timestamp}) : ${block.hash}`);
+    //
+    //         this.setState({
+    //           blocks: _blocks
+    //         })
+    //
+    //     });
+    //
+    //   })
+
+
 
     if(this.props.params.id!==undefined)
     {

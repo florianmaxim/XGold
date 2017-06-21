@@ -2,50 +2,69 @@ import React, {Component} from 'react';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+let state = {
+      blocks: []
+    };
 
 export default class Chain extends Component{
   constructor(props){
     super(props);
 
-    this.state = {
-      blocks: []
-    }
+    // Retrieve the last state
+    this.state = state;
+  }
+
+  componentWillUnmount() {
+
+    this._mounted = false;
+    // Remember state for the next mount
+    state = this.state;
+  }
+
+  componentWillMount(){
+
+    this.setState({
+      blocks: this.state.blocks.length>0?this.state.blocks:[]
+    })
+
   }
 
   componentDidMount(){
 
+    this._mounted = true;
 
-    addEventListener('load', () => {
 
-        // Dependencies
-        var Web3 = require('web3');
-        // Initialize connection
-        var web3 = new Web3();
+    addEventListener('load', (event)=>{
 
-            web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
+      var Web3 = require('web3');
 
-        // can be 'latest' or 'pending'
-        var filter = web3.eth.filter('latest');
+      var web3 = new Web3();
 
-        // watch for changes
-        filter.watch((error, result)=>{
-          if (!error)
+          web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
 
-            console.log(JSON.stringify(result));
+      var filter = web3.eth.filter('latest');
 
-            var block = web3.eth.getBlock(result);
+      filter.watch((error, result)=>{
+        if (!error)
 
-            // console.log(JSON.stringify(block));
+          // console.log(JSON.stringify(result));
 
-            // let transactions = [];
-            //
-            // block.transactions.forEach((txId) => {
-            //
-            //   // transactions.push(web3.eth.getTransaction(txId))
-            //   transactions.push(web3.eth.getTransaction(JSON.stringify(block)))
-            //
-            // })
+          var block = web3.eth.getBlock(result);
 
+          console.log(`#${JSON.stringify(block.number)}`);
+
+          // let transactions = [];
+          //
+          // block.transactions.forEach((txId) => {
+          //
+          //   // transactions.push(web3.eth.getTransaction(txId))
+          //   transactions.push(web3.eth.getTransaction(JSON.stringify(block)))
+          //
+          // })
+
+          if(this._mounted===true){
+
+            //if mouted push directly into the state
 
             var _blocks = this.state.blocks;
 
@@ -56,9 +75,17 @@ export default class Chain extends Component{
               blocks: _blocks
             })
 
-        });
+          }else{
 
-      })
+            //if not mouted store it
+
+             state.blocks.unshift(`#${block.number} - (${block.timestamp}) : ${block.hash}`);
+
+          }
+
+      });
+
+    });
 
   }
 
@@ -69,11 +96,13 @@ export default class Chain extends Component{
           <ReactCSSTransitionGroup transitionName="example"
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300}>
+
           {
             this.state.blocks.map((key, index)=>{
               return <div key={key} className="block-button block-button-fixed-width"><div style={{margin:'7px'}}>{key}</div></div>
             })
           }
+
           </ReactCSSTransitionGroup>
         </div>
       </div>
