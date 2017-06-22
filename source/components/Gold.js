@@ -223,7 +223,7 @@ export default class Gold{
     if(scene.getObjectByName('gold'))
        scene.remove(scene.getObjectByName('gold'));
 
-    scene.add(mesh);
+    scene.add(mesh);   
   }
 
   gold(block, lightMode){
@@ -286,7 +286,11 @@ export default class Gold{
       reflectivity: .25} );
 
     //remove loader
-    scene.remove(scene.getObjectByName('mesh'));
+    if(scene.getObjectByName('mesh'))
+       scene.remove(scene.getObjectByName('mesh'));
+
+    if(scene.getObjectByName('gold'))
+       scene.remove(scene.getObjectByName('gold'));
 
     gold = new THREE.Mesh( geometry, material );
     gold.name = 'gold';

@@ -73,16 +73,21 @@ export default class Block extends React.Component{
 
     if(this.props.params.id!==undefined||this.state.block.number!==undefined)
     {
+      let blockNumber;
 
-      const blockNumber = this.props.params.id!==undefined||this.state.block.number!==undefined;
+      if(this.props.params.id!==undefined)
+       blockNumber = this.props.params.id;
+
+      if(this.state.block.number!==undefined)
+       blockNumber = this.state.block.number;
 
       //remove old gold
-      _GOLD.removeGold();
+      // _GOLD.removeGold();
 
       console.log('BLOCK: Specific #'+blockNumber);
 
       //remove old gold
-      if(_ON)  _GOLD.removeGold();
+      // if(_ON)  _GOLD.removeGold();
 
       //get the new one
       this.getBlock(blockNumber);
@@ -98,7 +103,7 @@ export default class Block extends React.Component{
 
 
       //remove old gold
-      _GOLD.removeGold();
+      // _GOLD.removeGold();
 
       //get the latest block
       let url = 'https://etherchain.org/api/blocks/count';
