@@ -14,7 +14,7 @@
   width: 85vw;
 }
 
-@media(orientation: landscape){
+@media(orientation: landscape) and (min-width: 100px){
   .block-buy{
     position: absolute;
 
