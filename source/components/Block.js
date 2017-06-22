@@ -297,7 +297,7 @@ export default class Block extends React.Component{
 
   display(mode){
 
-    //console.log('DISPLAY:'+this.state.mode);
+    console.log(`DISPLAY: Switch to mode ''${mode}'`);
 
     switch(mode){
       case 'buy':

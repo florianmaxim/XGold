@@ -47,14 +47,18 @@
 
 @media(orientation: portrait){
   .block-buy-container-price{
-    position: relative;
     width: 100%;
+  }
+}
+
+@media(orientation: landscape){
+  .block-buy-container-price{
+    width:50vw;
   }
 }
 
 @media(orientation: landscape) and (min-width: 1000px){
   .block-buy-container-price{
-    position: relative;
     width:30%;
     min-width: 200px;
     max-width: 300px;
