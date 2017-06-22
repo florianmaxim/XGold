@@ -52,7 +52,7 @@
   }
 }
 
-@media(orientation: landscape){
+@media(orientation: landscape) and (min-width: 1000px){
   .block-buy-container-price{
     position: relative;
     width:30%;
