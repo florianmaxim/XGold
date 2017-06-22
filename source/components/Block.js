@@ -30,7 +30,9 @@ const DEFAULT = {
     '79.money'
   ],
 
-  modes: ['chain','buy','input', 'logo', 'about', 'none']
+  modes: ['logo','buy','none','about'],
+
+  keys: [1,2,3,4,5,6,7,8,9]
 
 }
 
@@ -45,12 +47,11 @@ export default class Block extends React.Component{
     this.state = {
 
       block:{
-
-        number: 3912024
-
+        // number: 3912024
       },
 
-      mode: 0 // DEFAULT.modes[this]
+      mode: 0, // DEFAULT.modes[this]
+      animation: true
 
     }
   }
@@ -63,185 +64,109 @@ export default class Block extends React.Component{
     require('viewport-units-buggyfill').init();
 
     //attach the gold canvas
-    this.refs.gold.appendChild(_GOLD.init());
+       this.refs.gold.appendChild(_GOLD.init());
 
-    // //connect to web3
-    // addEventListener('load', () => {
-    //
-    //     // Dependencies
-    //     var Web3 = require('web3');
-    //     // Initialize connection
-    //     var web3 = new Web3();
-    //
-    //         web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
-    //
-    //     // can be 'latest' or 'pending'
-    //     var filter = web3.eth.filter('latest');
-    //
-    //     // watch for changes
-    //     filter.watch((error, result)=>{
-    //       if (!error)
-    //
-    //         console.log(JSON.stringify(result));
-    //
-    //         var block = web3.eth.getBlock(result);
-    //
-    //
-    //         //organise block data
-    //
-    //         block.number            = out.data[0].number;
-    //         block.hash              = out.data[0].hash;
-    //         block.size              = out.data[0].size;
-    //         block.transactionAmount = out.data[0].tx_count;
-    //
-    //         // console.log(JSON.stringify(block));
-    //
-    //         // let transactions = [];
-    //         //
-    //         // block.transactions.forEach((txId) => {
-    //         //
-    //         //   // transactions.push(web3.eth.getTransaction(txId))
-    //         //   transactions.push(web3.eth.getTransaction(JSON.stringify(block)))
-    //         //
-    //         // })
-    //
-    //
-    //         var _blocks = this.state.blocks;
-    //
-    //             //TODO _blocks.push(transactions);
-    //             _blocks.unshift(`#${block.number} - (${block.timestamp}) : ${block.hash}`);
-    //
-    //         this.setState({
-    //           blocks: _blocks
-    //         })
-    //
-    //     });
-    //
-    //   })
+    /////////////////////////////////////////
+    // BLOCK: SPECIFIC
+    /////////////////////////////////////////
 
+    const blockNumber = this.props.params.id!==undefined||this.state.block.number!==undefined;
 
-
-    if(this.props.params.id!==undefined||this.state.block.number!==undefined)
+    if(blockNumber)
     {
+      console.log('BLOCK: Specific #'+blockNumber);
 
-      let blockNumber = this.props.params.id || this.state.block.number;
-      //console.log('BLOCK: #'+blockNumber)
+      //remove old gold
+      if(_ON)  _GOLD.removeGold();
 
-      var url = 'https://etherchain.org/api/block/'+blockNumber;
-
-      let block = {}
-
-      fetch(url, _GOLD).then(res => res.json()).then((out) => {
-
-        //TODO handle no result
-        if(out.data[0].length===0){
-          let msg = 'Block '+blockNumber+' does not exits (yet).';
-          alert(msg);
-          this.setState({
-            hash: msg
-          });
-        }
-
-        block.number            = out.data[0].number;
-        block.hash              = out.data[0].hash;
-        block.size              = out.data[0].size;
-        block.transactionAmount = out.data[0].tx_count;
-
-        block.reward            = out.data[0].reward;
-
-        block.dollar = (block.reward/1000000000000000000)*_USD;
-
-        //console.log(JSON.stringify(out.data[0]));
-
-        let url = 'https://etherchain.org/api/block/'+blockNumber+'/tx';
-
-        fetch(url, _GOLD).then(res => res.json()).then((out) => {
-
-          block.transactions = out.data;
-
-          this.setState({
-
-            block: block,
-
-            mode: 1,
-
-          });
-
-          if(_ON)
-          _GOLD.gold(block, _LIGHT);
-
-        });
-
-      });
+      //get the new one
+      this.getBlock(blockNumber);
 
       return;
     }
 
     /////////////////////////////////////////
-    // JUST FOLLOW THE BLOCKCHAIN
+    // BLOCK: JUST FOLLOW THE BLOCKCHAIN
     /////////////////////////////////////////
 
-    //console.log('JUST FOLLOW THE CHAIN!')
+    alert('BLOCK: Just follow the chain!')
 
-    //TODO this is so ugly, what the fuck I hate css.
-    setInterval(() => {
-      this.setState({
-        animation: this.state.animation?false:true
-      })
-    }, DEFAULT.goldrush)
+    if(_ON){
 
-    setInterval(() => {
-      this.setState({
-        animation: this.state.animation?false:true
-      })
-    }, DEFAULT.goldrush+10)
-
-
-    if(_ON)
-    setInterval(()=>{
-
-      if(_ON)  _GOLD.toggleLoader();
-
-      let block = {}
-
+      //get the latest block
       let url = 'https://etherchain.org/api/blocks/count';
       fetch(url, _GOLD).then(res => res.json()).then((out) => {
 
         let lastBlock = out.data[0].count;
 
-        var url = 'https://etherchain.org/api/block/'+lastBlock;
-
-        fetch(url, _GOLD).then(res => res.json()).then((out) => {
-
-          block.number            = out.data[0].number;
-          block.hash              = out.data[0].hash;
-          block.size              = out.data[0].size;
-          block.transactionAmount = out.data[0].tx_count;
-
-          //console.log(JSON.stringify(out.data[0]));
-
-          let url = 'https://etherchain.org/api/block/'+lastBlock+'/tx';
-
-          fetch(url, _GOLD).then(res => res.json()).then((out) => {
-
-            block.transactions = out.data;
-
-            this.setState({
-              hash: block.number
-            });
-
-            history.pushState(null, null, '/'+block.number);
-
-            if(_ON)  _GOLD.gold(block, _LIGHT);
-
-          });
-
-        });
+        //get the new one
+        this.getBlock(lastBlock);
 
       });
 
-    }, DEFAULT.goldrush);
 
+      setInterval(()=>{
+
+        //remove old gold
+        _GOLD.removeGold();
+
+        //get the latest block
+        let url = 'https://etherchain.org/api/blocks/count';
+        fetch(url, _GOLD).then(res => res.json()).then((out) => {
+
+          let lastBlock = out.data[0].count;
+
+          //get the new one
+          this.getBlock(lastBlock);
+
+        });
+
+      }, DEFAULT.goldrush);
+
+    }
+
+  }
+
+  getBlock(blockNumber){
+
+    let block = {}
+
+    var url = 'https://etherchain.org/api/block/'+blockNumber;
+
+    fetch(url, _GOLD).then(res => res.json()).then((out) => {
+
+      block.number            = out.data[0].number;
+      block.hash              = out.data[0].hash;
+      block.size              = out.data[0].size;
+      block.transactionAmount = out.data[0].tx_count;
+
+      block.reward            = out.data[0].reward;
+
+      block.dollar = (block.reward/1000000000000000000)*_USD;
+
+
+      let url = 'https://etherchain.org/api/block/'+block.number+'/tx';
+
+      fetch(url, _GOLD).then(res => res.json()).then((out) => {
+
+        block.transactions = out.data;
+
+        this.setState({
+
+          block: block,
+
+          mode: 1,
+
+        });
+
+        if(_ON)
+        _GOLD.gold(block, _LIGHT);
+
+        history.pushState(null, null, '/block/'+block.number);
+
+      });
+
+    });
   }
 
   handleNumpad(event){
@@ -297,30 +222,22 @@ export default class Block extends React.Component{
 
   display(mode){
 
-    console.log(`DISPLAY: Switch to mode ''${mode}'`);
+    console.log(`DISPLAY: Switch to mode '${mode}'`);
 
     switch(mode){
       case 'buy':
         return(
           <div className="block-buy" >
 
-          {this.state.block.sold?
-
-            <div className="block-button block-button-sold" onClick={()=>{this.buy(event)}}>
-              sold
-            </div>
-
-           :
-
            <div className="block-buy-container-price">
 
             <div>
              <div className="block-buy-heading" onClick={()=>{this.buy(event)}}>
-              3912024
+              {this.state.block.number}
              </div>
 
              <div className="block-buy-subheading" onClick={()=>{this.buy(event)}}>
-              0x5ac4d7d96cad16b990685511a7c205e5d2b61a4f3c14fac560b45a00aa067e8c
+              {this.state.block.hash}
              </div>
             </div>
 
@@ -342,8 +259,6 @@ export default class Block extends React.Component{
 
            </div>
 
-          }
-
           </div>
         );
       break;
@@ -363,7 +278,7 @@ export default class Block extends React.Component{
             <div className="numpad-row">
 
             {
-              this.state.keys.map((key,index) => {
+              DEFAULT.keys.map((key,index) => {
                 return <div className="numpad-number-field" key={key} onTouchStart={(event)=>{this.handleInput(index, event)}} onClick={(event)=>{this.handleInput(index, event)}}><div className="numpad-number">{index}</div></div>
               })
             }

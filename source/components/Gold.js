@@ -193,14 +193,15 @@ export default class Gold{
 
     (function animate(){
 
-       //any helpers in here?
+       //loader
        if(mesh){
 
            mesh.rotation.x += .01;
            mesh.rotation.z += .01;
+
        }
 
-        // rotate();
+        rotate();
 
         controls.update();
 
@@ -218,15 +219,12 @@ export default class Gold{
     return renderer.domElement;
   }
 
-  toggleLoader(){
-    scene.add(mesh);
+  removeGold(){
+    if(gold) scene.remove(gold);
+    scene.remove(scene.getObjectByName('mesh'));
   }
 
   gold(block, lightMode){
-
-    if(gold) scene.remove(gold);
-    scene.remove(scene.getObjectByName('mesh'));
-
 
     var length   = block.transactions.length===0?1:block.transactions.length;
 
@@ -285,16 +283,11 @@ export default class Gold{
       combine: THREE.MixOperation,
       reflectivity: .25} );
 
-      //remove the gold gold, its time for the new bar.
-
-    if(gold) scene.remove(gold);
+    //remove loader
+    scene.remove(scene.getObjectByName('mesh'));
 
     gold = new THREE.Mesh( geometry, material );
     gold.name = 'gold';
-
-
-    //remove loader
-    scene.remove(scene.getObjectByName('mesh'));
 
     scene.add( gold );
   }
