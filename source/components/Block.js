@@ -66,41 +66,26 @@ export default class Block extends React.Component{
     //attach the gold canvas
        this.refs.gold.appendChild(_GOLD.init());
 
+
+    if(this.props.params.id!==undefined){
+
     /////////////////////////////////////////
     // BLOCK: SPECIFIC
     /////////////////////////////////////////
 
-
-    if(this.props.params.id!==undefined||this.state.block.number!==undefined)
-    {
-      let blockNumber;
-
-      if(this.props.params.id!==undefined)
-       blockNumber = this.props.params.id;
-
-      if(this.state.block.number!==undefined)
-       blockNumber = this.state.block.number;
-
-      //remove old gold
-      // _GOLD.removeGold();
+      let blockNumber = this.props.params.id;
 
       console.log('BLOCK: Specific #'+blockNumber);
 
-      //remove old gold
-      // if(_ON)  _GOLD.removeGold();
-
-      //get the new one
       this.getBlock(blockNumber);
 
-      return;
-    }
+    }else{
 
     /////////////////////////////////////////
     // BLOCK: JUST FOLLOW THE BLOCKCHAIN
     /////////////////////////////////////////
 
-    if(_ON){
-
+    console.log('BLOCK: Just follow the blockchain.');
 
       //remove old gold
       // _GOLD.removeGold();
@@ -141,6 +126,8 @@ export default class Block extends React.Component{
 
   getBlock(blockNumber){
 
+    console.log('BLOCK: getBlock:'+blockNumber);
+
     let block = {}
 
     var url = 'https://etherchain.org/api/block/'+blockNumber;
@@ -152,7 +139,7 @@ export default class Block extends React.Component{
       block.size              = out.data[0].size;
       block.transactionAmount = out.data[0].tx_count;
 
-      block.reward            = out.data[0].reward;
+      block.reward            = out.data[0].totalFee;
 
       block.dollar = (block.reward/1000000000000000000)*_USD;
 

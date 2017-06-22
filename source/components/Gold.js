@@ -29,7 +29,8 @@ let renderer, scene, camera, controls = false;
 let gold = false;
 let mesh = false;
 
-let mouseX, mouseY = 0;
+let mouseX, mouseY = false;
+
 let YRotation = 0;
 let XRotation = 0;
 let posX = 0;
@@ -41,7 +42,6 @@ let newPosY = 0;
 let lastValueY=0;
 let lastValueX=0;
 let alpha, beta, gamma = 0;
-let windowHalfX, windowHalfY = 0;
 
 function degToRad(degrees){
 	return degrees * Math.PI/180;
@@ -64,6 +64,7 @@ export default class Gold{
 
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, .1, 10000 );
     camera.position.set(0,.01,100);
+    camera.name = 'camera';
 
     camera.lookAt(scene.position);
 
@@ -92,12 +93,7 @@ export default class Gold{
 
     /* --- Event Listener --- */
 
-    windowHalfX = innerWidth/2
-    windowHalfY = innerHeight/2;
-
     addEventListener('resize', () =>{
-      windowHalfX = innerWidth/2
-      windowHalfY = innerHeight/2;
       renderer.setSize( window.innerWidth, window.innerHeight );
       camera.aspect = window.innerWidth / window.innerHeight
       camera.updateProjectionMatrix();
@@ -110,8 +106,8 @@ export default class Gold{
     }, false);
 
     addEventListener( 'mousemove', function(event) {
-      mouseX = ( event.clientX - windowHalfX ) / 2;
-      mouseY = ( event.clientY - windowHalfY ) / 2;
+      mouseX = ( event.clientX - innerWidth/2 ) / 2;
+      mouseY = ( event.clientY - innerHeight/2 ) / 2;
     }, false );
 
     /* --- Helper --- */
@@ -126,11 +122,8 @@ export default class Gold{
 
     function rotate(){
 
-      if(!camera) return;
-
-      let object = scene.getObjectByName('gold');
-
-      if(!object) return;
+      if(!scene.getObjectByName('camera')) return;
+      if(!scene.getObjectByName('gold')) return;
 
       if(isMobile.any())
       {
@@ -176,6 +169,9 @@ export default class Gold{
         else
       {
 
+        if(!mouseX) return;
+        if(!mouseY) return;
+
         posX = camera.position.x;
         posY = camera.position.y;
 
@@ -220,13 +216,11 @@ export default class Gold{
   }
 
   removeGold(){
-    if(scene.getObjectByName('gold'))
-       scene.remove(scene.getObjectByName('gold'));
-
-    scene.add(mesh);   
   }
 
   gold(block, lightMode){
+
+    console.log('GOLD: Block:'+block.number)
 
     var length   = block.transactions.length===0?1:block.transactions.length;
 
@@ -286,11 +280,7 @@ export default class Gold{
       reflectivity: .25} );
 
     //remove loader
-    if(scene.getObjectByName('mesh'))
-       scene.remove(scene.getObjectByName('mesh'));
-
-    if(scene.getObjectByName('gold'))
-       scene.remove(scene.getObjectByName('gold'));
+    scene.remove(scene.getObjectByName('mesh'));
 
     gold = new THREE.Mesh( geometry, material );
     gold.name = 'gold';
