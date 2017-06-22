@@ -224,6 +224,8 @@ export default class Gold{
 
   gold(block, lightMode){
 
+    if(gold) scene.remove(gold);
+    scene.remove(scene.getObjectByName('mesh'));
 
 
     var length   = block.transactions.length===0?1:block.transactions.length;

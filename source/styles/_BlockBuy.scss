@@ -55,6 +55,10 @@
   .block-buy-container-price{
     width:50vw;
   }
+
+  .block-buy-text{
+    display: none;
+  }
 }
 
 @media(orientation: landscape) and (min-width: 1000px){
@@ -62,6 +66,10 @@
     width:30%;
     min-width: 200px;
     max-width: 300px;
+  }
+
+  .block-buy-text{
+    display: flex;
   }
 }
 
