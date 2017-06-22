@@ -74,6 +74,9 @@ export default class Block extends React.Component{
 
     if(blockNumber)
     {
+      //remove old gold
+      _GOLD.removeGold();
+      
       console.log('BLOCK: Specific #'+blockNumber);
 
       //remove old gold
@@ -90,6 +93,10 @@ export default class Block extends React.Component{
     /////////////////////////////////////////
 
     if(_ON){
+
+
+      //remove old gold
+      _GOLD.removeGold();
 
       //get the latest block
       let url = 'https://etherchain.org/api/blocks/count';
