@@ -10,15 +10,19 @@ import Gold        from './Gold';
 
 import Chain        from './Chain';
 
+const _USD = 320.83;
+
 /* little dev helper */
 const _ON     = true;
 const _LIGHT  = false;
 const _BORDER = true;
 
 const DEFAULT = {
+
   line: 'Ex.gold',
   input: ':number',
   goldrush: 20000, //timeout to load next block
+
   title: [
     'Tar.gold',
     'ex.gold',
@@ -27,7 +31,7 @@ const DEFAULT = {
   ],
 
   modes: ['chain','buy','input', 'logo', 'about', 'none']
-  // modes: ['chain','none']
+
 }
 
 const _GOLD     = new Gold();
@@ -40,36 +44,13 @@ export default class Block extends React.Component{
 
     this.state = {
 
-      mode: 0, //init (DEFAULT.modes)
-      title:0,
+      block:{
 
-      animation:true,
+        number: 3912024
 
-      init:false,
+      },
 
-      //toggle numpad
-      numpad: false,
-
-      //numpad keys
-      keys: [1,2,3,4,5,6,7,8,9],
-
-      //display input
-      input: 3881441,
-
-      gold: '3881441',
-
-      hash: 'ex.gold',
-
-      value: 0,
-
-      sold: false,
-
-      //TODO
-      //logo, block info, enter menu, general, menu
-      displayMode: 0,
-
-      innerWidth: 0,
-      innerHeight: 0,
+      mode: 0 // DEFAULT.modes[this]
 
     }
   }
@@ -140,10 +121,10 @@ export default class Block extends React.Component{
 
 
 
-    if(this.props.params.id!==undefined)
+    if(this.props.params.id!==undefined||this.state.block.number!==undefined)
     {
 
-      let blockNumber = this.props.params.id;
+      let blockNumber = this.props.params.id || this.state.block.number;
       //console.log('BLOCK: #'+blockNumber)
 
       var url = 'https://etherchain.org/api/block/'+blockNumber;
@@ -168,9 +149,7 @@ export default class Block extends React.Component{
 
         block.reward            = out.data[0].reward;
 
-        let usd = 320.83;
-
-        block.dollar = (block.reward/1000000000000000000)*usd;
+        block.dollar = (block.reward/1000000000000000000)*_USD;
 
         //console.log(JSON.stringify(out.data[0]));
 
@@ -181,12 +160,11 @@ export default class Block extends React.Component{
           block.transactions = out.data;
 
           this.setState({
-            value: '$' +block.dollar.toFixed(2),
+
+            block: block,
 
             mode: 1,
 
-            //TODO this should be everything
-            block: block
           });
 
           if(_ON)
@@ -324,9 +302,9 @@ export default class Block extends React.Component{
     switch(mode){
       case 'buy':
         return(
-          <div className="block-buy">
+          <div className="block-buy" >
 
-          {this.state.sold?
+          {this.state.block.sold?
 
             <div className="block-button block-button-sold" onClick={()=>{this.buy(event)}}>
               sold
@@ -334,8 +312,37 @@ export default class Block extends React.Component{
 
            :
 
-           <div className="block-button" onClick={()=>{this.buy(event)}}>
-             {this.state.value}
+           <div className="block-buy-container-price">
+
+            <div>
+             <div className="block-buy-heading" onClick={()=>{this.buy(event)}}>
+              3912024
+             </div>
+
+             <div className="block-buy-subheading" onClick={()=>{this.buy(event)}}>
+              0x5ac4d7d96cad16b990685511a7c205e5d2b61a4f3c14fac560b45a00aa067e8c
+             </div>
+            </div>
+
+             <div className="block-buy-price" onClick={()=>{this.buy(event)}}>
+              ${this.state.block.dollar.toFixed(2)}<br/>
+
+              <p style={{fontWeight:'200', marginTop: '1px'}}>Price varies with currency exchange rates and may be different tomorrow.</p>
+
+             </div>
+
+             <div className="block-buy-text" onClick={()=>{this.buy(event)}}>
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+              eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+              voluptua. t ut labore et dolore magna aliquyam erat, sed diam voluptua.
+              At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+              gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+             </div>
+
+             <div className="block-button" onClick={()=>{this.buy(event)}}>
+               BUY
+             </div>
+
            </div>
 
           }

@@ -9,6 +9,9 @@
   color: gold;
 
   border: 2px solid gold;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 
   display: flex;
   align-items: center;

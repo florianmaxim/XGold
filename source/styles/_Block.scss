@@ -1,8 +1,10 @@
 @import "_Block_IPhone";
+@import "_BlockBuy";
+
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Lato:400,300,400,500,600,700');
 
 // helpers
 
@@ -267,31 +269,6 @@ $fill: forwards;
 }
 
 /* -------------- MODULES -------------- */
-
-.block-buy{
-  position: absolute;
-
-  border:$help_border solid red;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-
-  width:75vw;
-  bottom: 20%;
-
-  min-width:200px;
-}
-
-@media(orientation:portrait){
-  .block-buy{
-    width:75vw;
-    bottom: 20%;
-  }
-}
 
 .block-input{
   border:$help_border solid pink;
