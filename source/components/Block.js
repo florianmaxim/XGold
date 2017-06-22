@@ -70,10 +70,12 @@ export default class Block extends React.Component{
     // BLOCK: SPECIFIC
     /////////////////////////////////////////
 
-    const blockNumber = this.props.params.id!==undefined||this.state.block.number!==undefined;
 
-    if(blockNumber)
+    if(this.props.params.id!==undefined||this.state.block.number!==undefined)
     {
+
+      const blockNumber = this.props.params.id!==undefined||this.state.block.number!==undefined;
+
       //remove old gold
       _GOLD.removeGold();
 
