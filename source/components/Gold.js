@@ -220,8 +220,9 @@ export default class Gold{
   }
 
   removeGold(){
-    if(gold) scene.remove(gold);
     scene.remove(scene.getObjectByName('mesh'));
+
+    scene.add(mesh);
   }
 
   gold(block, lightMode){
