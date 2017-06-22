@@ -27,16 +27,11 @@ const routes         = require('./source/Routes.Static').default
 const app = express()
 app.server = http.createServer(app)
 
-// Mount the middleware at "/static" to serve static content only when their request path is prefixed with "/static".
-
-// GET /static/style.css etc.
-
-// THATS IT:
-app.use('/js', express.static(__dirname + '/build/js'));
-app.use('/static', express.static(__dirname + '/build/static'));
-
 app.use('/:block/js', express.static(__dirname + '/build/js'));
 app.use('/:block/static', express.static(__dirname + '/build/static'));
+
+app.use('/js', express.static(__dirname + '/build/js'));
+app.use('/static', express.static(__dirname + '/build/static'));
 
 app.get('*', (req, res) => {
 

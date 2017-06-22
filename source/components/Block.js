@@ -76,7 +76,7 @@ export default class Block extends React.Component{
     {
       //remove old gold
       _GOLD.removeGold();
-      
+
       console.log('BLOCK: Specific #'+blockNumber);
 
       //remove old gold
@@ -254,9 +254,7 @@ export default class Block extends React.Component{
              </div>
 
              <div className="block-buy-text" onClick={()=>{this.buy(event)}}>
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-              eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-              voluptua.</div>
+             </div>
 
              <div className="block-button" onClick={()=>{this.buy(event)}}>
                BUY
