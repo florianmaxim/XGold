@@ -93,7 +93,7 @@ export default class Block extends React.Component{
 
       console.log('BLOCK: Specific #'+blockNumber);
 
-      this.getBlock(blockNumber);
+      if(_ON) this.getBlock(blockNumber);
 
     }else{
 
@@ -113,7 +113,7 @@ export default class Block extends React.Component{
         let lastBlock = out.data[0].count;
 
         //get the new one
-        this.getBlock(lastBlock);
+        if(_ON) this.getBlock(lastBlock);
 
       });
 
@@ -121,7 +121,7 @@ export default class Block extends React.Component{
       setInterval(()=>{
 
         //remove old gold
-        _GOLD.removeGold();
+        if(_ON) _GOLD.removeGold();
 
         //get the latest block
         let url = 'https://etherchain.org/api/blocks/count';
@@ -130,7 +130,7 @@ export default class Block extends React.Component{
           let lastBlock = out.data[0].count;
 
           //get the new one
-          this.getBlock(lastBlock);
+          if(_ON) this.getBlock(lastBlock);
 
         });
 
