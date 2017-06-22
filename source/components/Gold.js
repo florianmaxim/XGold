@@ -281,8 +281,8 @@ export default class Gold{
       combine: THREE.MixOperation,
       reflectivity: .25} );
 
-    //remove loader
-    scene.remove(scene.getObjectByName('mesh'));
+    //remove old gold
+    scene.remove(scene.getObjectByName('gold'));
 
     gold = new THREE.Mesh( geometry, material );
     gold.name = 'gold';
