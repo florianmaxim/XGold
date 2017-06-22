@@ -89,8 +89,6 @@ export default class Block extends React.Component{
     // BLOCK: JUST FOLLOW THE BLOCKCHAIN
     /////////////////////////////////////////
 
-    alert('BLOCK: Just follow the chain!')
-
     if(_ON){
 
       //get the latest block
