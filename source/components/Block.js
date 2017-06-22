@@ -47,7 +47,7 @@ export default class Block extends React.Component{
     this.state = {
 
       block:{
-        // number: 3912024
+
       },
 
       mode: 0, // DEFAULT.modes[this]
@@ -67,7 +67,23 @@ export default class Block extends React.Component{
        this.refs.gold.appendChild(_GOLD.init());
 
 
-    if(this.props.params.id!==undefined){
+    // if(!_ON) return;
+
+
+    if(this.state.block.number!==undefined){
+
+    /////////////////////////////////////////
+    // BLOCK: DEV SPECIFIC
+    /////////////////////////////////////////
+
+      let blockNumber = this.state.block.number;
+
+      console.log('BLOCK: Specific #'+blockNumber);
+
+      this.getBlock(blockNumber);
+
+
+    }else if(this.props.params.id!==undefined){
 
     /////////////////////////////////////////
     // BLOCK: SPECIFIC
@@ -226,7 +242,7 @@ export default class Block extends React.Component{
     switch(mode){
       case 'buy':
         return(
-          <div className="block-buy" >
+          <div className="block-buy">
 
            <div className="block-buy-container-price">
 
@@ -234,25 +250,22 @@ export default class Block extends React.Component{
              <div className="block-buy-heading" onClick={()=>{this.buy(event)}}>
               {this.state.block.number}
              </div>
-
              <div className="block-buy-subheading" onClick={()=>{this.buy(event)}}>
               {this.state.block.hash}
              </div>
             </div>
 
-             <div className="block-buy-price" onClick={()=>{this.buy(event)}}>
-              ${this.state.block.dollar.toFixed(2)}<br/>
+            <div className="block-buy-price" onClick={()=>{this.buy(event)}}>
 
-              <p style={{fontWeight:'200', marginTop: '1px'}}>Price varies with currency exchange rates and may be different tomorrow.</p>
+             ${this.state.block.dollar.toFixed(2)}<br/>
 
-             </div>
-
-             <div className="block-buy-text" onClick={()=>{this.buy(event)}}>
-             </div>
+             <p style={{fontWeight:'200', marginTop: '1px'}}>Price varies with currency exchange rates and may be different tomorrow.</p>
 
              <div className="block-button" onClick={()=>{this.buy(event)}}>
                BUY
              </div>
+
+            </div>
 
            </div>
 

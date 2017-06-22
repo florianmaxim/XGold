@@ -1,79 +1,32 @@
 @import "_Block_IPhone";
 @import "_BlockBuy";
+@import "_Frame";
 
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
 @import url('https://fonts.googleapis.com/css?family=Lato:400,300,400,500,600,700');
 
-// helpers
+
+/* --------------- HELPERS ------------- */
 
 $help_border: 0px;
 $position: auto;
 
-
-
-/* The Gold (web__gl container) */
-.block-gold{
-
-  // border:0px solid red;
-
-  z-index: 0;
-
-  position: fixed;
-  left: 0;
-  top:0;
-
-  width: 100vw;
-  height: 100vh;
-}
-
-/* The Frame  */
-.block-frame{
-
-  z-index: 1;
-
-  position: fixed;
-  left: 0;
-  top:0;
-
-  width: 100vw;
-  height: 100%;
-
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-
-  border:0px solid gold;
-}
-
-.block-info{
-  color: black;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 2em;
-  width: 50vw;
-  height: 50vw;
-
-  overflow: hidden;
-  word-wrap: break-word;
-
-}
-
-/* --------------- CONTAINER ------------- */
+/* --------------- MAIN ------------- */
 
 .block{
 
    width: 100vw;
   height: 100vh;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
   user-select:none;
 
-}
-
-@media(orientation:landscape){
-  .block-logo{
-  align-self: flex-start;
-  }
 }
 
 .block-gold{
@@ -83,7 +36,7 @@ $position: auto;
   top:0;
 }
 
-/* --------------       DISPLAY     ------------- */
+/* --------------- CONTAINER ------------- */
 
 .block-display{
   z-index: 1;
@@ -95,7 +48,7 @@ $position: auto;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   flex-direction: column;
 
   box-sizing: border-box;
@@ -105,141 +58,7 @@ $position: auto;
   border:0px solid gold;
 }
 
-
-/* -------------- DISPLAY FRAME ----------------- */
-
-$duration_total: 20s;
-
-$duration: 5s;
-$border: 5px;
-$count: 1;
-$fill: forwards;
-
-.frame-left{
-  position: fixed;
-  top:0;
-  left:0;
-  width:$border;
-  height:100vh;
-  background-color: gold;
-
-  margin-top:100vh;
-}
-
-.frame-left-animation{
-  animation-name: frame-left;
-  animation-duration: $duration;
-  animation-timing-function: linear;
-  animation-iteration-count: $count;
-  animation-fill-mode: forwards;
-}
-
-@keyframes frame-left {
-    from {
-      margin-top:100vh;
-    }
-    to {
-      margin-top:0;
-    }
-}
-
-
-.frame-top{
-  position: fixed;
-
-  top:0;
-  left:0;
-
-  width:100vw;
-  height:$border;
-  background-color: gold;
-
-  margin-left:-100vw;
-}
-
-.frame-top-animation{
-  animation-name: frame-top;
-  animation-duration: $duration;
-  animation-delay: $duration;
-  animation-iteration-count: $count;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-}
-
-@keyframes frame-top {
-    from {
-      margin-left:-100vw;
-    }
-    to {
-      margin-left:0;
-    }
-}
-
-.frame-right{
-  position: fixed;
-
-  bottom:0;
-  right:0;
-
-  width:$border;
-  height:100vh;
-  background-color: gold;
-
-  margin-bottom:100vh;
-}
-
-.frame-right-animation{
-  animation-name: frame-right;
-  animation-duration: $duration;
-  animation-delay: $duration*2;
-  animation-iteration-count: $count;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-}
-
-@keyframes frame-right {
-    from {
-      margin-bottom:100vh;
-    }
-    to {
-      margin-bottom:0;
-    }
-}
-
-
-.frame-bottom{
-  position: fixed;
-
-  bottom:0;
-  right:0;
-
-  width:100vw;
-  height:$border;
-  background-color: gold;
-
-  margin-right:-100vw;
-}
-
-.frame-bottom-animation{
-  animation-name: frame-bottom;
-  animation-duration: $duration;
-  animation-delay: $duration*3;
-  animation-iteration-count: $count;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-}
-
-@keyframes frame-bottom {
-    from {
-      margin-right:-100vw;
-    }
-    to {
-      margin-right:0;
-    }
-}
-
-
-/* -------------- DISPLAY SECTIONS -------------- */
+/* --------------- CONTAINER SECTIONS ---- */
 
 .block-top{
   border: $help_border solid red;
@@ -254,13 +73,15 @@ $fill: forwards;
   border: $help_border solid green;
 
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   flex-direction: column;
 }
 
 .block-bottom{
-  border: $help_border solid blue;
+  border: 0px solid blue;
+
+  width:100vw;
 
   display: flex;
   align-items: flex-end;
@@ -268,7 +89,7 @@ $fill: forwards;
   flex-direction: column;
 }
 
-/* -------------- MODULES -------------- */
+/* -------------- MODULES ---------------- */
 
 .block-input{
   border:$help_border solid pink;
@@ -294,20 +115,20 @@ $fill: forwards;
 .block-logo{
   border:$help_border solid pink;
 
-  width: 100%;
-  height:100px;
+  width: 100%;;
+  height: 100px;
 
   display:flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   flex-direction: column;
 
 }
 
-@media(orientation: landscape){
-  .block-logo{
-    justify-content: flex-end;
+@media(orientation:landscape){
+ .block-logo{
     align-items: flex-end;
+    justify-content: flex-end;
   }
 }
 

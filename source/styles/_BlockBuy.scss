@@ -1,4 +1,5 @@
 .block-buy{
+
   position: relative;
 
   border:0px solid red;
@@ -8,10 +9,30 @@
   -webkit-box-sizing: border-box;
 
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: space-between;
 
   width: 85vw;
+  min-height:70vh;
+}
+
+@media(orientation: landscape){
+  .block-buy{
+    position: absolute;
+
+    left: 15vh;
+    top: 10vh;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    width: 50vw;
+
+    min-height:100vh;
+
+    border:5px solid transparent;
+  }
 }
 
 @media(orientation: landscape) and (min-width: 1000px){
@@ -22,7 +43,7 @@
     top: 15vh;
 
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-end;
 
     width: 90vw;
@@ -31,8 +52,6 @@
 
 .block-buy-container-price{
   position: relative;
-  width: 50%;
-  height: 80%;
 
   font-family: Lato;
   color: gold;
@@ -42,7 +61,7 @@
 
   display: flex;
   align-items: stretch;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 @media(orientation: portrait){

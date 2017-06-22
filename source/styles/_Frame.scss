@@ -1,0 +1,131 @@
+/* -------------- DISPLAY FRAME ----------------- */
+
+$duration_total: 20s;
+
+$duration: 5s;
+$border: 5px;
+$count: 1;
+$fill: forwards;
+
+.frame-left{
+  position: fixed;
+  top:0;
+  left:0;
+  width:$border;
+  height:100vh;
+  background-color: gold;
+
+  margin-top:100vh;
+}
+
+.frame-left-animation{
+  animation-name: frame-left;
+  animation-duration: $duration;
+  animation-timing-function: linear;
+  animation-iteration-count: $count;
+  animation-fill-mode: forwards;
+}
+
+@keyframes frame-left {
+    from {
+      margin-top:100vh;
+    }
+    to {
+      margin-top:0;
+    }
+}
+
+
+.frame-top{
+  position: fixed;
+
+  top:0;
+  left:0;
+
+  width:100vw;
+  height:$border;
+  background-color: gold;
+
+  margin-left:-100vw;
+}
+
+.frame-top-animation{
+  animation-name: frame-top;
+  animation-duration: $duration;
+  animation-delay: $duration;
+  animation-iteration-count: $count;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes frame-top {
+    from {
+      margin-left:-100vw;
+    }
+    to {
+      margin-left:0;
+    }
+}
+
+.frame-right{
+  position: fixed;
+
+  bottom:0;
+  right:0;
+
+  width:$border;
+  height:100vh;
+  background-color: gold;
+
+  margin-bottom:100vh;
+}
+
+.frame-right-animation{
+  animation-name: frame-right;
+  animation-duration: $duration;
+  animation-delay: $duration*2;
+  animation-iteration-count: $count;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes frame-right {
+    from {
+      margin-bottom:100vh;
+    }
+    to {
+      margin-bottom:0;
+    }
+}
+
+
+.frame-bottom{
+  position: fixed;
+
+  bottom:0;
+  right:0;
+
+  width:100vw;
+  height:$border;
+  background-color: gold;
+
+  margin-right:-100vw;
+}
+
+.frame-bottom-animation{
+  animation-name: frame-bottom;
+  animation-duration: $duration;
+  animation-delay: $duration*3;
+  animation-iteration-count: $count;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes frame-bottom {
+    from {
+      margin-right:-100vw;
+    }
+    to {
+      margin-right:0;
+    }
+}
