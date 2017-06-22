@@ -125,6 +125,8 @@ export default class Gold{
       if(!scene.getObjectByName('camera')) return;
       if(!scene.getObjectByName('gold')) return;
 
+      let object = scene.getObjectByName('gold');
+
       if(isMobile.any())
       {
         //LANDSCAPE
