@@ -13,7 +13,7 @@ import Chain        from './Chain';
 const _USD = 320.83;
 
 /* little dev helper */
-const _ON     = true
+const _ON     = false;
 const _LIGHT  = false;
 const _BORDER = true;
 
@@ -21,7 +21,7 @@ const DEFAULT = {
 
   line: 'Ex.gold',
   input: ':number',
-  goldrush: 15000, //timeout to load next block
+  goldrush: 30000, //timeout to load next block
 
   title: [
     'Tar.gold',
@@ -30,7 +30,7 @@ const DEFAULT = {
     '79.money'
   ],
 
-  modes: ['logo','buy','none','about'],
+  modes: ['start','buy','none','chain','logo'],
 
   keys: [1,2,3,4,5,6,7,8,9]
 
@@ -51,7 +51,11 @@ export default class Block extends React.Component{
       },
 
       mode: 0, // DEFAULT.modes[this]
-      animation: 0
+      animation: 0,
+
+      counter: DEFAULT.goldrush/1000, //in s
+
+      _loaded: false
 
     }
   }
@@ -99,27 +103,52 @@ export default class Block extends React.Component{
     // BLOCK: JUST FOLLOW THE BLOCKCHAIN
     /////////////////////////////////////////
 
-    console.log('BLOCK: Just follow the blockchain.');
 
-      //get the latest block
-      let url = 'https://etherchain.org/api/blocks/count';
-      fetch(url, _GOLD).then(res => res.json()).then((out) => {
 
-        let lastBlock = out.data[0].count;
+    //counter seconds
+    setInterval(()=>{
+      this.setState({
+        counter: this.state.counter<DEFAULT.goldrush/1000?this.state.counter+1:0,
+      })
 
+      //once in a lifetime be loaded
+      if(this.state.counter===DEFAULT.goldrush/1000-1&&!this.state._loaded){
         this.setState({
-            animation: 100
+          _loaded: true,
         })
+      }
 
-        //get the new one
-        this.getBlock(lastBlock);
+      this.forceUpdate();
+    }, 1000)  //every second
 
-      });
+    //handle frame animation
+
+    this.setState({
+      animation: 100
+    })
+
+    // console.log('BLOCK: Just follow the blockchain.');
+    //
+    //   //get the latest block
+    //   let url = 'https://etherchain.org/api/blocks/count';
+    //   fetch(url, _GOLD).then(res => res.json()).then((out) => {
+    //
+    //     let lastBlock = out.data[0].count;
+    //
+    //     this.setState({
+    //         animation: 100
+    //     })
+    //
+    //     //get the new one
+    //     this.getBlock(lastBlock);
+    //
+    //   });
 
       setInterval(()=>{
 
         this.setState({
-          animation: this.state.animation===100?0:100
+          animation: this.state.animation===100?0:100,
+          counter:0
         })
 
         //get the latest block
@@ -171,8 +200,6 @@ export default class Block extends React.Component{
         this.setState({
 
           block: block,
-
-          mode: 1,
 
         });
 
@@ -234,6 +261,13 @@ export default class Block extends React.Component{
 
   buy(event) {
     this.setState({sold: this.state.sold?false:true});
+  }
+
+  start(event) {
+    this.setState({
+      mode: 1
+    });
+    this.forceUpdate();
   }
 
   display(mode){
@@ -304,13 +338,42 @@ export default class Block extends React.Component{
         );
       break;
 
-      case 'logo':
+      case 'start':
        return(
-        <div>
-          <div className="block-line">
-           TARGOLD.
+         <div className="block-buy">
+
+          <div className="block-buy-container-price">
+
+           <div>
+            <div className="block-buy-heading" onClick={()=>{this.buy(event)}}>
+            </div>
+            <div className="block-button" onClick={()=>{this.start(event)}}>
+              Connected to the blockchain.
+            </div>
+           </div>
+
+           <div className="block-buy-price" onClick={()=>{this.buy(event)}} style={{zIndex:'10'}}>
+
+            <p style={{fontWeight:'200', marginTop: '1px'}}></p>
+
+            {
+              this.state._loaded
+              ?
+              <div className='block-button' onClick={()=>{this.start()}} style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)', backgroundColor: 'black'}}>
+                Start
+              </div>
+              :
+              <div className='block-button block-button-sold' style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)', backgroundColor: 'black'}}>
+                Extraction will available in {DEFAULT.goldrush/1000-this.state.counter}s
+              </div>
+            }
+
+
+           </div>
+
           </div>
-        </div>
+
+         </div>
       );
       break;
 
@@ -333,6 +396,14 @@ export default class Block extends React.Component{
        return(
         <div className="block-about">
         What is the ideal state of money?
+        </div>
+      );
+      break;
+
+      case 'logo':
+       return(
+        <div className="block-about">
+          <Logo/>
         </div>
       );
       break;

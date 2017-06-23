@@ -3,6 +3,8 @@
   position: absolute;
   top:0;
 
+  margin-top: 15vh;
+
   // TODO GEIL!
   border: 0px solid red;
 
@@ -10,12 +12,12 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
 
-  min-height: 100%;
+  min-height: 80%;
 
   width: 85vw;
 
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 .chain-animation-container {

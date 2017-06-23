@@ -84,9 +84,11 @@ $position: auto;
   width:100vw;
 
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
   flex-direction: column;
+
+  flex-direction: row;
 }
 
 /* -------------- MODULES ---------------- */
@@ -185,7 +187,7 @@ $position: auto;
 
   width: 100%;
 
-  position: absolute;
+  position: relative;
 
   bottom: 0;
 
@@ -196,7 +198,7 @@ $position: auto;
   -webkit-box-sizing: border-box;
 
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 
 

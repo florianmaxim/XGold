@@ -3,7 +3,9 @@ import React, {Component} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 let state = {
-      blocks: []
+      blocks: [
+        '#${block.number} - (${block.timestamp}) : ${block.hash}'
+      ]
     };
 
 export default class Chain extends Component{
@@ -99,7 +101,7 @@ export default class Chain extends Component{
 
           {
             this.state.blocks.map((key, index)=>{
-              return <div key={key} className="block-button block-button-fixed-width"><div style={{margin:'7px'}}>{key}</div></div>
+              return <div key={key} className="block-button block-button-fixed-width" style={{marginBottom:'10px'}}><div style={{margin:'7px'}}>{key}</div></div>
             })
           }
 
