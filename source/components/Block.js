@@ -13,7 +13,7 @@ import Chain        from './Chain';
 const _USD = 320.83;
 
 /* little dev helper */
-const _ON     = true;
+const _ON     = true
 const _LIGHT  = false;
 const _BORDER = true;
 
@@ -21,7 +21,7 @@ const DEFAULT = {
 
   line: 'Ex.gold',
   input: ':number',
-  goldrush: 20000, //timeout to load next block
+  goldrush: 15000, //timeout to load next block
 
   title: [
     'Tar.gold',
@@ -51,7 +51,7 @@ export default class Block extends React.Component{
       },
 
       mode: 0, // DEFAULT.modes[this]
-      animation: true
+      animation: 0
 
     }
   }
@@ -60,14 +60,12 @@ export default class Block extends React.Component{
 
   componentDidMount(){
 
-    //iphone buggyfill
+    //init iphone buggyfill
+
     require('viewport-units-buggyfill').init();
 
-    //attach the gold canvas
-       this.refs.gold.appendChild(_GOLD.init());
-
-
-    // if(!_ON) return;
+    //init gold canvas
+    this.refs.gold.appendChild(_GOLD.init());
 
 
     if(this.state.block.number!==undefined){
@@ -103,25 +101,26 @@ export default class Block extends React.Component{
 
     console.log('BLOCK: Just follow the blockchain.');
 
-      //remove old gold
-      // _GOLD.removeGold();
-
       //get the latest block
       let url = 'https://etherchain.org/api/blocks/count';
       fetch(url, _GOLD).then(res => res.json()).then((out) => {
 
         let lastBlock = out.data[0].count;
 
+        this.setState({
+            animation: 100
+        })
+
         //get the new one
-        if(_ON) this.getBlock(lastBlock);
+        this.getBlock(lastBlock);
 
       });
 
-
       setInterval(()=>{
 
-        //remove old gold
-        if(_ON) _GOLD.removeGold();
+        this.setState({
+          animation: this.state.animation===100?0:100
+        })
 
         //get the latest block
         let url = 'https://etherchain.org/api/blocks/count';
@@ -130,7 +129,9 @@ export default class Block extends React.Component{
           let lastBlock = out.data[0].count;
 
           //get the new one
-          if(_ON) this.getBlock(lastBlock);
+          this.getBlock(lastBlock);
+
+          //set back the animation
 
         });
 
@@ -166,6 +167,7 @@ export default class Block extends React.Component{
 
         block.transactions = out.data;
 
+
         this.setState({
 
           block: block,
@@ -174,10 +176,9 @@ export default class Block extends React.Component{
 
         });
 
-        if(_ON)
-        _GOLD.gold(block, _LIGHT);
+        if(_ON) _GOLD.gold(block, _LIGHT);
 
-        history.pushState(null, null, '/block/'+block.number);
+        if(_ON) history.pushState(null, null, '/block/'+block.number);
 
       });
 
@@ -357,10 +358,10 @@ export default class Block extends React.Component{
 
           <div className="block-display">
 
-            <div className={this.state.animation?'frame-left frame-left-animation':'frame-left'}/>
-            <div className={this.state.animation?'frame-top frame-top-animation':'frame-top'}/>
-            <div className={this.state.animation?'frame-right frame-right-animation':'frame-right'}/>
-            <div className={this.state.animation?'frame-bottom frame-bottom-animation':'frame-bottm'}/>
+            <div className='frame-left' style={{marginTop: 100-this.state.animation+'vh', transition:     ((DEFAULT.goldrush/1000)/4)+'s all linear', transitionDelay: ((DEFAULT.goldrush/1000)/4)*0+'s'}}/>
+            <div className='frame-top' style={{marginLeft: -100+this.state.animation+'vw', transition:     ((DEFAULT.goldrush/1000)/4)+'s all linear', transitionDelay: ((DEFAULT.goldrush/1000)/4)*1+'s'}}/>
+            <div className='frame-right' style={{marginBottom: 100-this.state.animation+'vh', transition: ((DEFAULT.goldrush/1000)/4)+'s all linear', transitionDelay: ((DEFAULT.goldrush/1000)/4)*2+'s'}}/>
+            <div className='frame-bottom' style={{marginRight: -100+this.state.animation+'vw', transition: ((DEFAULT.goldrush/1000)/4)+'s all linear', transitionDelay: ((DEFAULT.goldrush/1000)/4)*3+'s'}}/>
 
             <div className="block-top">
 
@@ -384,3 +385,9 @@ export default class Block extends React.Component{
     );
   }
 }
+
+// TODO OLD FRAME
+// <div className={this.state.animation?'frame-left frame-left-animation':'frame-left'}/>
+// <div className={this.state.animation?'frame-top frame-top-animation':'frame-top'}/>
+// <div className={this.state.animation?'frame-right frame-right-animation':'frame-right'}/>
+// <div className={this.state.animation?'frame-bottom frame-bottom-animation':'frame-bottm'}/>
