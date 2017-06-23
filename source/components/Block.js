@@ -1,14 +1,12 @@
-var request = require('sync-request');
-
 import React       from 'react';
 
+import request     from 'sync-request';
+
 import Logo        from './Logo';
-import Loader      from './Loader';
-
-import EthereumApi from './EthereumApi';
 import Gold        from './Gold';
-
 import Chain        from './Chain';
+
+const _GOLD     = new Gold();
 
 const _USD = 320.83;
 
@@ -21,7 +19,7 @@ const DEFAULT = {
 
   line: 'Ex.gold',
   input: ':number',
-  goldrush: 30000, //timeout to load next block
+  goldrush: 30000, //ms timeout to load the next block (MINIMUM on etherchain API is 30s!)
 
   title: [
     'Tar.gold',
@@ -30,14 +28,11 @@ const DEFAULT = {
     '79.money'
   ],
 
-  modes: ['start','buy','none','chain','logo'],
+  modes: ['start','buy','chain','none'],
 
   keys: [1,2,3,4,5,6,7,8,9]
 
 }
-
-const _GOLD     = new Gold();
-const _ETHEREUM = new EthereumApi();
 
 export default class Block extends React.Component{
 
@@ -47,15 +42,19 @@ export default class Block extends React.Component{
     this.state = {
 
       block:{
-
+        number: 1234567890,
+        hash: 0x123456789,
+        dollar: 123456789
       },
 
       mode: 0, // DEFAULT.modes[this]
+
       animation: 0,
 
-      counter: DEFAULT.goldrush/1000, //in s
+      countdown: DEFAULT.goldrush/1000, //in s
 
-      _loaded: false
+      _loaded: false,
+      _started: false
 
     }
   }
@@ -72,20 +71,7 @@ export default class Block extends React.Component{
     this.refs.gold.appendChild(_GOLD.init());
 
 
-    if(this.state.block.number!==undefined){
-
-    /////////////////////////////////////////
-    // BLOCK: DEV SPECIFIC
-    /////////////////////////////////////////
-
-      let blockNumber = this.state.block.number;
-
-      console.log('BLOCK: Specific #'+blockNumber);
-
-      this.getBlock(blockNumber);
-
-
-    }else if(this.props.params.id!==undefined){
+    if(this.props.params.id!==undefined){
 
     /////////////////////////////////////////
     // BLOCK: SPECIFIC
@@ -100,26 +86,20 @@ export default class Block extends React.Component{
     }else{
 
     /////////////////////////////////////////
-    // BLOCK: JUST FOLLOW THE BLOCKCHAIN
+    // BLOCK: JUST FOLLOW THE CHAIN.
     /////////////////////////////////////////
 
-
-
-    //counter seconds
+    //handle countdown
     setInterval(()=>{
+
       this.setState({
-        counter: this.state.counter<DEFAULT.goldrush/1000?this.state.counter+1:0,
+        countdown: this.state.countdown>0?this.state.countdown-1:DEFAULT.goldrush/1000,
+          _loaded: this.state._loaded===false&&this.state.countdown===0?true:this.state._loaded
       })
 
-      //once in a lifetime be loaded
-      if(this.state.counter===DEFAULT.goldrush/1000-1&&!this.state._loaded){
-        this.setState({
-          _loaded: true,
-        })
-      }
+      console.log(this.state.countdown)
 
-      this.forceUpdate();
-    }, 1000)  //every second
+    }, 1000)
 
     //handle frame animation
 
@@ -127,28 +107,10 @@ export default class Block extends React.Component{
       animation: 100
     })
 
-    // console.log('BLOCK: Just follow the blockchain.');
-    //
-    //   //get the latest block
-    //   let url = 'https://etherchain.org/api/blocks/count';
-    //   fetch(url, _GOLD).then(res => res.json()).then((out) => {
-    //
-    //     let lastBlock = out.data[0].count;
-    //
-    //     this.setState({
-    //         animation: 100
-    //     })
-    //
-    //     //get the new one
-    //     this.getBlock(lastBlock);
-    //
-    //   });
-
       setInterval(()=>{
 
         this.setState({
           animation: this.state.animation===100?0:100,
-          counter:0
         })
 
         //get the latest block
@@ -157,10 +119,7 @@ export default class Block extends React.Component{
 
           let lastBlock = out.data[0].count;
 
-          //get the new one
           this.getBlock(lastBlock);
-
-          //set back the animation
 
         });
 
@@ -212,6 +171,7 @@ export default class Block extends React.Component{
     });
   }
 
+
   handleNumpad(event){
 
     event.stopPropagation();
@@ -242,37 +202,17 @@ export default class Block extends React.Component{
     })
   }
 
-  handleGold(event){
-
-    event.stopPropagation();
-    event.preventDefault();
-
-    this.setState({
-      //send current inout to gold
-      gold: this.state.input,
-      //toggle numpad
-      // numpad:this.state.numpad?false:true
-    })
-  }
-
-  onChange(event) {
+  handleOnChange(event) {
     this.setState({input: event.target.value});
   }
 
-  buy(event) {
-    this.setState({sold: this.state.sold?false:true});
-  }
 
-  start(event) {
-    this.setState({
-      mode: 1
-    });
-    this.forceUpdate();
-  }
+  toggleDisplay(){
+   this.setState({
+     mode: this.state.mode<DEFAULT.modes.length-1?(this.state.mode+1):0
+   })}
 
-  display(mode){
-
-    console.log(`DISPLAY: Switch to mode '${mode}'`);
+  handleDisplay(mode){
 
     switch(mode){
       case 'buy':
@@ -296,6 +236,8 @@ export default class Block extends React.Component{
 
              <p style={{fontWeight:'200', marginTop: '1px'}}>Price varies with currency exchange rates and may be different tomorrow.</p>
 
+             <p style={{fontWeight:'200', marginTop: '5px'}}> Next gold will be available in {this.state.countdown}s</p>
+
              <div className="block-button" onClick={()=>{this.buy(event)}}>
                BUY
              </div>
@@ -308,7 +250,6 @@ export default class Block extends React.Component{
         );
       break;
 
-      //numpad
       case 'input':
         return(
           <div className="numpad">
@@ -317,7 +258,7 @@ export default class Block extends React.Component{
                      className="numpad-input"
                      value={this.state.input}
                      placeholder={this.state.input}
-                     onChange={this.onChange.bind(this)}
+                     handleOnChange={this.handleOnChange.bind(this)}
                      />
             </form>
             <div className="numpad-row">
@@ -342,32 +283,85 @@ export default class Block extends React.Component{
        return(
          <div className="block-buy">
 
-          <div className="block-buy-container-price">
+         {this.state._loaded&&this.state._started?
 
-           <div>
-            <div className="block-buy-heading" onClick={()=>{this.buy(event)}}>
-            </div>
-            <div className="block-button" onClick={()=>{this.start(event)}}>
-              Connected to the blockchain.
-            </div>
+         <div className="block-buy-container-price">
+
+
+           <div className="block-buy-heading" onClick={()=>{this.buy(event)}}>
+             TARGOLD.
            </div>
 
-           <div className="block-buy-price" onClick={()=>{this.buy(event)}} style={{zIndex:'10'}}>
 
-            <p style={{fontWeight:'200', marginTop: '1px'}}></p>
+          <div className="block-buy-price" onClick={()=>{this.buy(event)}} style={{zIndex:'10'}}>
 
-            {
-              this.state._loaded
-              ?
-              <div className='block-button' onClick={()=>{this.start()}} style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)', backgroundColor: 'black'}}>
-                Start
-              </div>
-              :
-              <div className='block-button block-button-sold' style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)', backgroundColor: 'black'}}>
-                Extraction will available in {DEFAULT.goldrush/1000-this.state.counter}s
-              </div>
-            }
+           <p style={{fontWeight:'200', marginTop: '1px'}}>What is the ideal state of money?</p>
 
+             <div className='block-button' style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)', backgroundColor: 'black'}}>
+               READ THE GOLDEN PAPER
+             </div>
+
+          </div>
+
+         </div>
+
+        :
+
+         <div className="block-buy-container-price">
+
+          <div>
+           <div className="block-buy-heading" onClick={()=>{this.buy(event)}}>
+           </div>
+           <div className="block-button" onClick={()=>{this.start(event)}}>
+             Connected to the blockchain.
+           </div>
+          </div>
+
+          <div className="block-buy-price" onClick={()=>{this.buy(event)}} style={{zIndex:'10'}}>
+
+           <p style={{fontWeight:'200', marginTop: '1px'}}></p>
+
+           {
+             this.state._loaded
+             ?
+             <div className='block-button' onClick={()=>{this.start()}} style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)', backgroundColor: 'black'}}>
+               Start
+             </div>
+             :
+             <div className='block-button block-button-sold' style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)'}}>
+               Gold will be available in {this.state.countdown}s
+             </div>
+           }
+
+
+          </div>
+
+        </div>
+
+        }
+
+        </div>
+      );
+      break;
+
+      case 'chain':
+       return(
+         <div className="block-buy">
+
+          <div className="block-buy-container-price" style={{border: '0px solid red'}}>
+
+           <div style={{width:'100%'}}>
+            <Chain/>
+           </div>
+
+           <div className="block-buy-price" style={{display:'flex',flexDirection:'row'}}>
+
+            <div className="block-button" style={{backgroundColor:'gold',color:'black'}} onClick={()=>{this.buy(event)}}>
+              available
+            </div>
+            <div className="block-button" onClick={()=>{this.buy(event)}}>
+              sold
+            </div>
 
            </div>
 
@@ -377,48 +371,28 @@ export default class Block extends React.Component{
       );
       break;
 
-      case 'chain':
-       return(
-        <div className="block-chain">
-          <Chain/>
-        </div>
-      );
-      break;
-
       case 'none':
        return(
         <div>
         </div>
       );
       break;
-
-      case 'about':
-       return(
-        <div className="block-about">
-        What is the ideal state of money?
-        </div>
-      );
-      break;
-
-      case 'logo':
-       return(
-        <div className="block-about">
-          <Logo/>
-        </div>
-      );
-      break;
     }
   }
 
-  toggleDisplay(){
-    this.setState({
-      mode: this.state.mode<DEFAULT.modes.length-1?(this.state.mode+1):0
-    })
 
-    //console.log('MODE:'+this.state.mode);
-    //console.log('LENGTH:'+DEFAULT.modes.length);
-
+  buy(event) {
+    this.setState({sold: this.state.sold?false:true});
   }
+
+  start(event) {
+    this.setState({
+      _started: true,
+      mode: 1,
+    });
+    this.forceUpdate();
+  }
+
 
   render(){
 
@@ -440,12 +414,12 @@ export default class Block extends React.Component{
 
             <div className="block-middle">
 
-              {this.display(DEFAULT.modes[this.state.mode])}
+              {this.handleDisplay(DEFAULT.modes[this.state.mode])}
 
             </div>
 
             <div className="block-bottom">
-              <div className="block-logo" onClick={()=>{this.toggleDisplay(event)}}>
+              <div className="block-nav" onClick={this.state._started?()=>{this.toggleDisplay(event)}:''}>
                 <Logo/>
               </div>
             </div>
@@ -456,9 +430,3 @@ export default class Block extends React.Component{
     );
   }
 }
-
-// TODO OLD FRAME
-// <div className={this.state.animation?'frame-left frame-left-animation':'frame-left'}/>
-// <div className={this.state.animation?'frame-top frame-top-animation':'frame-top'}/>
-// <div className={this.state.animation?'frame-right frame-right-animation':'frame-right'}/>
-// <div className={this.state.animation?'frame-bottom frame-bottom-animation':'frame-bottm'}/>

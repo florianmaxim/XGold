@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+const DEFAULT = {
+  offset: 5
+}
+
 let state = {
       blocks: [
         '#${block.number} - (${block.timestamp}) : ${block.hash}'
@@ -35,9 +39,6 @@ export default class Chain extends Component{
 
     this._mounted = true;
 
-
-    addEventListener('load', (event)=>{
-
       var Web3 = require('web3');
 
       var web3 = new Web3();
@@ -49,7 +50,7 @@ export default class Chain extends Component{
       filter.watch((error, result)=>{
         if (!error)
 
-          // console.log(JSON.stringify(result));
+          console.log(JSON.stringify(result));
 
           var block = web3.eth.getBlock(result);
 
@@ -81,13 +82,11 @@ export default class Chain extends Component{
 
             //if not mouted store it
 
-             state.blocks.unshift(`#${block.number} - (${block.timestamp}) : ${block.hash}`);
+             state.blocks.push(`#${block.number} - (${block.timestamp}) : ${block.hash}`);
 
           }
 
       });
-
-    });
 
   }
 
@@ -100,7 +99,7 @@ export default class Chain extends Component{
           transitionLeaveTimeout={300}>
 
           {
-            this.state.blocks.map((key, index)=>{
+            this.state.blocks.slice(0, DEFAULT.offset).map((key, index)=>{
               return <div key={key} className="block-button block-button-fixed-width" style={{marginBottom:'10px'}}><div style={{margin:'7px'}}>{key}</div></div>
             })
           }

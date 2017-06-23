@@ -1,9 +1,11 @@
 .chain-container {
 
-  position: absolute;
+  position: relative;
   top:0;
 
-  margin-top: 15vh;
+  min-height: 80%;
+
+  width: 100%;
 
   // TODO GEIL!
   border: 0px solid red;
@@ -11,10 +13,6 @@
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-
-  min-height: 80%;
-
-  width: 85vw;
 
   display: flex;
   align-items: flex-start;

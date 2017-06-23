@@ -20,25 +20,6 @@
   .block-buy{
     position: absolute;
 
-    left: 15vh;
-    top: 10vh;
-
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-
-    width: 50vw;
-
-    min-height:100vh;
-
-    border:5px solid transparent;
-  }
-}
-
-@media(orientation: landscape) and (min-width: 1000px){
-  .block-buy{
-    position: absolute;
-
     // set back from previous view!
     left: auto;
     right: 10vh;
@@ -76,19 +57,8 @@
 }
 
 @media(orientation: landscape){
-  .block-buy-text{
-    display: none;
-  }
-}
-
-@media(orientation: landscape) and (min-width: 1000px){
   .block-buy-container-price{
-    min-width: 200px;
-    max-width: 300px;
-  }
-
-  .block-buy-text{
-    display: flex;
+    width: 300px;
   }
 }
 
