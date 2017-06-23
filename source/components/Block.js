@@ -13,7 +13,7 @@ import Chain        from './Chain';
 const _USD = 320.83;
 
 /* little dev helper */
-const _ON     = false;
+const _ON     = true;
 const _LIGHT  = false;
 const _BORDER = true;
 
