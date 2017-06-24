@@ -45,6 +45,17 @@ export default class Chain extends Component{
 
           web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
 
+        if(!web3.isConnected()) {
+
+            // show some dialog to ask the user to start a node
+
+         } else {
+
+            // start web3 filters, calls, etc
+            console.log('connected!')
+
+         }
+
       var filter = web3.eth.filter('latest');
 
       filter.watch((error, result)=>{

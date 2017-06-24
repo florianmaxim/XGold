@@ -4,7 +4,11 @@ import request     from 'sync-request';
 
 import Logo        from './Logo';
 import Gold        from './Gold';
-import Chain        from './Chain';
+import Chain       from './Chain';
+
+import Ethereum    from './Ethereum';
+
+const _ETHEREUM = new Ethereum();
 
 const _GOLD     = new Gold();
 
@@ -41,10 +45,14 @@ export default class Block extends React.Component{
 
     this.state = {
 
+      currency: 'USD',
+      exchangeRate: _USD,
+
       block:{
         number: 1234567890,
         hash: 0x123456789,
-        dollar: 123456789
+        price: 1,
+        own:false
       },
 
       mode: 0, // DEFAULT.modes[this]
@@ -68,6 +76,7 @@ export default class Block extends React.Component{
     require('viewport-units-buggyfill').init();
 
     //init gold canvas
+    if(_ON)
     this.refs.gold.appendChild(_GOLD.init());
 
 
@@ -89,88 +98,35 @@ export default class Block extends React.Component{
     // BLOCK: JUST FOLLOW THE CHAIN.
     /////////////////////////////////////////
 
-    //handle countdown
-    setInterval(()=>{
-
-      this.setState({
-        countdown: this.state.countdown>0?this.state.countdown-1:DEFAULT.goldrush/1000,
-          _loaded: this.state._loaded===false&&this.state.countdown===0?true:this.state._loaded
-      })
-
-      console.log(this.state.countdown)
-
-    }, 1000)
-
-    //handle frame animation
-
-    this.setState({
-      animation: 100
-    })
-
+      //handle countdown
       setInterval(()=>{
 
         this.setState({
-          animation: this.state.animation===100?0:100,
+          countdown: this.state.countdown>0?this.state.countdown-1:DEFAULT.goldrush/1000,
+            _loaded: this.state._loaded===false&&this.state.countdown===0?true:this.state._loaded
         })
 
-        //get the latest block
-        let url = 'https://etherchain.org/api/blocks/count';
-        fetch(url, _GOLD).then(res => res.json()).then((out) => {
+      }, 1000)
 
-          let lastBlock = out.data[0].count;
 
-          this.getBlock(lastBlock);
+      if(_ON)
+      _ETHEREUM.watchBlockchain((lastBlock, connectionType)=>{
 
-        });
+        // console.log('('+connectionType+')lastBlock:'+lastBlock.number)
 
-      }, DEFAULT.goldrush);
+        console.log('price:'+lastBlock.price)
+
+        _GOLD.gold(lastBlock, _LIGHT);
+
+         this.setState({ block: lastBlock });
+
+      history.pushState(null, null, '/block/'+lastBlock.number);
+
+      },DEFAULT.goldrush);
 
     }
 
   }
-
-  getBlock(blockNumber){
-
-    console.log('BLOCK: getBlock:'+blockNumber);
-
-    let block = {}
-
-    var url = 'https://etherchain.org/api/block/'+blockNumber;
-
-    fetch(url, _GOLD).then(res => res.json()).then((out) => {
-
-      block.number            = out.data[0].number;
-      block.hash              = out.data[0].hash;
-      block.size              = out.data[0].size;
-      block.transactionAmount = out.data[0].tx_count;
-
-      block.reward            = out.data[0].totalFee;
-
-      block.dollar = (block.reward/1000000000000000000)*_USD;
-
-
-      let url = 'https://etherchain.org/api/block/'+block.number+'/tx';
-
-      fetch(url, _GOLD).then(res => res.json()).then((out) => {
-
-        block.transactions = out.data;
-
-
-        this.setState({
-
-          block: block,
-
-        });
-
-        if(_ON) _GOLD.gold(block, _LIGHT);
-
-        if(_ON) history.pushState(null, null, '/block/'+block.number);
-
-      });
-
-    });
-  }
-
 
   handleNumpad(event){
 
@@ -207,6 +163,21 @@ export default class Block extends React.Component{
   }
 
 
+  buy(event) {
+
+    let _block = this.state.block;
+        _block.own = this.state.block.own?false:true;
+
+
+    this.setState({
+      block: _block,
+
+
+    })
+
+    console.log(this.state.block.own)
+  }
+
   toggleDisplay(){
    this.setState({
      mode: this.state.mode<DEFAULT.modes.length-1?(this.state.mode+1):0
@@ -215,6 +186,79 @@ export default class Block extends React.Component{
   handleDisplay(mode){
 
     switch(mode){
+      case 'start':
+       return(
+         <div className="block-buy">
+
+         {this.state._loaded&&this.state._started?
+
+         <div className="block-buy-container-price">
+
+
+           <div className="block-buy-heading" onClick={()=>{this.buy(event)}}>
+             TARGOLD.
+           </div>
+
+
+          <div className="block-buy-price" onClick={()=>{this.buy(event)}} style={{zIndex:'10'}}>
+
+           <p style={{fontWeight:'200', marginTop: '1px'}}>What is the ideal state of money?</p>
+
+             <div className='block-button' style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)', backgroundColor: 'black'}}>
+               READ THE GOLDEN PAPER
+             </div>
+
+          </div>
+
+         </div>
+
+        :
+
+         <div className="block-buy-container-price">
+
+          <div>
+           <div className="block-buy-heading" onClick={()=>{this.buy(event)}}>
+           </div>
+           <div className="block-button" onClick={()=>{this.start(event)}}>
+             {
+               _ETHEREUM.isConnected()
+               ?
+               <span>Connected to the blockchain</span>
+               :
+               <span>Public api (No purchase possible)</span>
+
+             }
+
+           </div>
+          </div>
+
+          <div className="block-buy-price" onClick={()=>{this.buy(event)}} style={{zIndex:'10'}}>
+
+           <p style={{fontWeight:'200', marginTop: '1px'}}></p>
+
+           {
+             this.state._loaded||_ETHEREUM.isConnected()
+             ?
+             <div className='block-button' onClick={()=>{this.start()}} style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)', backgroundColor: 'black'}}>
+               Start
+             </div>
+             :
+             <div className='block-button block-button-sold' style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)'}}>
+               Gold will be available in {this.state.countdown}s
+             </div>
+           }
+
+
+          </div>
+
+        </div>
+
+        }
+
+        </div>
+      );
+      break;
+
       case 'buy':
         return(
           <div className="block-buy">
@@ -222,25 +266,52 @@ export default class Block extends React.Component{
            <div className="block-buy-container-price">
 
             <div>
-             <div className="block-buy-heading" onClick={()=>{this.buy(event)}}>
+             <div className="block-buy-heading">
               {this.state.block.number}
              </div>
-             <div className="block-buy-subheading" onClick={()=>{this.buy(event)}}>
+             <div className="block-buy-subheading" >
               {this.state.block.hash}
              </div>
             </div>
 
-            <div className="block-buy-price" onClick={()=>{this.buy(event)}}>
+            <div className="block-buy-price">
 
-             ${this.state.block.dollar.toFixed(2)}<br/>
+             {this.state.currency} {((this.state.block.price/100000000000000)*_USD).toFixed(2)} - (BALANCE {((_ETHEREUM.getBalance()/1000000000000000000)).toFixed(2)})<br/>
 
              <p style={{fontWeight:'200', marginTop: '1px'}}>Price varies with currency exchange rates and may be different tomorrow.</p>
 
-             <p style={{fontWeight:'200', marginTop: '5px'}}> Next gold will be available in {this.state.countdown}s</p>
+             <div>
+             {!_ETHEREUM.isConnected()
+               ?
+               <p style={{fontWeight:'200', marginTop: '5px'}}> Next gold will be available in {this.state.countdown}s</p>
+               :
+               ''
+             }
+              </div>
 
-             <div className="block-button" onClick={()=>{this.buy(event)}}>
-               BUY
-             </div>
+             {
+               _ETHEREUM.isConnected()
+               ?
+               <div>
+                 {
+                   this.state.block.own
+                   ?
+                   <div className="block-button block-button-sold">
+                     SOLD
+                   </div>
+                   :
+                   <div className="block-button" onClick={()=>{this.buy(event)}}>
+                     BUY
+                   </div>
+                 }
+               </div>
+               :
+
+               <div className="block-button block-button-sold">
+                 NOT CONNECTED TO BLOCKCHAIN
+               </div>
+
+             }
 
             </div>
 
@@ -277,71 +348,6 @@ export default class Block extends React.Component{
             </div>
           </div>
         );
-      break;
-
-      case 'start':
-       return(
-         <div className="block-buy">
-
-         {this.state._loaded&&this.state._started?
-
-         <div className="block-buy-container-price">
-
-
-           <div className="block-buy-heading" onClick={()=>{this.buy(event)}}>
-             TARGOLD.
-           </div>
-
-
-          <div className="block-buy-price" onClick={()=>{this.buy(event)}} style={{zIndex:'10'}}>
-
-           <p style={{fontWeight:'200', marginTop: '1px'}}>What is the ideal state of money?</p>
-
-             <div className='block-button' style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)', backgroundColor: 'black'}}>
-               READ THE GOLDEN PAPER
-             </div>
-
-          </div>
-
-         </div>
-
-        :
-
-         <div className="block-buy-container-price">
-
-          <div>
-           <div className="block-buy-heading" onClick={()=>{this.buy(event)}}>
-           </div>
-           <div className="block-button" onClick={()=>{this.start(event)}}>
-             Connected to the blockchain.
-           </div>
-          </div>
-
-          <div className="block-buy-price" onClick={()=>{this.buy(event)}} style={{zIndex:'10'}}>
-
-           <p style={{fontWeight:'200', marginTop: '1px'}}></p>
-
-           {
-             this.state._loaded
-             ?
-             <div className='block-button' onClick={()=>{this.start()}} style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)', backgroundColor: 'black'}}>
-               Start
-             </div>
-             :
-             <div className='block-button block-button-sold' style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)'}}>
-               Gold will be available in {this.state.countdown}s
-             </div>
-           }
-
-
-          </div>
-
-        </div>
-
-        }
-
-        </div>
-      );
       break;
 
       case 'chain':
@@ -381,10 +387,6 @@ export default class Block extends React.Component{
   }
 
 
-  buy(event) {
-    this.setState({sold: this.state.sold?false:true});
-  }
-
   start(event) {
     this.setState({
       _started: true,
@@ -392,7 +394,6 @@ export default class Block extends React.Component{
     });
     this.forceUpdate();
   }
-
 
   render(){
 

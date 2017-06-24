@@ -159,8 +159,14 @@ export default class DiamondSquare{
               //one after another
               let tx = this.transactions[counter];
 
-            let fee = tx.price*tx.gasUsed; //fee = gasPrice/gasUsed
+              let fee;
+              
+              if(tx.amount){
+                fee = tx.amount/1000000000000000000;
+              }else{
+                fee = tx.price*tx.gasUsed; //fee = gasPrice/gasUsed
                 fee = fee/1000000000000000000;
+              }
 
                 //console.log('diamond fee: '+fee);
 
