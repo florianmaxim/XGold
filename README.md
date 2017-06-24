@@ -9,6 +9,9 @@ Every Block is a diamond.
 
 
 -24/6/17:
+
+TODO TX Data mus fit into diamondsqaure !!
+
 works with data from remote api (etherchain)
 (meaning purchasing not possible)
 

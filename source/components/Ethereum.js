@@ -135,8 +135,8 @@ export default class Ethereum{
 
                         //TODO ARG! WHAT IS GOING ON HERE?!
 
-                        result.price = thus.web3.toBigNumber(result.v)
-                        result.amount =  result.price.toNumber()
+                        // result.price = thus.web3.toBigNumber(result.v)
+                        result.amount =  result.value.toNumber()
 
                         _transactions.push(result);
 
