@@ -123,7 +123,7 @@ export default class Ethereum{
 
 
   isConnected(){
-    return this.web3.isConnected();
+    return _ON&&this.web3.isConnected()?true:false;
   }
 
   getConnectionType(){
@@ -132,7 +132,7 @@ export default class Ethereum{
 
   getBalance(){
 
-    if(this.isConnected()){
+    if(_ON&&this.isConnected()){
 
       var balance = this.web3.eth.getBalance(this.coinbase);
 
