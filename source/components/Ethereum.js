@@ -1,17 +1,18 @@
 var Web3 = require('web3');
 
+const _ON = false;
+
 export default class Ethereum{
 
   constructor(){
 
+    if(_ON)
     this.web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
 
-    this.peerCount = 0;
-
-    this.connectionTye = null;
+    this.connectionTye = '';
 
 
-      if(this.web3.isConnected()) {
+      if(_ON&&this.web3.isConnected()) {
 
         this.connectionType = 'node';
 
@@ -29,7 +30,7 @@ export default class Ethereum{
   watchBlockchain(callback, interval){
 
     //BLOCKCHAIN
-    if(this.isConnected()){
+    if(_ON&&this.isConnected()){
 
       var filter = this.web3.eth.filter('latest');
 
