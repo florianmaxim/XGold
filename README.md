@@ -4,10 +4,29 @@ Let's extract gold.
 
 Every Block is a diamond.
 
+
+#status
+
+-24/6/17:
+works with data from remote api (etherchain)
+(meaning purchasing not possible)
+
+works with data from metamask
+(data needs to be sorted for diamond square)
+
+works with data from local running node
+(data needs to be sorted for diamond square)
+
+
 ![Gold](stills/1.png)
 
 
 # resources
+metamask
+https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md#dizzy-all-async---think-of-metamask-as-a-light-client
+
+web3.js
+https://github.com/ethereum/web3.js/
 
 #jewelry commercials:
 

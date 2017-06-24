@@ -121,7 +121,7 @@ export default class Ethereum{
 
                 let _transactions = [];
 
-                block.transactions.forEach((txId, index, array) => {
+                block.transactions.forEach((txId) => {
 
                   // console.log(that);
 
@@ -129,7 +129,7 @@ export default class Ethereum{
 
                   that.web3.eth.getTransaction(txId, (error, result) => {
 
-                      console.error(error);
+                      console.log(result);
 
                       if(!error){
                         //TODO ARG! WHAT IS GOING ON HERE?!
@@ -149,7 +149,7 @@ export default class Ethereum{
 
                 block.transactions = _transactions;
 
-                console.log(block.transactions);
+                // console.log(block.transactions);
 
                 callback(block, this.connectionType)
 
