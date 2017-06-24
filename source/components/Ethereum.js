@@ -18,7 +18,7 @@ export default class Ethereum{
 
     } else {
 
-      fetch('http://localhost:8545', {
+      fetch('https://localhost:8545', {
         method: 'get'
       }).then((response) => {
 
