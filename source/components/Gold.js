@@ -255,20 +255,20 @@ export default class Gold{
     geometry.computeFaceNormals();
     geometry.computeVertexNormals();
 
-    var path = "static/textures/cube/";
-    var format = '.jpg';
-    var urls = [
-        path + 'px' + format, path + 'nx' + format,
-        path + 'py' + format, path + 'ny' + format,
-        path + 'pz' + format, path + 'nz' + format
-      ];
-
-    var reflectionCube = new THREE.CubeTextureLoader().load( urls );
-        reflectionCube.format = THREE.RGBFormat;
-
-    var refractionCube = new THREE.CubeTextureLoader().load( urls );
-        refractionCube.mapping = THREE.CubeRefractionMapping;
-        refractionCube.format = THREE.RGBAFormat;
+    // var path = "static/textures/cube/";
+    // var format = '.jpg';
+    // var urls = [
+    //     path + 'px' + format, path + 'nx' + format,
+    //     path + 'py' + format, path + 'ny' + format,
+    //     path + 'pz' + format, path + 'nz' + format
+    //   ];
+    //
+    // var reflectionCube = new THREE.CubeTextureLoader().load( urls );
+    //     reflectionCube.format = THREE.RGBFormat;
+    //
+    // var refractionCube = new THREE.CubeTextureLoader().load( urls );
+    //     refractionCube.mapping = THREE.CubeRefractionMapping;
+    //     refractionCube.format = THREE.RGBAFormat;
 
     var material = new THREE.MeshPhongMaterial( {
       side: THREE.DoubleSide,
@@ -276,8 +276,8 @@ export default class Gold{
       specular:0x937300,
       emissive:0xffffff,
       emissiveIntensity:.1,
-      envMap: reflectionCube,
-      displacementMap: reflectionCube,
+      // envMap: reflectionCube,
+      // displacementMap: reflectionCube,
       combine: THREE.MixOperation,
       reflectivity: .25} );
 
