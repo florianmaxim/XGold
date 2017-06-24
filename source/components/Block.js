@@ -79,6 +79,8 @@ export default class Block extends React.Component{
     if(_ON)
     this.refs.gold.appendChild(_GOLD.init());
 
+    if(_ETHEREUM.init());
+
 
     if(this.props.params.id!==undefined){
 

@@ -1,36 +1,49 @@
 var Web3 = require('web3');
 
-const _ON = false;
+const _ON = true;
 
 export default class Ethereum{
 
   constructor(){
 
-    if(_ON)
-    this.web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
+  }
 
-    this.connectionTye = '';
+  init(){
 
+    if(!_ON) return;
 
-      if(_ON&&this.web3.isConnected()) {
+    if (typeof web3 !== 'undefined') {
 
-        this.connectionType = 'node';
+      this.web3 = new Web3(web3.currentProvider);
 
+    } else {
 
-        this.coinbase = this.web3.eth.coinbase;
+      fetch('http://localhost:8545', {
+        method: 'get'
+      }).then((response) => {
 
-       } else {
+        console.log('Ethereum node available. Connecting...');
 
-         this.connectionType = 'api';
+        this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
-       }
+        if(this.web3.net.listening)
+          console.log('Connected to Ethereum node.');
+
+      }).catch((err) => {
+
+        console.log('No Ethereum node available. Falling back on public api (etherchain.org).');
+
+      });
+
+    }
 
   }
 
   watchBlockchain(callback, interval){
 
+
     //BLOCKCHAIN
-    if(_ON&&this.isConnected()){
+    if(_ON&&this.web3&&this.web3.isConnected()){
 
       var filter = this.web3.eth.filter('latest');
 
@@ -123,10 +136,12 @@ export default class Ethereum{
 
 
   isConnected(){
-    return _ON&&this.web3.isConnected()?true:false;
+
+    return _ON&&this.web3&&this.web3.isConnected()?true:false;
   }
 
   getConnectionType(){
+
     return this.connectionType;
   }
 
@@ -134,7 +149,7 @@ export default class Ethereum{
 
     if(_ON&&this.isConnected()){
 
-      var balance = this.web3.eth.getBalance(this.coinbase);
+      var balance = this.web3.eth.getBalance(this.web3.eth.coinbase);
 
       return balance.toNumber();
 

@@ -10,7 +10,7 @@ module.exports = {
 
   entry: {
     app: path.join(__dirname, './source'),
-    vendor: ['react', 'react-dom', 'react-router', 'three']
+    vendor: ['react', 'react-dom', 'react-router', 'three' , 'whatwg-fetch']
   },
 
   output: {
@@ -44,6 +44,11 @@ module.exports = {
 
   plugins: [
 
+    new webpack.ProvidePlugin({
+            'Promise': 'es6-promise', // Thanks Aaron (https://gist.github.com/Couto/b29676dd1ab8714a818f#gistcomment-1584602)
+            'fetch': 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch'
+    }),
+
     new CopyWebpackPlugin([
       { from: './source/static',
           to: path.join(__dirname, './build/static') }
@@ -67,7 +72,7 @@ module.exports = {
       inject: 'body',
     }),
     new webpack.LoaderOptionsPlugin({
-      minimize: true,
+      // minimize: true,
       debug: true,
       options: {
         context: __dirname,
@@ -81,10 +86,10 @@ module.exports = {
 
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        'screw_ie8': true,
-        'warnings': false,
-        'unused': true,
-        'dead_code': true,
+        // 'screw_ie8': true,
+        // 'warnings': false,
+        // 'unused': true,
+        // 'dead_code': true,
       },
       output: {
         comments: false,
