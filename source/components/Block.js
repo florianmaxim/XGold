@@ -114,9 +114,7 @@ export default class Block extends React.Component{
       if(_ON)
       _ETHEREUM.watchBlockchain((lastBlock, connectionType)=>{
 
-        // console.log('('+connectionType+')lastBlock:'+lastBlock.number)
-
-        console.log('price:'+lastBlock.price)
+        console.log('('+connectionType+')lastBlock:'+lastBlock.number)
 
         _GOLD.gold(lastBlock, _LIGHT);
 

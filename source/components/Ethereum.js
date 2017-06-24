@@ -57,17 +57,23 @@ export default class Ethereum{
           =>
         */
 
-        if(location.hostname=='localhost'||location.hostname=='0.0.0.0')
-          this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        if(location.hostname=='localhost'||location.hostname=='0.0.0.0'){
+            this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+
+            console.log('Comming from remote, watching the public api.')
+        }
+
 
         if(_ON&&this.web3&&this.web3.isConnected()){
+
+          console.log('Comming from local, watching the local ethereum node api.')
 
           this.connectionType = 'local';
 
         }else{
 
           this.connectionType = 'remote';
-          
+
         }
 
     }
