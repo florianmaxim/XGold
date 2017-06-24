@@ -222,7 +222,7 @@ export default class Gold{
 
   gold(block, lightMode){
 
-    console.log('GOLD: Block:'+block.number)
+    // console.log('GOLD: Block:'+block.number)
 
     var length   = block.transactions.length===0?1:block.transactions.length;
 

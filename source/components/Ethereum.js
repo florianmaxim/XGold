@@ -60,6 +60,16 @@ export default class Ethereum{
         if(location.hostname=='localhost'||location.hostname=='0.0.0.0')
           this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
+        if(_ON&&this.web3&&this.web3.isConnected()){
+
+          this.connectionType = 'local';
+
+        }else{
+
+          this.connectionType = 'remote';
+          
+        }
+
     }
 
   }
@@ -79,7 +89,7 @@ export default class Ethereum{
 
           var block = this.web3.eth.getBlock(result);
 
-          // console.log('('+this.connectionType+')lastBlock:'+block.number)
+          // Arrange array for DiamondSquare Algorithm
           block.number            = block.number;
           block.hash              = block.hash;
           block.size              = block.size;
