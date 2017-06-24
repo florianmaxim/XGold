@@ -18,13 +18,13 @@ export default class Ethereum{
 
     } else {
 
-      fetch('https://localhost:8545', {
+      fetch('http://localhost:8545', {
         method: 'get'
       }).then((response) => {
 
         console.log('Ethereum node available. Connecting...');
 
-        this.web3 = new Web3(new Web3.providers.HttpProvider("https://localhost:8545"));
+        this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
         if(this.web3.net.listening)
           console.log('Connected to Ethereum node.');

@@ -36,7 +36,7 @@ app.use('/static', express.static(__dirname + '/build/static'));
 app.get('*', (req, res) => {
 
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'https://etherchain.org');
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
