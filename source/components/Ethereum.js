@@ -26,16 +26,22 @@ export default class Ethereum{
 
         //TODO fucking annoying!
         /*
+          TODO NOTES(24/6/17)
+
           have it running on a https server doenst work because it of mixed content restrictions on chrome
           checking the localports first also doesnt work
 
           so you have to have it running on your local mashine with a full blockchain copy to be able to buy
+
+          if you just let him try to connect all the time it slows the whole app down on chrome
+          (windows only?!)
         */
 
         //TODO this throws constantly errors if there is no rpc server running on chrome
+        const isWindows = navigator.platform.indexOf('Win') > -1;
         const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 
-        if(!isChrome)
+        if(!isChrome&&!isWindows)
         this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
       //   if(this.web3.net.listening){
