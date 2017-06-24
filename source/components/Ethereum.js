@@ -22,7 +22,7 @@ export default class Ethereum{
       //   method: 'get'
       // }).then((response) => {
 
-        this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        this.web3 = new Web3(new Web3.providers.HttpProvider("https://localhost:8545"));
 
       //   if(this.web3.net.listening){
       //     console.log('Connected to Ethereum node.');
