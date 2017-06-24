@@ -57,7 +57,7 @@ export default class Ethereum{
           =>
         */
 
-        if(location.hostname=='localhost')
+        if(location.hostname=='localhost'||location.hostname=='0.0.0.0')
           this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
     }
