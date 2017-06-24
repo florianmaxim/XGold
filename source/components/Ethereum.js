@@ -54,13 +54,19 @@ export default class Ethereum{
           Using Metamask I can contribute to the network but can I access the same data
           like the whole chain???
 
+          TODO UPDTAE(24/6/17)
+          Via Metamask (MetaMask is a bridge that allows you to visit the distributed
+          web of tomorrow in your browser today. It allows you to run Ethereum dApps
+          right in your browser without running a full Ethereum node.)
+
+          and async data handling it seems to work. ony need to arrange the data correctly...
+
           =>
         */
 
         if(location.hostname=='localhost'||location.hostname=='0.0.0.0'){
             this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
-            console.log('Comming from remote, watching the public api.')
         }
 
 
@@ -72,6 +78,8 @@ export default class Ethereum{
 
         }else{
 
+          console.log('Comming from remote, watching the public api.')
+
           this.connectionType = 'remote';
 
         }
@@ -82,47 +90,82 @@ export default class Ethereum{
 
   watchBlockchain(callback, interval){
 
-
-    //BLOCKCHAIN
     if(_ON&&this.web3&&this.web3.isConnected()){
 
       console.log('Watching the ethereum node api.')
 
       var filter = this.web3.eth.filter('latest');
 
-      filter.watch((error, result)=>{
-        if (!error)
+      filter.watch((error, result) => {
 
-          var block = this.web3.eth.getBlock(result);
+        if (!error){
 
-          // Arrange array for DiamondSquare Algorithm
-          block.number            = block.number;
-          block.hash              = block.hash;
-          block.size              = block.size;
+            let block = {}
 
-          block.price             = block.gasLimit*block.gasUsed;
+            let that = this;
 
-          block.own = false;
+            this.web3.eth.getBlock(result, function(error, result){
 
-          let _transactions = [];
+              if(!error){
 
-          block.transactions.forEach((txId) => {
+                // Arrange array for DiamondSquare Algorithm
+                block.number            = result.number;
+                block.hash              = result.hash;
+                block.size              = result.size;
 
-          let  _tx        = this.web3.eth.getTransaction(txId);
+                block.price             = result.gasLimit*result.gasUsed;
 
-               _tx.price = this.web3.toBigNumber(_tx.value)
-               _tx.amount =  _tx.price.toNumber()
+                block.own = false;
 
-            _transactions.push(_tx)
+                block.transactions      = result.transactions;
+
+                let _transactions = [];
+
+                block.transactions.forEach((txId, index, array) => {
+
+                  // console.log(that);
+
+                  let thus = that;
+
+                  that.web3.eth.getTransaction(txId, (error, result) => {
+
+                      console.error(error);
+
+                      if(!error){
+                        //TODO ARG! WHAT IS GOING ON HERE?!
+
+                        // result.price = thus.web3.toBigNumber(result.value)
+                        // result.amount =  result.price.toNumber()
+
+                        _transactions.push(result);
+
+                      }else{
+
+                      }
+
+                  });
+
+                });
+
+                block.transactions = _transactions;
+
+                console.log(block.transactions);
+
+                callback(block, this.connectionType)
+
+            }else{
+
+                console.log('Could get the block.')
+
+            }
 
           })
 
+        }else{
 
-          block.transactions = _transactions;
+          console.log('Could not even watch the chain.')
 
-          // console.log('block.transactions:'+block.transactions.length)
-
-          callback(block, this.connectionType)
+        }
 
       });
 
