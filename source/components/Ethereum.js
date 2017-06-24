@@ -65,6 +65,8 @@ export default class Ethereum{
         */
 
         if(location.hostname=='localhost'||location.hostname=='0.0.0.0'){
+
+
             this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
         }
@@ -117,40 +119,42 @@ export default class Ethereum{
 
                 block.own = false;
 
-                block.transactions      = result.transactions;
-
                 let _transactions = [];
 
-                block.transactions.forEach((txId) => {
+                result.transactions.forEach((txId) => {
 
                   // console.log(that);
 
                   let thus = that;
 
-                  that.web3.eth.getTransaction(txId, (error, result) => {
-
-                      console.log(result);
+                  that.web3.eth.getTransaction(txId, (error, besult) => {
 
                       if(!error){
 
                         //TODO ARG! WHAT IS GOING ON HERE?!
+                        // besult.price = thus.web3.toBigNumber(besult.value);
 
-                        // result.price = thus.web3.toBigNumber(result.v)
-                        result.amount =  result.value.toNumber()
+                        besult.amount =  besult.value.toNumber();
 
-                        _transactions.push(result);
+                        // console.log(JSON.stringify(besult));
+
+                        _transactions.push(besult);
+
 
                       }else{
+
+                        console.log('Could get the transaction.')
 
                       }
 
                   });
 
+
                 });
 
                 block.transactions = _transactions;
 
-                // console.log(block.transactions);
+                console.log(block.transactions);
 
                 callback(block, this.connectionType)
 
@@ -196,7 +200,6 @@ export default class Ethereum{
             block.number            = out.data[0].number;
             block.hash              = out.data[0].hash;
             block.size              = out.data[0].size;
-            block.transactionAmount = out.data[0].tx_count;
 
             block.price             = (out.data[0].gasUsed)*(out.data[0].gasLimit);
 
