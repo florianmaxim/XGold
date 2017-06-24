@@ -25,7 +25,7 @@ export default class Ethereum{
         this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
         if(this.web3.net.listening){
-          console.log('Connected to Ethereum node.');)
+          console.log('Connected to Ethereum node.');
         }else{
           console.log('No Ethereum node available. Falling back on public api (etherchain.org).');
         }
