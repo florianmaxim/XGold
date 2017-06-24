@@ -7,15 +7,16 @@ Every Block is a diamond.
 
 #status
 
+
 -24/6/17:
 works with data from remote api (etherchain)
 (meaning purchasing not possible)
 
 works with data from metamask
-(data needs to be sorted for diamond square)
+(INCOMING DATA IS NOT SORTED data needs to be sorted for diamond square)
 
 works with data from local running node
-(data needs to be sorted for diamond square)
+(INCOMING DATA IS NOT SORTED data needs to be sorted for diamond square)
 
 
 ![Gold](stills/1.png)
