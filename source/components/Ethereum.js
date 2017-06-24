@@ -18,11 +18,25 @@ export default class Ethereum{
 
     } else {
 
+
+      //TODO doesn't work because of mixed content restriction in browser
       // fetch('http://localhost:8545', {
       //   method: 'get'
       // }).then((response) => {
 
-        this.web3 = new Web3(new Web3.providers.HttpProvider("https://localhost:8545"));
+        //TODO fucking annoying!
+        /*
+          have it running on a https server doenst work because it of mixed content restrictions on chrome
+          checking the localports first also doesnt work
+
+          so you have to have it running on your local mashine with a full blockchain copy to be able to buy
+        */
+
+        //TODO this throws constantly errors if there is no rpc server running on chrome
+        const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+        if(!isChrome)
+        this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
       //   if(this.web3.net.listening){
       //     console.log('Connected to Ethereum node.');
