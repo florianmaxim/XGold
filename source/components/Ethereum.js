@@ -18,23 +18,23 @@ export default class Ethereum{
 
     } else {
 
-      fetch('http://localhost:8545', {
-        method: 'get'
-      }).then((response) => {
+      // fetch('http://localhost:8545', {
+      //   method: 'get'
+      // }).then((response) => {
 
         this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
-        if(this.web3.net.listening){
-          console.log('Connected to Ethereum node.');
-        }else{
-          console.log('No Ethereum node available. Falling back on public api (etherchain.org).');
-        }
-
-      }).catch((err) => {
-
-        console.log('No Ethereum node available. Falling back on public api (etherchain.org).');
-
-      });
+      //   if(this.web3.net.listening){
+      //     console.log('Connected to Ethereum node.');
+      //   }else{
+      //     console.log('No Ethereum node available. Falling back on public api (etherchain.org).');
+      //   }
+      //
+      // }).catch((err) => {
+      //
+      //   console.log('No Ethereum node available. Falling back on public api (etherchain.org).');
+      //
+      // });
 
     }
 
