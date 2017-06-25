@@ -4,7 +4,7 @@ contract GoldContract {
 
     address creator;
 
-    string welcome = "All the gold is here.";
+    string public welcome = "All the gold is in here.";
 
     /*
     It's hidden inside this array.
@@ -18,6 +18,13 @@ contract GoldContract {
     function GoldContract(){
 
         goldBlock = block.number;
+
+    }
+
+    function getWelcome() constant returns(string){
+
+        return welcome;
+
 
     }
 
