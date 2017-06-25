@@ -2,9 +2,9 @@ var Web3 = require('web3');
 
 const _ON = true;
 
-const _GOLD_CONTRACT_ADDRESS = "";
-
-const _GOLD_CONTRACT_ABI = "[{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"gold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"sellGold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"buyGold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"amITheOwner","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"}]";
+// const _GOLD_CONTRACT_ADDRESS = "";
+ 
+const _GOLD_CONTRACT_ABI = '[{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"gold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"sellGold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"buyGold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"amITheOwner","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"}]';
 
 export default class Ethereum{
 
