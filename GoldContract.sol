@@ -2,12 +2,17 @@ pragma solidity ^0.4.0;
 
 contract GoldContract {
 
-    string welcome = "The gold is here";
+    address creator;
 
-    //all the gold is in here (blockNumber => ownerAddress)
+    string welcome = "All the gold is here.";
+
+    /*
+    It's hidden inside this array.
+    (blockNumber => ownersAddress)
+    */
     mapping(uint => address) public gold;
 
-    //this is the bar we're talking about
+    //Right now we are talking about this bar.
     uint goldBlock;
 
     function GoldContract(){
@@ -16,7 +21,7 @@ contract GoldContract {
 
     }
 
-    function amITheOwner() returns(bool){
+    function amITheOwner() constant returns(bool){
 
         return gold[goldBlock] == msg.sender;
 
@@ -32,12 +37,19 @@ contract GoldContract {
     }
 
 
-    function sellGold() returns(uint){
+    function sellGold() returns(address){
 
-        gold[goldBlock] = 0x0;
+        return gold[goldBlock] = 0x0;
 
     }
 
 
+    function kill(){
 
+      if(msg.sender == creator){
+
+        suicide(creator);
+
+      }
+    }
 }

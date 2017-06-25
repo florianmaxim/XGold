@@ -2,6 +2,10 @@ var Web3 = require('web3');
 
 const _ON = true;
 
+const _GOLD_CONTRACT_ADDRESS = "";
+
+const _GOLD_CONTRACT_ABI = "[{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"gold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"sellGold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"buyGold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"amITheOwner","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"}]";
+
 export default class Ethereum{
 
   constructor(){
@@ -109,6 +113,15 @@ export default class Ethereum{
             this.web3.eth.getBlock(result, function(error, result){
 
               if(!error){
+
+                //Check if current block is mine or for sale
+
+                //Connect to the GoldContract
+                // let GoldContract = this.web3.eth.contract(_GOLD_CONTRACT_ABI).at(_GOLD_CONTRACT_ADDRESS);
+                //
+                // //Check if I am already the owner of this guy
+                // let amITheOwner = GoldContract.amITheOwner.call();
+                // alert(amITheOwner);
 
                 // Arrange array for DiamondSquare Algorithm
                 block.number            = result.number;
