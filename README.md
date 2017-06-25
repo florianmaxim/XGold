@@ -6,6 +6,8 @@ Every Block is a diamond.
 
 
 #status
+continue here:
+https://github.com/ethereum/go-ethereum/issues/1623
 
 
 -24/6/17:
