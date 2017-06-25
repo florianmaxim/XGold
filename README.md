@@ -26,6 +26,10 @@ works with data from local running node
 
 
 # resources
+
+deploying contracts
+https://www.youtube.com/watch?v=eWclxmGjYb4
+
 metamask
 https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md#dizzy-all-async---think-of-metamask-as-a-light-client
 
