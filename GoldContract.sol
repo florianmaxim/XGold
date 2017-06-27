@@ -11,30 +11,15 @@ contract GoldContract {
     */
     mapping (uint => address) private gold;
 
-    function(){
+    function GoldContract(){
         creator = msg.sender;
     }
 
-    function getWelcome()     constant returns(string){
-        return welcome;
-    }
-
-    function getBlockNumber() constant returns(uint){
-        return block.number;
-    }
-
-    function getMyAddress()   constant returns(address){
-        return msg.sender;
-    }
-
     /*
-        "SETTERS"
-
-        ("public" defines that this method can change data from
-                  the outside)
+        HELPERS
     */
 
-    function isBlockForSale(uint blockNumber) returns (bool){
+    function isBlockForSale(uint blockNumber)  returns (bool){
         if(gold[blockNumber] == 0x0){
             return true;
         }else{
@@ -42,7 +27,23 @@ contract GoldContract {
         }
     }
 
-    function buyThisBlock() public returns(string){
+    function isOwnerOfBlock(uint blockNumber)  returns (bool) {
+        if(gold[blockNumber] == msg.sender){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /*
+        SETTERS
+
+        ("public" defines that this method can change data from
+                  the outside)
+    */
+
+    //buy
+    function buyThisBlock()             public returns(string){
 
         if(isBlockForSale(block.number)){
             gold[block.number] = msg.sender;
@@ -55,7 +56,7 @@ contract GoldContract {
 
     function buyBlock(uint blockNumber) public returns(string){
 
-        if(isBlockForSale(block.number)){
+        if(isBlockForSale(blockNumber)){
             gold[blockNumber] = msg.sender;
             return "Bought Block.";
         }else{
@@ -64,13 +65,40 @@ contract GoldContract {
 
     }
 
+    //sell
+    function sellThisBlock(){
+        if(isOwnerOfBlock(block.number)){
+            gold[block.number] = 0x0;
+        }
+    }
+
+    function sellBlock(uint blockNumber){
+        if(isOwnerOfBlock(blockNumber)){
+            gold[blockNumber] = 0x0;
+        }
+    }
+
     /*
         "GETTERS"
         ("constant" means nothing changed on the blockchain,
                     means no costs at all.)
     */
 
-    function getOwnerOfThisBlock() constant returns (address) {
+    //info
+    function getWelcome()     constant returns(string){
+        return welcome;
+    }
+
+    function getBlockNumber() constant returns(uint){
+        return block.number;
+    }
+
+    function getMyAddress()   constant returns(address){
+        return msg.sender;
+    }
+
+    //block
+    function getOwnerOfThisBlock()             constant returns (address) {
         return gold[block.number];
     }
 
@@ -78,8 +106,10 @@ contract GoldContract {
         return gold[blockNumber];
     }
 
-
-
+    //account
+    function getMyBalance()                    constant returns (uint){
+        return msg.sender.balance;
+    }
 
 
     function kill(){
