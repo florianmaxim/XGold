@@ -5,7 +5,6 @@ contract GoldContract {
     address private creator;
 
     string  public  welcome   = "All the gold is in here.";
-    uint    public  goldValue = 0;
 
     /*
     It's all mapped in here (blockNumber => ownersAddress).
@@ -24,19 +23,23 @@ contract GoldContract {
     */
 
     function isBlockForSale(uint blockNumber)  returns (bool){
+
         if(gold[blockNumber] == 0x0){
             return true;
         }else{
             return false;
         }
+
     }
 
     function isOwnerOfBlock(uint blockNumber)  returns (bool) {
+
         if(gold[blockNumber] == msg.sender){
             return true;
         }else{
             return false;
         }
+
     }
 
     /*
@@ -58,7 +61,7 @@ contract GoldContract {
 
     }
 
-    function buyBlock(uint blockNumber) public returns(string){
+    function buyBlock(uint blockNumber)  public returns(string){
 
         if(isBlockForSale(blockNumber)){
             gold[blockNumber] = msg.sender;
@@ -70,16 +73,30 @@ contract GoldContract {
     }
 
     //sell
-    function sellThisBlock(){
+    function sellThisBlock()             public returns(bool){
         if(isOwnerOfBlock(block.number)){
             gold[block.number] = 0x0;
+            return true;
+        }else{
+            return false;
         }
     }
 
-    function sellBlock(uint blockNumber){
+    function sellBlock(uint blockNumber) public returns(bool){
+
         if(isOwnerOfBlock(blockNumber)){
             gold[blockNumber] = 0x0;
+            return true;
+        }else{
+            return false;
         }
+
+    }
+
+        //donate
+    function setGoldDonation() payable   public returns(uint){
+        //return new GoldBalance
+        return getGoldBalance();
     }
 
     /*
@@ -116,22 +133,14 @@ contract GoldContract {
     }
 
     //contract
-    function setGoldDonation() payable returns(uint){
-        //return new GoldBalance
-        return getGoldBalance();
-    }
-
-    function getGoldBalance() constant returns(uint){
+    function getGoldBalance()                  constant returns(uint){
         return this.balance;
     }
 
     //kill
     function kill(){
-
       if(msg.sender == creator){
-
         suicide(creator);
-
       }
     }
 
