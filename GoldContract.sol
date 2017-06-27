@@ -4,7 +4,7 @@ contract GoldContract {
 
     address private creator;
 
-    string public welcome = "All the gold is in here.";
+    string  public  welcome = "All the gold is in here.";
 
     /*
     It's all mapped in here (blockNumber => ownersAddress).
@@ -111,7 +111,7 @@ contract GoldContract {
         return msg.sender.balance;
     }
 
-
+    //kill
     function kill(){
 
       if(msg.sender == creator){
