@@ -22,6 +22,7 @@ contract GoldContract {
         HELPERS
     */
 
+    //TODO This should be a modifier
     function isBlockForSale(uint blockNumber)  returns (bool){
 
         if(gold[blockNumber] == 0x0){
@@ -32,6 +33,7 @@ contract GoldContract {
 
     }
 
+    //TODO This should be a modifier
     function isOwnerOfBlock(uint blockNumber)  returns (bool) {
 
         if(gold[blockNumber] == msg.sender){
