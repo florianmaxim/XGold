@@ -5,13 +5,17 @@ contract GoldContract {
     address private creator;
 
     string  public  welcome = "All the gold is in here.";
+    uint    public  value = 0;
 
     /*
     It's all mapped in here (blockNumber => ownersAddress).
     */
     mapping (uint => address) private gold;
 
-    function GoldContract(){
+    /*
+     "payable" automatically gives the value to the account
+    */
+    function GoldContract() payable{
         creator = msg.sender;
     }
 
@@ -109,6 +113,16 @@ contract GoldContract {
     //account
     function getMyBalance()                    constant returns (uint){
         return msg.sender.balance;
+    }
+
+    //contract
+    function setGoldDonation() payable returns(uint){
+        //return new GoldBalance
+        return getGoldBalance();
+    }
+
+    function getGoldBalance() constant returns(uint){
+        return this.balance;
     }
 
     //kill
