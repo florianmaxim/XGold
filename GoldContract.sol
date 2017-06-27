@@ -4,8 +4,8 @@ contract GoldContract {
 
     address private creator;
 
-    string  public  welcome = "All the gold is in here.";
-    uint    public  value = 0;
+    string  public  welcome   = "All the gold is in here.";
+    uint    public  goldValue = 0;
 
     /*
     It's all mapped in here (blockNumber => ownersAddress).
