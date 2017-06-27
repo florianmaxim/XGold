@@ -2,14 +2,12 @@ var Web3 = require('web3');
 
 const _ON = true;
 
+let    GoldContract;
 const _GOLD_CONTRACT_ADDRESS = "0x2ab2a95cA69220CD880f5E30673De93c3c6B71A9";
-
 const _GOLD_CONTRACT_ABI = [{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"gold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getWelcome","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"sellGold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"buyGold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"welcome","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"amITheOwner","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"}];
 export default class Ethereum{
 
-  constructor(){
-
-  }
+  constructor(){}
 
   init(){
 
@@ -69,7 +67,6 @@ export default class Ethereum{
 
         if(location.hostname=='localhost'||location.hostname=='0.0.0.0'){
 
-
             this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
         }
@@ -81,11 +78,15 @@ export default class Ethereum{
 
           this.connectionType = 'local';
 
-          let GoldContract = this.web3.eth.contract(_GOLD_CONTRACT_ABI).at(_GOLD_CONTRACT_ADDRESS);
+          GoldContract = this.web3.eth.contract(_GOLD_CONTRACT_ABI).at(_GOLD_CONTRACT_ADDRESS);
 
           //Check if I am already the owner of this guy
-          let message = GoldContract.getWelcome.call();
+          // let message = GoldContract.getWelcome.call();
+          // let message = GoldContract.welcome;
+          let message  = GoldContract.amITheOwner.call();
+
           alert("The Gold says: "+message);
+          // alert("Am I the Owner: "+own);
 
         }else{
 
