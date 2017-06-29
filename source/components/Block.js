@@ -45,7 +45,7 @@ export default class Block extends React.Component{
 
     this.state = {
 
-      currency: 'USD',
+      currency: 'ETH',
       exchangeRate: _USD,
 
       block:{
@@ -118,7 +118,10 @@ export default class Block extends React.Component{
 
         _GOLD.gold(lastBlock, _LIGHT);
 
-         this.setState({ block: lastBlock });
+         this.setState({
+           block: lastBlock,
+           mode: 1
+         });
 
       history.pushState(null, null, '/block/'+lastBlock.number);
 
@@ -163,19 +166,12 @@ export default class Block extends React.Component{
   }
 
 
-  buy(event) {
+  buy(event, amountInEther) {
 
-    let _block = this.state.block;
-        _block.own = this.state.block.own?false:true;
+    console.log('[Block] - Buy')
 
+    _ETHEREUM.makeTransaction(this.state.block.price, this.state.block.number);
 
-    this.setState({
-      block: _block,
-
-
-    })
-
-    console.log(this.state.block.own)
   }
 
   toggleDisplay(){
@@ -276,7 +272,7 @@ export default class Block extends React.Component{
 
             <div className="block-buy-price">
 
-             {this.state.currency} {((this.state.block.price/100000000000000)*_USD).toFixed(2)} - (BALANCE {((_ETHEREUM.getBalance()/1000000000000000000)).toFixed(2)})<br/>
+             {this.state.currency} {this.state.block.price.toFixed(2)} - (BALANCE {((_ETHEREUM.getBalance()/1000000000000000000)).toFixed(2)})<br/>
 
              <p style={{fontWeight:'200', marginTop: '1px'}}>Price varies with currency exchange rates and may be different tomorrow.</p>
 
@@ -294,14 +290,14 @@ export default class Block extends React.Component{
                ?
                <div>
                  {
-                   this.state.block.own
+                   this.state.block.isMine
                    ?
-                   <div className="block-button block-button-sold">
-                     SOLD
+                   <div className="block-button" style={{backgroundColor:'gold'}}>
+                     OWNED
                    </div>
                    :
-                   <div className="block-button" onClick={()=>{this.buy(event)}}>
-                     BUY
+                   <div className="block-button" onClick={this.state.block.isForSale?(event)=>{this.buy(event)}:''}>
+                    {this.state.block.isForSale?'BUY':'SOLD'}
                    </div>
                  }
                </div>

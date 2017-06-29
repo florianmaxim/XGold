@@ -2,9 +2,10 @@ var Web3 = require('web3');
 
 const _ON = true;
 
+const _GOLD_CONTRACT_ADDRESS = "0x876BCa49BD8E4667d295363Fd2028142C7ba396C";
+const _GOLD_CONTRACT_ABI = [ { "constant": true, "inputs": [ { "name": "blockNumber", "type": "uint256" } ], "name": "getOwnerOfBlock", "outputs": [ { "name": "", "type": "address", "value": "0x0000000000000000000000000000000000000000" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "getWelcome", "outputs": [ { "name": "", "type": "string", "value": "All the gold is in here." } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "kill", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "getOwnerOfThisBlock", "outputs": [ { "name": "", "type": "address", "value": "0x0000000000000000000000000000000000000000" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "getBlockNumber", "outputs": [ { "name": "", "type": "uint256", "value": "1208225" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "getMyBalance", "outputs": [ { "name": "", "type": "uint256", "value": "1.15792089237316195423570985008687907853269984665640564039455084007913129639935e+77" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "blockNumber", "type": "uint256" } ], "name": "buyBlock", "outputs": [ { "name": "", "type": "string" } ], "payable": true, "type": "function" }, { "constant": false, "inputs": [ { "name": "blockNumber", "type": "uint256" } ], "name": "sellBlock", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "buyThisBlock", "outputs": [ { "name": "", "type": "string" } ], "payable": true, "type": "function" }, { "constant": true, "inputs": [], "name": "getMyAddress", "outputs": [ { "name": "", "type": "address", "value": "0xafc1f6739566ccf60d2a80edfbd6d9ee6361a3ea" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "blockNumber", "type": "uint256" } ], "name": "isOwnerOfBlock", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "isOwnerOfThisBlock", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "welcome", "outputs": [ { "name": "", "type": "string", "value": "All the gold is in here." } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "sellThisBlock", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "getGoldBalance", "outputs": [ { "name": "", "type": "uint256", "value": "0" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "setGoldDonation", "outputs": [ { "name": "", "type": "uint256" } ], "payable": true, "type": "function" }, { "constant": false, "inputs": [ { "name": "blockNumber", "type": "uint256" } ], "name": "isBlockForSale", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "type": "function" }, { "inputs": [], "payable": true, "type": "constructor" } ]
 let    GoldContract;
-const _GOLD_CONTRACT_ADDRESS = "0x2ab2a95cA69220CD880f5E30673De93c3c6B71A9";
-const _GOLD_CONTRACT_ABI = [{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"gold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getWelcome","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"sellGold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"buyGold","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"welcome","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"amITheOwner","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"}];
+
 export default class Ethereum{
 
   constructor(){}
@@ -81,12 +82,9 @@ export default class Ethereum{
           GoldContract = this.web3.eth.contract(_GOLD_CONTRACT_ABI).at(_GOLD_CONTRACT_ADDRESS);
 
           //Check if I am already the owner of this guy
-          // let message = GoldContract.getWelcome.call();
-          // let message = GoldContract.welcome;
-          let message  = GoldContract.amITheOwner.call();
+          let message = GoldContract.getWelcome.call();
+          console.log('[Blockchain] - '+message)
 
-          alert("The Gold says: "+message);
-          // alert("Am I the Owner: "+own);
 
         }else{
 
@@ -100,11 +98,33 @@ export default class Ethereum{
 
   }
 
+  makeTransaction(amountInEther, blockNumber){
+
+    if(_ON&&this.web3&&this.web3.isConnected()){
+
+      console.log('[Blockchain] - Transaction');
+      console.log('[Blockchain] - Coinbase:'+this.web3.eth.coinbase);
+      console.log('[Blockchain] - Contract:'+_GOLD_CONTRACT_ADDRESS);
+      console.log('[Blockchain] - Amount:'+amountInEther);
+
+      const data = {
+  					from: this.web3.eth.coinbase,
+  					to: _GOLD_CONTRACT_ADDRESS,
+            value: this.web3.toWei(amountInEther,'ether'),
+  				};
+
+      let transactionHash = GoldContract.buyBlock.sendTransaction(blockNumber, data);
+
+      console.log('[Blockchain] - TransactionHash:'+transactionHash);
+
+    }
+  }
+
   watchBlockchain(callback, interval){
 
     if(_ON&&this.web3&&this.web3.isConnected()){
 
-      console.log('Watching the ethereum node api.')
+      console.log('[Blockchain] - Watching the ethereum node api.')
 
       var filter = this.web3.eth.filter('latest');
 
@@ -120,31 +140,43 @@ export default class Ethereum{
 
               if(!error){
 
-                console.log('RECEIVED BLOCK #'+result.number);
+                console.log('[Blockchain] - Received Block #'+result.number);
 
-                //Check if current block is mine or for sale
+                //Check ownership and availability
+                block.isMine  = GoldContract.isOwnerOfBlock.call(result.number);
 
-                //Connect to the GoldContract
-                // let GoldContract = that.web3.eth.contract(_GOLD_CONTRACT_ABI).at(_GOLD_CONTRACT_ADDRESS);
-                //
-                // //Check if I am already the owner of this guy
-                // let message = GoldContract.getWelcome.call();
-                // alert("The Gold says: "+message);
+                if(!block.isMine){
+                    block.isForSale = GoldContract.isBlockForSale.call(result.number);
 
-                // Arrange array for DiamondSquare Algorithm
+                  console.log('[Blockchain] - The Block #'+result.number+' is for sale:'+block.isForSale);
+                }else{
+                  console.log('[Blockchain] - The Block #'+result.number+' is already mine.');
+                }
+
+                //Arrange block data for DiamondSquare Algorithm
                 block.number            = result.number;
                 block.hash              = result.hash;
                 block.size              = result.size;
 
+                // block.price             = result.gasLimit*result.gasUsed;
                 block.price             = result.gasLimit*result.gasUsed;
+                block.price             = (result.gasLimit*result.gasUsed)/10000000000000;
 
-                block.own = false;
+
+                console.log('result.gasLimit:'+result.gasLimit)
+                console.log('result.gasUsed:'+result.gasUsed)
+
+                console.log('block.price:'+block.price)
+
+                console.log('Wei:'+block.price)
+                console.log('Ether:'+block.price/1000000000000000000)
+
+                // alert(block.price.toFixed(2))
+                // block.price             = that.web3.fromWei(block.price , 'ether');
 
                 let _transactions = [];
 
                 result.transactions.forEach((txId) => {
-
-                  // console.log(that);
 
                   let thus = that;
 

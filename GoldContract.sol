@@ -14,7 +14,7 @@ contract GoldContract {
     /*
      "payable" automatically gives the value to the account
     */
-    function GoldContract() payable{
+    function GoldContract() payable {
         creator = msg.sender;
     }
 
@@ -44,6 +44,17 @@ contract GoldContract {
 
     }
 
+    //TODO This should be a modifier
+    function isOwnerOfThisBlock()  returns (bool) {
+
+        if(gold[block.number] == msg.sender){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
     /*
         SETTERS
 
@@ -52,7 +63,7 @@ contract GoldContract {
     */
 
     //buy
-    function buyThisBlock()             public returns(string){
+    function buyThisBlock()             payable public returns(string){
 
         if(isBlockForSale(block.number)){
             gold[block.number] = msg.sender;
@@ -63,7 +74,10 @@ contract GoldContract {
 
     }
 
-    function buyBlock(uint blockNumber)  public returns(string){
+    function buyBlock(uint blockNumber) payable public returns(string){
+
+      //check if the msg.value is
+
 
         if(isBlockForSale(blockNumber)){
             gold[blockNumber] = msg.sender;
