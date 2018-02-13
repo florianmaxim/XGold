@@ -125,8 +125,6 @@ export default class Ethereum{
 
   watchBlockchain(callback, interval){
 
-    console.log(config.api.public)
-
     if(_ON&&this.web3&&this.web3.isConnected()){
 
       console.log('[Blockchain] - Watching the ethereum node api.')
@@ -241,33 +239,50 @@ export default class Ethereum{
       console.log('Watching the public api.')
 
       //ask for latest block in intervals
-      setInterval(()=>{
+      // setInterval(()=>{
+
+/*         fetch('https://etherchain.org/api/blocks/count', {
+          mode: 'no-cors'
+        })
+        .then(response => response.json())
+        .then(json => {
+          console.log('parsed json', json) // access json.body here
+        }) */
 
         let url = 'https://etherchain.org/api/blocks/count';
-        fetch(url).then(res => res.json()).then((out) => {
+        
+        fetch('https://etherchain.org/api/blocks/count', {
+          mode: 'no-cors'
+        }).then(function(response) {
+          console.log(response.json()); // "opaque"
+        });
+        
+       /*  .then((res) => {
 
-          let lastBlock = out.data[0].count;
+          console.log(res.json());
+
+          let lastBlock = res.data[0].count;
 
           //fetch block's transaction
           let block = {}
 
           var url = 'https://etherchain.org/api/block/'+lastBlock;
 
-          fetch(url).then(res => res.json()).then((out) => {
+          fetch(url).then(res => res.json()).then((res) => {
 
-            block.number            = out.data[0].number;
-            block.hash              = out.data[0].hash;
-            block.size              = out.data[0].size;
+            block.number            = res.data[0].number;
+            block.hash              = res.data[0].hash;
+            block.size              = res.data[0].size;
 
-            block.price             = (out.data[0].gasUsed)*(out.data[0].gasLimit);
+            block.price             = (res.data[0].gasUsed)*(res.data[0].gasLimit);
 
             block.own = false;
 
             let url = 'https://etherchain.org/api/block/'+block.number+'/tx';
 
-            fetch(url).then(res => res.json()).then((out) => {
+            fetch(url).then(res => res.json()).then((res) => {
 
-              block.transactions = out.data;
+              block.transactions =resout.data;
 
               callback(block, this.connectionType)
 
@@ -276,9 +291,12 @@ export default class Ethereum{
           });
 
 
-        });
+        })
+        .catch((err) => {
+          console.log(err)
+        }); */
 
-      }, interval)
+    //  }, interval)
 
     }
 

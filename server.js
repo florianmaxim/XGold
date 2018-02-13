@@ -29,11 +29,10 @@ const app  = express()
 app.server = http.createServer(app)
 
 var corsOptions = {
-  origin: 'https://tar.gold',
+  origin: '*',
+  credentials: true,
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
 }
-
-app.use(cors(corsOptions));
 
 app.use('/:block/js', express.static(__dirname + '/build/js'));
 app.use('/:block/static', express.static(__dirname + '/build/static'));
@@ -41,7 +40,7 @@ app.use('/:block/static', express.static(__dirname + '/build/static'));
 app.use('/js', express.static(__dirname + '/build/js'));
 app.use('/static', express.static(__dirname + '/build/static'));
 
-app.get('*', (req, res) => {
+app.get('*', cors(corsOptions), (req, res) => {
 
   const error = () => res.status(404).send('404')
 

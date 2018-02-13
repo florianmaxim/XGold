@@ -1,3 +1,5 @@
+import * as config from '../../config.json';
+
 import React       from 'react';
 
 import request     from 'sync-request';
@@ -125,7 +127,7 @@ export default class Block extends React.Component{
 
       history.pushState(null, null, '/block/'+lastBlock.number);
 
-      },DEFAULT.goldrush);
+      }, config.refresh);
 
     }
 

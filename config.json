@@ -3,5 +3,5 @@
         "public": false
     },
 
-    "refresh": 3000
+    "refresh": 30000
 }
