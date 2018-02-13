@@ -18,7 +18,7 @@ Run Geth with a RPC API:
 geth --rpc
 ```
 
-Alternatively run Chrome with the [Metamask](https://www.metamask.io) Extension:
+Alternatively run Chrome with the [Metamask](https://metamask.io/) Extension:
 
 ## Configuration
 
