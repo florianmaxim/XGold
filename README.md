@@ -1,8 +1,12 @@
-# Targold
+# XGold
 
 ## Contract: 0x876BCa49BD8E4667d295363Fd2028142C7ba396C
 
 Every Block is a Diamond.
+
+# Installation
+
+
 
 # Usage
 
