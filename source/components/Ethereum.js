@@ -249,7 +249,7 @@ export default class Ethereum{
           console.log('parsed json', json) // access json.body here
         }) */
 
-        let url = 'etherchain.org/api/blocks/count';
+        let url = 'https://etherchain.org/api/blocks/count';
         
         fetch(url, {
           mode: 'no-cors'
