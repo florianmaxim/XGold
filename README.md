@@ -6,7 +6,7 @@ Every Block is a Diamond.
 
 # Installation
 
-To purchase or trade CPs (counterparts) a Ethereum Node must be run.
+To **trade** CPs (counterparts) a Ethereum Node must be run.
 
 Run Geth with a RPC API:
 
@@ -17,6 +17,14 @@ geth --rpc
 Alternatively run Chrome with the [Metamask](https://metamask.io/) Extension:
 
 
+To **view** CPs only no Ethereum node is necessary:
+
+If no Ethereum is accessible Blockchain data is provided by public APIs:
+
+[Blockcypher](https://www.blockcypher.com/dev/ethereum/#introduction)
+```javascript
+https://api.blockcypher.com/v1/eth/main
+```
 # Usage
 
 

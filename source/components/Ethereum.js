@@ -15,7 +15,7 @@ export default class Ethereum{
 
   init(){
 
-    if(!_ON) return;
+/*     if(!_ON) return;
 
     if (typeof web3 !== 'undefined') {
 
@@ -67,7 +67,7 @@ export default class Ethereum{
 
         }
 
-    }
+    } */
 
   }
 
@@ -219,13 +219,14 @@ export default class Ethereum{
           console.log('parsed json', json) // access json.body here
         }) */
 
-        let url = 'https://etherchain.org/api/blocks/count';
+        let url = 'https://api.blockcypher.com/v1/eth/main';
+        //let url = 'https://etherchain.org/api/blocks/count';
         
-        fetch(url, {
-          mode: 'no-cors'
-        }).then(function(response) {
-          console.log(response.json()); // "opaque"
-        });
+        fetch(url)
+        .then(dataWrappedByPromise => dataWrappedByPromise.json())
+        .then(data => {
+            console.log(`Latest Block ${data.height}`)
+        })
         
        /*  .then((res) => {
 
