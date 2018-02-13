@@ -4,9 +4,13 @@
 
 Every Block is a Diamond.
 
+# Requirements
+
+[NodeJS](https://nodejs.org) must be installed to run XGold.
+
 # Installation
 
-To **trade** CPs (counterparts) a Ethereum Node must be run.
+To **trade** CPs a Ethereum Node must be run.
 
 Run Geth with a RPC API:
 
@@ -21,12 +25,11 @@ To **view** CPs only no Ethereum node is necessary:
 
 If no Ethereum is accessible Blockchain data is provided by public APIs:
 
-[Blockcypher](https://www.blockcypher.com/dev/ethereum/#introduction)
+#1 [Blockcypher](https://www.blockcypher.com/dev/ethereum/#introduction)
 ```javascript
 https://api.blockcypher.com/v1/eth/main
 ```
 # Usage
-
 
 
 ## Configuration
