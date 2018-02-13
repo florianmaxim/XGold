@@ -25,9 +25,15 @@ const RouterContext  = reactRouter.RouterContext;
 
 const routes         = require('./source/Routes.Static').default
 
-const app = express()
+const app  = express()
 app.server = http.createServer(app)
 
+var corsOptions = {
+  origin: 'https://tar.gold',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
+}
+
+app.use(cors(corsOptions));
 
 app.use('/:block/js', express.static(__dirname + '/build/js'));
 app.use('/:block/static', express.static(__dirname + '/build/static'));
@@ -36,10 +42,6 @@ app.use('/js', express.static(__dirname + '/build/js'));
 app.use('/static', express.static(__dirname + '/build/static'));
 
 app.get('*', (req, res) => {
-
-  res.header('Access-Control-Allow-Origin', "*");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
 
   const error = () => res.status(404).send('404')
 

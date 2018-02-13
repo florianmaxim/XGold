@@ -1,3 +1,7 @@
 {
-    "api": "public"
+    "api": {
+        "public": false
+    },
+
+    "refresh": 3000
 }

@@ -1,6 +1,8 @@
 var Web3 = require('web3');
 
-const _ON = true;
+import * as config from '../../config.json';
+
+const _ON = config.api.public;
 
 const _GOLD_CONTRACT_ADDRESS = "0x876BCa49BD8E4667d295363Fd2028142C7ba396C";
 const _GOLD_CONTRACT_ABI = [ { "constant": true, "inputs": [ { "name": "blockNumber", "type": "uint256" } ], "name": "getOwnerOfBlock", "outputs": [ { "name": "", "type": "address", "value": "0x0000000000000000000000000000000000000000" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "getWelcome", "outputs": [ { "name": "", "type": "string", "value": "All the gold is in here." } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "kill", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "getOwnerOfThisBlock", "outputs": [ { "name": "", "type": "address", "value": "0x0000000000000000000000000000000000000000" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "getBlockNumber", "outputs": [ { "name": "", "type": "uint256", "value": "1208225" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "getMyBalance", "outputs": [ { "name": "", "type": "uint256", "value": "1.15792089237316195423570985008687907853269984665640564039455084007913129639935e+77" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "blockNumber", "type": "uint256" } ], "name": "buyBlock", "outputs": [ { "name": "", "type": "string" } ], "payable": true, "type": "function" }, { "constant": false, "inputs": [ { "name": "blockNumber", "type": "uint256" } ], "name": "sellBlock", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "buyThisBlock", "outputs": [ { "name": "", "type": "string" } ], "payable": true, "type": "function" }, { "constant": true, "inputs": [], "name": "getMyAddress", "outputs": [ { "name": "", "type": "address", "value": "0xafc1f6739566ccf60d2a80edfbd6d9ee6361a3ea" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "blockNumber", "type": "uint256" } ], "name": "isOwnerOfBlock", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "isOwnerOfThisBlock", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "welcome", "outputs": [ { "name": "", "type": "string", "value": "All the gold is in here." } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "sellThisBlock", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "getGoldBalance", "outputs": [ { "name": "", "type": "uint256", "value": "0" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "setGoldDonation", "outputs": [ { "name": "", "type": "uint256" } ], "payable": true, "type": "function" }, { "constant": false, "inputs": [ { "name": "blockNumber", "type": "uint256" } ], "name": "isBlockForSale", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "type": "function" }, { "inputs": [], "payable": true, "type": "constructor" } ]
@@ -8,7 +10,8 @@ let    GoldContract;
 
 export default class Ethereum{
 
-  constructor(){}
+  constructor(){
+  }
 
   init(){
 
@@ -121,6 +124,8 @@ export default class Ethereum{
   }
 
   watchBlockchain(callback, interval){
+
+    console.log(config.api.public)
 
     if(_ON&&this.web3&&this.web3.isConnected()){
 
