@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+
 import {OrbitControls} from './OrbitControls';
 
 import DiamondSquare from './DiamondSquare';

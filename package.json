@@ -8,12 +8,13 @@
     "develop:cli": "NODE_ENV=development webpack-dev-server --hot --history-api-fallback --port 8080 --config .webpack.config.js",
     "develop:api": "NODE_ENV=development node server.webpack.dev.js",
     "develop": "npm run develop:api",
-    "build": "npm run clean && webpack --config .webpack.config.js --progress -p --env production",
-    "start": "npm run build && NODE_ENV=production node server.js"
+    "build": "webpack --config .webpack.config.js --progress -p --env production",
+    "start": "node server.js"
   },
   "author": "Florian Maxim",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.4",
     "exports-loader": "^0.6.4",
     "imports-loader": "^0.7.1",
     "react": "15.4.2",

@@ -13,6 +13,7 @@ const path           = require('path');
 const fs             = require('fs');
 
 const express        = require('express');
+const cors           = require('cors');
 
 const react          = require('react');
 const reactDomServer = require('react-dom/server');
@@ -27,6 +28,7 @@ const routes         = require('./source/Routes.Static').default
 const app = express()
 app.server = http.createServer(app)
 
+
 app.use('/:block/js', express.static(__dirname + '/build/js'));
 app.use('/:block/static', express.static(__dirname + '/build/static'));
 
@@ -35,15 +37,9 @@ app.use('/static', express.static(__dirname + '/build/static'));
 
 app.get('*', (req, res) => {
 
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', '*');
-
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
 
   const error = () => res.status(404).send('404')
 
@@ -84,6 +80,7 @@ app.get('*', (req, res) => {
 
     });
   });
+
 });
 
 app.server.listen(DEFAULT._PORT, DEFAULT._URL, () => {
