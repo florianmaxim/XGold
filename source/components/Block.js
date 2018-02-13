@@ -194,7 +194,7 @@ export default class Block extends React.Component{
 
 
            <div className="block-buy-heading" onClick={()=>{this.buy(event)}}>
-             TARGOLD.
+             XGold
            </div>
 
 

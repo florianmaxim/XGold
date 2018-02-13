@@ -1,4 +1,4 @@
-# XGold
+# XGold ✨ 🔑
 
 ## Contract: 0x876BCa49BD8E4667d295363Fd2028142C7ba396C
 
@@ -6,11 +6,7 @@ Every Block is a Diamond.
 
 # Installation
 
-
-
-# Usage
-
-An accessible Ethereum Node must be run to purchase or trade CPs (counterparts).
+To purchase or trade CPs (counterparts) a Ethereum Node must be run.
 
 Run Geth with a RPC API:
 
@@ -19,6 +15,11 @@ geth --rpc
 ```
 
 Alternatively run Chrome with the [Metamask](https://metamask.io/) Extension:
+
+
+# Usage
+
+
 
 ## Configuration
 

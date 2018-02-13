@@ -1,9 +1,9 @@
 require('babel-core/register')({ presets: ['latest', 'react'] })
 
 const DEFAULT = {
-  _NAME: '[Targold Server]',
-  _VERSION: '0.0.1',
-  _VERSION_NAME: 'Mine',
+  _NAME: '[XGold Server]',
+  _VERSION: '0.0.2',
+  _VERSION_NAME: 'Diamond',
   _URL: '0.0.0.0',
   _PORT: 8080
 }
