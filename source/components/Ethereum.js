@@ -1,6 +1,6 @@
-var Web3 = require('web3');
-
 import * as config from '../../config.json';
+
+const Web3 = require('web3');
 
 const _ON = config.api.public;
 
@@ -24,50 +24,20 @@ export default class Ethereum{
 
     } else {
 
-      //TODO doesn't work because of mixed content restriction in browser
-      // fetch('http://localhost:8545', {
-      //   method: 'get'
-      // }).then((response) => {
-      //   if(this.web3.net.listening){
-      //     console.log('Connected to Ethereum node.');
-      //   }else{
-      //     console.log('No Ethereum node available. Falling back on public api (etherchain.org).');
-      //   }
-      //
-      // }).catch((err) => {
-      //
-      //   console.log('No Ethereum node available. Falling back on public api (etherchain.org).');
-      //
-      // });
-
-        //TODO fucking annoying!
-        /*
-          TODO NOTES(24/6/17)
-
-          have it running on a https server doenst work because it of mixed content restrictions on chrome
-          checking the localports first also doesnt work
-
-          so you have to have it running on your local mashine with a full blockchain copy to be able to buy
-
-          if you just let him try to connect all the time it slows the whole app down on chrome
-          (windows only?!)
-
-          => ONLY WORKING SOLUTION SO FAR:
-             ONLY CONNECT TO RPC SERVER IF APP IS SERVED ON THE LOCAL MACHINE AS WELL.
-
-          TODO: POSSIBLE SOLUTION: METAMASK?
-          Using Metamask I can contribute to the network but can I access the same data
-          like the whole chain???
-
-          TODO UPDTAE(24/6/17)
-          Via Metamask (MetaMask is a bridge that allows you to visit the distributed
-          web of tomorrow in your browser today. It allows you to run Ethereum dApps
-          right in your browser without running a full Ethereum node.)
-
-          and async data handling it seems to work. ony need to arrange the data correctly...
-
-          =>
-        */
+      fetch('http://localhost:8545', {
+        method: 'get'
+      }).then((response) => {
+        if(this.web3.net.listening){
+          console.log('Connected to Ethereum node.');
+        }else{
+          console.log('No Ethereum node available. Falling back on public api (etherchain.org).');
+        }
+      
+      }).catch((err) => {
+      
+        console.log('No Ethereum node available. Falling back on public api (etherchain.org).');
+      
+      });
 
         if(location.hostname=='localhost'||location.hostname=='0.0.0.0'){
 

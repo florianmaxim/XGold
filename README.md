@@ -1,11 +1,22 @@
 # Targold
 
-## (latest)GoldContract: 0x876BCa49BD8E4667d295363Fd2028142C7ba396C
+## Contract: 0x876BCa49BD8E4667d295363Fd2028142C7ba396C
 
-Let's extract gold.
+Every Block is a Diamond.
 
-Every Block is a diamond.
+# Usage
 
+An accessible Ethereum Node must be run to purchase or trade CPs (counterparts).
+
+Run Geth with a RPC API:
+
+```javascript
+geth --rpc
+```
+
+Alternatively run Chrome with the [Metamask](https://www.metamask.io) Extension:
+
+## Configuration
 
 #status
 continue here:

@@ -34,7 +34,7 @@ app.use('/:block/static', express.static(__dirname + '/build/static'));
 app.use('/js', express.static(__dirname + '/build/js'));
 app.use('/static', express.static(__dirname + '/build/static'));
 
-app.get('*', cors(), (req, res) => {
+app.get('*', (req, res) => {
 
   const error = () => res.status(404).send('404')
 
