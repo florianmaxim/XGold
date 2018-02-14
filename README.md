@@ -1,4 +1,4 @@
-# 🔑 XGold ✨ - Crypto Counterparts
+# 🔑 XGold ✨ - Cryptocurrency Counterparts
 
 ### Smart Contract: 0x876BCa49BD8E4667d295363Fd2028142C7ba396C
 
