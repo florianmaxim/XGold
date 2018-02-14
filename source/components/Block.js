@@ -1,6 +1,8 @@
 import * as config from '../../config.json';
 
-import React       from 'react';
+import {log} from './Helpers';
+
+import React, {Component} from 'react';
 
 import Logo        from './Logo';
 import Gold        from './Gold';
@@ -9,28 +11,11 @@ import Chain       from './Chain';
 import Ethereum    from './Ethereum';
 
 const _ETHEREUM = new Ethereum();
-
 const _GOLD     = new Gold();
-
-const _USD = 320.83;
-
-/* little dev helper */
-const _ON     = true;
-const _LIGHT  = false;
-const _BORDER = true;
 
 const DEFAULT = {
 
-  line: 'Ex.gold',
   input: ':number',
-  goldrush: 30000, //ms timeout to load the next block (MINIMUM on etherchain API is 30s!)
-
-  title: [
-    'Tar.gold',
-    'ex.gold',
-    'my.gold',
-    '79.money'
-  ],
 
   modes: ['start','buy','chain','none'],
 
@@ -38,15 +23,16 @@ const DEFAULT = {
 
 }
 
-export default class Block extends React.Component{
+export default class Block extends Component{
 
   constructor(props){
+    
     super(props);
 
     this.state = {
 
       currency: 'ETH',
-      exchangeRate: _USD,
+      exchangeRate: config.rates.usd,
 
       block:{
         number: 1234567890,
@@ -59,7 +45,7 @@ export default class Block extends React.Component{
 
       animation: 0,
 
-      countdown: DEFAULT.goldrush/1000, //in s
+      countdown: config.refresh/1000, //in s
 
       _loaded: false,
       _started: false
@@ -71,16 +57,14 @@ export default class Block extends React.Component{
 
   componentDidMount(){
 
-    //init iphone buggyfill
+    log(`[${config.name}] (${config.version.number}) "${config.version.name}"`)
 
-    //require('viewport-units-buggyfill').init();
-
-    //init gold canvas
-    if(_ON)
-    this.refs.gold.appendChild(_GOLD.init());
+    //Init Gold Canvas
+    let element = _GOLD.init()
+    //Append HTML Canvas Element for the gold
+    this.refs.gold.appendChild(element);
 
     if(_ETHEREUM.init());
-
 
     if(this.props.params.id!==undefined){
 
@@ -92,7 +76,7 @@ export default class Block extends React.Component{
 
       console.log('BLOCK: Specific #'+blockNumber);
 
-      if(_ON) this.getBlock(blockNumber);
+      this.getBlock(blockNumber);
 
     }else{
 
@@ -104,12 +88,15 @@ export default class Block extends React.Component{
       setInterval(()=>{
 
         this.setState({
-          countdown: this.state.countdown>0?this.state.countdown-1:DEFAULT.goldrush/1000,
+          countdown: this.state.countdown>0?this.state.countdown-1:config.refresh/1000,
             _loaded: this.state._loaded===false&&this.state.countdown===0?true:this.state._loaded
         })
 
       }, 1000)
 
+//      _GOLD.generate({});
+
+     
       _ETHEREUM.watchBlockchain(
         
         (lastBlock, connectionType) => {
@@ -117,16 +104,18 @@ export default class Block extends React.Component{
         console.log('('+connectionType+')lastBlock:'+lastBlock.number)
 
         //Gold swallows the block data object that is assembled by 'watchBlockchain'
-        _GOLD.generate(lastBlock, _LIGHT);
+        _GOLD.generate(lastBlock);
 
          this.setState({
            block: lastBlock,
            mode: 1
          });
 
-      history.pushState(null, null, '/block/'+lastBlock.number);
+        history.pushState(null, null, '/block/'+lastBlock.number);
 
-      }, config.refresh);
+      }, config.refresh); 
+
+
 
     }
 
@@ -401,10 +390,10 @@ export default class Block extends React.Component{
 
           <div className="block-display">
 
-            <div className='frame-left' style={{marginTop: 100-this.state.animation+'vh', transition:     ((DEFAULT.goldrush/1000)/4)+'s all linear', transitionDelay: ((DEFAULT.goldrush/1000)/4)*0+'s'}}/>
-            <div className='frame-top' style={{marginLeft: -100+this.state.animation+'vw', transition:     ((DEFAULT.goldrush/1000)/4)+'s all linear', transitionDelay: ((DEFAULT.goldrush/1000)/4)*1+'s'}}/>
-            <div className='frame-right' style={{marginBottom: 100-this.state.animation+'vh', transition: ((DEFAULT.goldrush/1000)/4)+'s all linear', transitionDelay: ((DEFAULT.goldrush/1000)/4)*2+'s'}}/>
-            <div className='frame-bottom' style={{marginRight: -100+this.state.animation+'vw', transition: ((DEFAULT.goldrush/1000)/4)+'s all linear', transitionDelay: ((DEFAULT.goldrush/1000)/4)*3+'s'}}/>
+            <div className='frame-left' style={{marginTop: 100-this.state.animation+'vh', transition:     ((config.refresh/1000)/4)+'s all linear', transitionDelay: ((config.refresh/1000)/4)*0+'s'}}/>
+            <div className='frame-top' style={{marginLeft: -100+this.state.animation+'vw', transition:     ((config.refresh/1000)/4)+'s all linear', transitionDelay: ((config.refresh/1000)/4)*1+'s'}}/>
+            <div className='frame-right' style={{marginBottom: 100-this.state.animation+'vh', transition: ((config.refresh/1000)/4)+'s all linear', transitionDelay: ((config.refresh/1000)/4)*2+'s'}}/>
+            <div className='frame-bottom' style={{marginRight: -100+this.state.animation+'vw', transition: ((config.refresh/1000)/4)+'s all linear', transitionDelay: ((config.refresh/1000)/4)*3+'s'}}/>
 
             <div className="block-top">
 

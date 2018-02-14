@@ -1,5 +1,7 @@
 import * as config from '../../config.json';
 
+import {log} from './Helpers';
+
 const Web3 = require('web3');
 
 const _ON = config.api.public;
@@ -207,7 +209,7 @@ export default class Ethereum{
 
     }else{
 
-      console.log(`[Ethereum] Fetching Blockchain data from public API`)
+      log(`[Ethereum] Fetching Blockchain data from public API`)
 
       //ask for latest block in intervals
 
@@ -221,7 +223,7 @@ export default class Ethereum{
         .then(dataWrappedByPromise => dataWrappedByPromise.json())
         .then(data => {
             
-          console.log(`[Ethereum] Latest Block ${data.height}`);
+          log(`[Ethereum] Latest Block ${data.height}`);
 
           let url = `https://api.blockcypher.com/v1/eth/main/blocks/${data.height}`;
 
@@ -245,16 +247,14 @@ export default class Ethereum{
 
             block.transactions      = data.txids;
 
-            console.log(block);
+            log(block);
 
             callback(block, this.connectionType)
 
           });
 
         })
-        .catch((err) => {
-          console.log(err)
-        });
+        .catch((err) => log(err));
 
       }, config.refresh)
 

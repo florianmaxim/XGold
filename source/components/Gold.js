@@ -1,4 +1,16 @@
+import * as config from '../../config.json';
+
 import * as THREE from 'three';
+
+import {
+  PlaneGeometry, 
+  PointLight,
+  DirectionalLight,
+  AmbientLight,
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderer
+} from 'three';
 
 import {OrbitControls} from './OrbitControls';
 
@@ -48,23 +60,28 @@ function degToRad(degrees){
 	return degrees * Math.PI/180;
 }
 
+/** 
+ * 
+ * This is the graphical canvas using the three js framework.
+*/
+
 export default class Gold{
 
   constructor(){}
 
   init(){
 
-    /* --- System --- */
+    /* System */
 
-    renderer = new THREE.WebGLRenderer({antialias:true});
+    renderer = new WebGLRenderer({antialias:true});
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.setPixelRatio( window.devicePixelRatio);
     renderer.setClearColor(0x000000);
 
-    scene = new THREE.Scene();
+    scene = new Scene();
 
-    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, .1, 10000 );
-    camera.position.set(0,.01,100);
+    camera = new PerspectiveCamera( config.camera.focus, window.innerWidth / window.innerHeight, .1, 10000 );
+    camera.position.set(config.camera.position.x, config.camera.position.y, config.camera.position.z);
     camera.name = 'camera';
 
     camera.lookAt(scene.position);
@@ -73,23 +90,23 @@ export default class Gold{
 
     controls = new OrbitControls(camera);
 
-    /* --- Lights --- */
+    /* Lights */
 
-    var light = new THREE.PointLight(0xffffff,2);
+    var light = new PointLight(0xffffff,2);
     light.position.y=100;
     light.position.x=-50;
     scene.add(light);
 
-    var light = new THREE.PointLight(0xffffff,2);
+    var light = new PointLight(0xffffff,2);
     light.position.y=100;
     light.position.x=50;
     scene.add(light);
 
-    var light = new THREE.DirectionalLight(0xffffff);
+    var light = new DirectionalLight(0xffffff);
     light.position.set(0, 10, 1).normalize();
     scene.add(light);
 
-    var ambient = new THREE.AmbientLight( 0xffffff );
+    var ambient = new AmbientLight( 0xffffff );
     scene.add( ambient );
 
     /* --- Event Listener --- */
@@ -100,7 +117,7 @@ export default class Gold{
       camera.updateProjectionMatrix();
     });
 
-    /*     addEventListener('deviceorientation', (value) => {
+    addEventListener('deviceorientation', (value) => {
       alpha = value.alpha;
       beta  = value.beta;
       gamma = value.gamma;
@@ -109,19 +126,19 @@ export default class Gold{
     addEventListener( 'mousemove', function(event) {
       mouseX = ( event.clientX - innerWidth/2 ) / 2;
       mouseY = ( event.clientY - innerHeight/2 ) / 2;
-    }, false ); */
+    }, false );
 
     /* --- Helper --- */
 
     let mat = new THREE.MeshPhongMaterial({color: 0xffd700})
     let geo = new THREE.SphereGeometry(50,1,1);
     mesh = new THREE.Mesh(geo, mat);
-    mesh.name = 'pivot';
+    mesh.name = 'gold';
     scene.add(mesh);
 
     /* --- Rotation --- */
 
-    function rotate(){/* 
+    function rotate(){ 
 
       if(!scene.getObjectByName('camera')) return;
       if(!scene.getObjectByName('gold')) return;
@@ -184,7 +201,7 @@ export default class Gold{
         camera.position.x = newPosX;
         camera.position.y = newPosY;
 
-      } */
+      }
 
     }
 
@@ -192,21 +209,14 @@ export default class Gold{
 
     (function animate(){
 
-       //loader
-   /*        if(mesh){
-
-           mesh.rotation.x += .01;
-           mesh.rotation.z += .01;
-
-       }
-
         rotate();
 
-        controls.update(); */
+        controls.update();
 
         requestAnimationFrame(animate);
 
         render();
+
     })();
 
     function render(){
@@ -225,38 +235,30 @@ export default class Gold{
     block.height =
 
   */
-  generate(block, lightMode){
+  generate(block){
 
     console.log(`[GOLD] Block: ${block.number}`)
 
-    var length       = block.transactions.length===0?1:block.transactions.length;
+    let factor = 1;
 
-    var width        = (block.size/100)/length;
-    var height       = (block.size/100)/length;
+    let width = 512*factor;
+    let height = 512*factor;
+    let segments = 512*factor;
+    let smooth = 256*factor;
 
-    var segments     = Math.pow(2, Math.ceil(Math.log(length)/Math.log(2)));
-    var transactions = block.transactions;
+    //Generate surface with DiamndSquare algorithm
+    let surface  = new DiamondSquare(width, height, segments, smooth).generate();
 
-    //TODO NO MAGIC NUMBER - RANDOMNESS ALREADY COMES FROM THE BLOCK
-    var smooth   =  .25
+    //Generate blank plane geometry
+    let geometry = new PlaneGeometry(width, height, segments, segments);
 
-/*     var ground = new DiamondSquare(width, height, segments, smooth, transactions);
-    var ground = ground.generate(); */
-
-    var geometry = new THREE.PlaneGeometry(width, height, segments, segments);
-
-    //var geometry = new THREE.CubeGeometry(25,25,25);
-    
-   /*  if(lightMode===false||lightMode===undefined){
-
-      var index = 0;
-      for(var i = 0; i <= segments; i++) {
-        for(var j = 0; j <= segments; j++) {
-          geometry.vertices[index].z = ground[i][j];
-          index++;
-        }
+    //Apply surface data on geometry
+    let index = 0;
+    for(var i = 0; i <= segments; i++) {
+      for(var j = 0; j <= segments; j++) {
+        geometry.vertices[index].z = surface[i][j];
+        index++;
       }
-
     }
 
     geometry.computeFaceNormals();
@@ -271,27 +273,25 @@ export default class Gold{
       ];
 
     var reflectionCube = new THREE.CubeTextureLoader().load( urls );
-        reflectionCube.format = THREE.RGBFormat;
 
     var refractionCube = new THREE.CubeTextureLoader().load( urls );
         refractionCube.mapping = THREE.CubeRefractionMapping;
-        refractionCube.format = THREE.RGBAFormat; */
 
     var material = new THREE.MeshPhongMaterial( {
       side: THREE.DoubleSide,
       color: 0x564100,
-/*      specular:0x937300,
+     specular:0x937300,
       emissive:0xffffff,
-       emissiveIntensity:.1,
+      emissiveIntensity:.1,
+
       envMap: reflectionCube,
-      displacementMap: reflectionCube,
-      combine: THREE.MixOperation, */
+      //displacementMap: reflectionCube,
+      //combine: THREE.MixOperation,
+
       reflectivity: .25} );
 
     //remove old mesh
-    scene.remove(scene.getObjectByName('pivot'));
-    //remove old gold
-    //scene.remove(scene.getObjectByName('gold'));
+    scene.remove(scene.getObjectByName('gold'));
 
     gold = new THREE.Mesh( geometry, material );
     gold.name = 'gold';

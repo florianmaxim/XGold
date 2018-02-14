@@ -1,6 +1,9 @@
 {
     "name": "XGold",
 
+    "color": "gold",
+    "background": "black", 
+
     "version": {
 
         "number": "0.0.1",
@@ -11,5 +14,22 @@
         "public": false
     },
 
-    "refresh": 30000
+    "log": true,
+
+    "refresh": 30000,
+
+    "camera": {
+
+        "focus": 105,
+
+        "position": {
+            "x": 0,
+            "y": 0.01,
+            "z": 100
+        }
+    },
+
+    "rates": {
+        "usd" : 123
+    }
 }

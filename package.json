@@ -14,10 +14,10 @@
   "author": "Florian Maxim",
   "license": "ISC",
   "dependencies": {
-    "react": "15.4.2",
+    "react": "^15.4.2",
     "react-dom": "15.4.2",
     "react-router": "^3.0.2",
-    "three": "^0.85.2",
+    "three": "^0.90.0",
     "web3": "^0.19.0"
   },
   "devDependencies": {
