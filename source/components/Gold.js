@@ -100,7 +100,7 @@ export default class Gold{
       camera.updateProjectionMatrix();
     });
 
-    addEventListener('deviceorientation', (value) => {
+    /*     addEventListener('deviceorientation', (value) => {
       alpha = value.alpha;
       beta  = value.beta;
       gamma = value.gamma;
@@ -109,19 +109,19 @@ export default class Gold{
     addEventListener( 'mousemove', function(event) {
       mouseX = ( event.clientX - innerWidth/2 ) / 2;
       mouseY = ( event.clientY - innerHeight/2 ) / 2;
-    }, false );
+    }, false ); */
 
     /* --- Helper --- */
 
     let mat = new THREE.MeshPhongMaterial({color: 0xffd700})
     let geo = new THREE.SphereGeometry(50,1,1);
     mesh = new THREE.Mesh(geo, mat);
-    mesh.name = 'mesh';
+    mesh.name = 'pivot';
     scene.add(mesh);
 
     /* --- Rotation --- */
 
-    function rotate(){
+    function rotate(){/* 
 
       if(!scene.getObjectByName('camera')) return;
       if(!scene.getObjectByName('gold')) return;
@@ -184,7 +184,7 @@ export default class Gold{
         camera.position.x = newPosX;
         camera.position.y = newPosY;
 
-      }
+      } */
 
     }
 
@@ -193,7 +193,7 @@ export default class Gold{
     (function animate(){
 
        //loader
-       if(mesh){
+   /*        if(mesh){
 
            mesh.rotation.x += .01;
            mesh.rotation.z += .01;
@@ -202,7 +202,7 @@ export default class Gold{
 
         rotate();
 
-        controls.update();
+        controls.update(); */
 
         requestAnimationFrame(animate);
 
@@ -218,17 +218,21 @@ export default class Gold{
     return renderer.domElement;
   }
 
-  removeGold(){
-  }
+  /**
+    Generates the gold mesh from a block object
+    
+    block.length = 
+    block.height =
 
-  gold(block, lightMode){
+  */
+  generate(block, lightMode){
 
     console.log(`[GOLD] Block: ${block.number}`)
 
     var length       = block.transactions.length===0?1:block.transactions.length;
 
-    var width        = length*2;
-    var height       = length*2;
+    var width        = (block.size/100)/length;
+    var height       = (block.size/100)/length;
 
     var segments     = Math.pow(2, Math.ceil(Math.log(length)/Math.log(2)));
     var transactions = block.transactions;
@@ -236,12 +240,14 @@ export default class Gold{
     //TODO NO MAGIC NUMBER - RANDOMNESS ALREADY COMES FROM THE BLOCK
     var smooth   =  .25
 
-    var ground = new DiamondSquare(width, height, segments, smooth, transactions);
-    var ground = ground.generate();
+/*     var ground = new DiamondSquare(width, height, segments, smooth, transactions);
+    var ground = ground.generate(); */
 
     var geometry = new THREE.PlaneGeometry(width, height, segments, segments);
 
-    if(lightMode===false||lightMode===undefined){
+    //var geometry = new THREE.CubeGeometry(25,25,25);
+    
+   /*  if(lightMode===false||lightMode===undefined){
 
       var index = 0;
       for(var i = 0; i <= segments; i++) {
@@ -269,23 +275,23 @@ export default class Gold{
 
     var refractionCube = new THREE.CubeTextureLoader().load( urls );
         refractionCube.mapping = THREE.CubeRefractionMapping;
-        refractionCube.format = THREE.RGBAFormat;
+        refractionCube.format = THREE.RGBAFormat; */
 
     var material = new THREE.MeshPhongMaterial( {
       side: THREE.DoubleSide,
       color: 0x564100,
-      specular:0x937300,
+/*      specular:0x937300,
       emissive:0xffffff,
-      emissiveIntensity:.1,
+       emissiveIntensity:.1,
       envMap: reflectionCube,
       displacementMap: reflectionCube,
-      combine: THREE.MixOperation,
+      combine: THREE.MixOperation, */
       reflectivity: .25} );
 
     //remove old mesh
-    scene.remove(scene.getObjectByName('mesh'));
+    scene.remove(scene.getObjectByName('pivot'));
     //remove old gold
-    scene.remove(scene.getObjectByName('gold'));
+    //scene.remove(scene.getObjectByName('gold'));
 
     gold = new THREE.Mesh( geometry, material );
     gold.name = 'gold';

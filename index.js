@@ -1,4 +1,9 @@
-require('babel-core/register')({ presets: ['latest', 'react'] })
+require('@babel/register')({ presets: ['@babel/preset-react', '@babel/preset-env'] })
+
+const config = require('./config.json');
+
+const chalk = require('chalk');
+const log = console.log;
 
 const DEFAULT = {
   _NAME: '[XGold Server]',
@@ -13,7 +18,6 @@ const path           = require('path');
 const fs             = require('fs');
 
 const express        = require('express');
-const cors           = require('cors');
 
 const react          = require('react');
 const reactDomServer = require('react-dom/server');
@@ -79,5 +83,10 @@ app.get('*', (req, res) => {
 });
 
 app.server.listen(DEFAULT._PORT, DEFAULT._URL, () => {
-  console.log(`${DEFAULT._NAME} ${DEFAULT._VERSION} (${DEFAULT._VERSION_NAME}) Listening on port ${DEFAULT._PORT}`);
+
+  log(`
+    [${chalk.hex('#FFD700').bold(config.name)} ${chalk.red(`(${config.version.number})`)} "${chalk.blue(config.version.name)}"]
+    - Listening on port ${chalk.yellow(DEFAULT._PORT)}
+  `);
+
 });

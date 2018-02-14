@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
 const DEFAULT = {
   offset: 5
 }
@@ -104,19 +102,7 @@ export default class Chain extends Component{
   render(){
     return(
       <div className="chain-container">
-        <div className="chain-animation-container">
-          <ReactCSSTransitionGroup transitionName="example"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}>
-
-          {
-            this.state.blocks.slice(0, DEFAULT.offset).map((key, index)=>{
-              return <div key={key} className="block-button block-button-fixed-width" style={{marginBottom:'10px'}}><div style={{margin:'7px'}}>{key}</div></div>
-            })
-          }
-
-          </ReactCSSTransitionGroup>
-        </div>
+       
       </div>
     );
   }

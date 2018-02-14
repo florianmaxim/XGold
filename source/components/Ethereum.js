@@ -95,6 +95,7 @@ export default class Ethereum{
 
   watchBlockchain(callback, interval){
 
+
     if(_ON&&this.web3&&this.web3.isConnected()){
 
       /* console.log('[Blockchain] - Watching the ethereum node api.')
@@ -209,7 +210,8 @@ export default class Ethereum{
       console.log(`[Ethereum] Fetching Blockchain data from public API`)
 
       //ask for latest block in intervals
-      // setInterval(()=>{
+
+      setInterval(() => {
 
         let url = 'https://api.blockcypher.com/v1/eth/main';
 
@@ -230,9 +232,13 @@ export default class Ethereum{
           .then(res => res.json())
           .then((data) => {
 
+            //Assemble block from api specific data
+
             block.number            = data.height;
             block.hash              = data.hash;
             block.size              = data.size;
+
+            block.time              = data.time;
 
             block.price             = 123;
             
@@ -243,18 +249,6 @@ export default class Ethereum{
 
             callback(block, this.connectionType)
 
-            /* let url = 'https://etherchain.org/api/block/'+block.number+'/tx';
-
-            fetch(url)
-            .then(res => res.json())
-            .then((data) => {
-
-              block.transactions =resout.data;
-
-              callback(block, this.connectionType)
-
-            }); */
-
           });
 
         })
@@ -262,7 +256,7 @@ export default class Ethereum{
           console.log(err)
         });
 
-    //  }, interval)
+      }, config.refresh)
 
     }
 
