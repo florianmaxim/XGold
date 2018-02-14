@@ -32,6 +32,25 @@ https://api.blockcypher.com/v1/eth/main
 
 # Usage
 
+## Develop
+
+```javascript
+npm run dev
+```
+
+## Build
+
+```javascript
+npm run build
+``` 
+
+## Start
+
+```javascript
+npm start
+```
+
+Browse to [**localhost:8080**](localhost:8080).
 
 ## Configuration
 
