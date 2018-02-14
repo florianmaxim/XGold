@@ -2,11 +2,11 @@
 
 ### Smart Contract: 0x876BCa49BD8E4667d295363Fd2028142C7ba396C
 
-Every Block is a Diamond.
+Giving Crpyto Money The Counterpart Fiat Money Lost A Long Time Ago.
 
 # Requirements
 
-[NodeJS](https://nodejs.org) must be installed to run XGold.
+[NodeJS](https://nodejs.org) must be installed.
 
 # Installation
 
