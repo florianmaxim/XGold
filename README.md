@@ -1,4 +1,4 @@
-# XGold ✨ 🔑
+# 🔑 XGold ✨ 
 
 ## Contract: 0x876BCa49BD8E4667d295363Fd2028142C7ba396C
 
@@ -23,12 +23,13 @@ Alternatively run Chrome with the [Metamask](https://metamask.io/) Extension:
 
 To **view** CPs only no Ethereum node is necessary:
 
-If no Ethereum is accessible Blockchain data is provided by public APIs:
+If no Ethereum node is provided the Blockchain data is provided by public APIs:
 
 #1 [Blockcypher](https://www.blockcypher.com/dev/ethereum/#introduction)
 ```javascript
 https://api.blockcypher.com/v1/eth/main
 ```
+
 # Usage
 
 
@@ -56,7 +57,7 @@ works with data from local running node
 ![Gold](stills/1.png)
 
 
-# resources
+# Resources
 
 deploying contracts
 https://www.youtube.com/watch?v=eWclxmGjYb4

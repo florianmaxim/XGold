@@ -114,10 +114,13 @@ export default class Block extends React.Component{
 
 
       if(_ON)
-      _ETHEREUM.watchBlockchain((lastBlock, connectionType)=>{
+      _ETHEREUM.watchBlockchain(
+        
+        (lastBlock, connectionType) => {
 
         console.log('('+connectionType+')lastBlock:'+lastBlock.number)
 
+        //Gold swallows the block data object that is assembled by 'watchBlockchain'
         _GOLD.gold(lastBlock, _LIGHT);
 
          this.setState({

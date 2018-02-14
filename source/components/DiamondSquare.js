@@ -4,20 +4,22 @@
 
 /*
 
-Can Diamond Square grow forever?
+Can diamond squares grow forever?
 
 */
 
+//TODO : NO BLOCKCHAIN TERMS IN HERE!
+
 export default class DiamondSquare{
+
   constructor(width, height, segments, smoothingFactor, transactions){
 
     //block data
     this.transactions = transactions;
 
     //geometry data
-
-    this.width = width;
-  	this.height = height;
+    this.width    = width;
+  	this.height   = height;
   	this.segments = segments;
   	this.smoothingFactor = smoothingFactor;
 
@@ -28,14 +30,18 @@ export default class DiamondSquare{
 			for(var j = 0; j <= this.segments; j++) {
 				this.terrain[i][j] = 0;
 			}
-		}
+    }
+    
   }
 
 	generate() {
-		var size = this.segments;
+
+    var size = this.segments;
+    
 		// var size = this.segments+1;
 
     // length = 8,                   divide by two    until it's not divisible anymore
+
 		for(var length = this.segments; length >= 2;      length /= 2) {
 
 
@@ -52,7 +58,6 @@ export default class DiamondSquare{
 
       /*
         squares
-
       */
 
       var counter = 0
@@ -188,7 +193,9 @@ export default class DiamondSquare{
 						this.terrain[x][this.segments] = average;
 				}
 			}
-		}
-		return this.terrain;
+    }
+    
+    return this.terrain;
+    
 	};
 };

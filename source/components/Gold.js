@@ -223,17 +223,17 @@ export default class Gold{
 
   gold(block, lightMode){
 
-    // console.log('GOLD: Block:'+block.number)
+    console.log(`[GOLD] Block: ${block.number}`)
 
-    var length   = block.transactions.length===0?1:block.transactions.length;
+    var length       = block.transactions.length===0?1:block.transactions.length;
 
-    var width    = length*2;
-    var height   = length*2;
+    var width        = length*2;
+    var height       = length*2;
 
-    var segments = Math.pow(2, Math.ceil(Math.log(length)/Math.log(2)));
+    var segments     = Math.pow(2, Math.ceil(Math.log(length)/Math.log(2)));
     var transactions = block.transactions;
 
-    //TODO NO MAGIC NUMBER - RANDOMNESS ALREADY COMES FROM TEH BLOCK
+    //TODO NO MAGIC NUMBER - RANDOMNESS ALREADY COMES FROM THE BLOCK
     var smooth   =  .25
 
     var ground = new DiamondSquare(width, height, segments, smooth, transactions);

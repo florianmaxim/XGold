@@ -97,7 +97,7 @@ export default class Ethereum{
 
     if(_ON&&this.web3&&this.web3.isConnected()){
 
-      console.log('[Blockchain] - Watching the ethereum node api.')
+      /* console.log('[Blockchain] - Watching the ethereum node api.')
 
       var filter = this.web3.eth.filter('latest');
 
@@ -198,7 +198,7 @@ export default class Ethereum{
 
         }
 
-      });
+      }); */
 
     /////////////////
     //PUBLIC API
@@ -206,66 +206,61 @@ export default class Ethereum{
 
     }else{
 
-      console.log('Watching the public api.')
+      console.log(`[Ethereum] Fetching Blockchain data from public API`)
 
       //ask for latest block in intervals
       // setInterval(()=>{
 
-/*         fetch('https://etherchain.org/api/blocks/count', {
-          mode: 'no-cors'
-        })
-        .then(response => response.json())
-        .then(json => {
-          console.log('parsed json', json) // access json.body here
-        }) */
-
         let url = 'https://api.blockcypher.com/v1/eth/main';
-        //let url = 'https://etherchain.org/api/blocks/count';
+
+        //Fetch current block height
         
         fetch(url)
         .then(dataWrappedByPromise => dataWrappedByPromise.json())
         .then(data => {
-            console.log(`Latest Block ${data.height}`)
-        })
-        
-       /*  .then((res) => {
+            
+          console.log(`[Ethereum] Latest Block ${data.height}`);
 
-          console.log(res.json());
+          let url = `https://api.blockcypher.com/v1/eth/main/blocks/${data.height}`;
 
-          let lastBlock = res.data[0].count;
+          let block = {};
 
-          //fetch block's transaction
-          let block = {}
+          //Fetch data of current block
+          fetch(url)
+          .then(res => res.json())
+          .then((data) => {
 
-          var url = 'https://etherchain.org/api/block/'+lastBlock;
+            block.number            = data.height;
+            block.hash              = data.hash;
+            block.size              = data.size;
 
-          fetch(url).then(res => res.json()).then((res) => {
+            block.price             = 123;
+            
 
-            block.number            = res.data[0].number;
-            block.hash              = res.data[0].hash;
-            block.size              = res.data[0].size;
+            block.transactions      = data.txids;
 
-            block.price             = (res.data[0].gasUsed)*(res.data[0].gasLimit);
+            console.log(block);
 
-            block.own = false;
+            callback(block, this.connectionType)
 
-            let url = 'https://etherchain.org/api/block/'+block.number+'/tx';
+            /* let url = 'https://etherchain.org/api/block/'+block.number+'/tx';
 
-            fetch(url).then(res => res.json()).then((res) => {
+            fetch(url)
+            .then(res => res.json())
+            .then((data) => {
 
               block.transactions =resout.data;
 
               callback(block, this.connectionType)
 
-            });
+            }); */
 
           });
-
 
         })
         .catch((err) => {
           console.log(err)
-        }); */
+        });
 
     //  }, interval)
 
