@@ -50,7 +50,7 @@ npm run build
 npm start
 ```
 
-Browse to [**localhost:8080**](localhost:8080).
+Browse to **[localhost:8080](http://localhost:8080)**.
 
 ## Configuration
 
