@@ -32,19 +32,21 @@ https://api.blockcypher.com/v1/eth/main
 
 # Usage
 
-## Develop
+## Run
+
+### Develop
 
 ```javascript
 npm run dev
 ```
 
-## Build
+### Build
 
 ```javascript
 npm run build
 ``` 
 
-## Start
+### Start
 
 ```javascript
 npm start
@@ -53,27 +55,6 @@ npm start
 Browse to **[localhost:8080](http://localhost:8080)**.
 
 ## Configuration
-
-#status
-continue here:
-https://github.com/ethereum/go-ethereum/issues/1623
-
-
--24/6/17:
-
-TODO TX Data mus fit into diamondsqaure !!
-
-works with data from remote api (etherchain)
-(meaning purchasing not possible)
-
-works with data from metamask
-(INCOMING DATA IS NOT SORTED data needs to be sorted for diamond square)
-
-works with data from local running node
-(INCOMING DATA IS NOT SORTED data needs to be sorted for diamond square)
-
-
-![Gold](stills/1.png)
 
 
 # Resources
