@@ -59,25 +59,16 @@ Browse to **[localhost:8080](http://localhost:8080)**.
 
 # Resources
 
-deploying contracts
-https://www.youtube.com/watch?v=eWclxmGjYb4
-
-metamask
-https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md#dizzy-all-async---think-of-metamask-as-a-light-client
-
-web3.js
-https://github.com/ethereum/web3.js/
-
-#jewelry commercials:
+## Jewelry commercials:
 
 https://www.youtube.com/watch?v=Kxpe0nOXQsg
 
 https://www.youtube.com/watch?v=8Fosqx2C_A8
 
-#de beers
+## De beers
 https://www.youtube.com/watch?v=uUzmUH55iKo&list=PLEqf8pU7tcmaLTRdrvustF86iJXX2uBi6#t=3.633411
 
-#banks
+## Banks
 
 https://www.youtube.com/watch?v=Qbz95LdqMko
 
@@ -85,12 +76,6 @@ https://www.youtube.com/watch?v=6xHb0A4Sndw
 
 https://www.youtube.com/watch?v=IvKt98rPkg8
 
-#fonts
+# License
 
-http://www.dafont.com/de/florencesans.font?text=1234567890
-
-http://www.dafont.com/de/market-fresh.font?text=1234567890
-
-HELVETICA
-
-ARIAL
+MIT
