@@ -8,7 +8,7 @@
     "develop:api": "NODE_ENV=development node server.webpack.dev.js",
     "develop": "npm run develop:api",
     "dev": "npm run develop:api",
-    "build": "webpack --config .webpack.config.js --progress --env production --display-error-details",
+    "build": "webpack --config .webpack.config.js --progress --env production",
     "start": "node index.js"
   },
   "author": "Florian Maxim",
