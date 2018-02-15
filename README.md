@@ -24,6 +24,9 @@ geth --rpc
 
 Alternatively run Chrome with the [Metamask](https://metamask.io/) Extension:
 
+## Mobile 
+
+On mobile devices use [Cipher](https://www.cipherbrowser.com/).
 
 To **view** CPs only no Ethereum node is necessary:
 
