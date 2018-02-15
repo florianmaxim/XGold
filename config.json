@@ -1,5 +1,14 @@
 {
     "name": "XGold",
+    "slogan": "Cryptocurrency Counterparts",
+
+    "info": {
+        "name": "XGold",
+        "slogan": "Cryptocurrency Counterparts",
+        "button": "Read the golden paper",
+
+        "paper": "This is the fucking paper text."
+    },
 
     "color": "gold",
     "background": "black", 
@@ -16,7 +25,7 @@
 
     "log": true,
 
-    "refresh": 30000,
+    "refresh": 60000,
 
     "camera": {
 

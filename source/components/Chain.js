@@ -37,7 +37,7 @@ export default class Chain extends Component{
 
     this._mounted = true;
 
-      var Web3 = require('web3');
+    /*   var Web3 = require('web3');
 
       var web3 = new Web3();
 
@@ -95,7 +95,7 @@ export default class Chain extends Component{
 
           }
 
-      });
+      }); */
 
   }
 

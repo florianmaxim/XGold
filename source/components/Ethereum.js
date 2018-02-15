@@ -209,7 +209,7 @@ export default class Ethereum{
 
     }else{
 
-      log(`[Ethereum] Fetching Blockchain data from public API`)
+      log(`[Blockchain] Fetching Blockchain data from public API`)
 
       //ask for latest block in intervals
 
@@ -223,7 +223,7 @@ export default class Ethereum{
         .then(dataWrappedByPromise => dataWrappedByPromise.json())
         .then(data => {
             
-          log(`[Ethereum] Latest Block ${data.height}`);
+          log(`[Blockchain] Current Block ${data.height}`);
 
           let url = `https://api.blockcypher.com/v1/eth/main/blocks/${data.height}`;
 

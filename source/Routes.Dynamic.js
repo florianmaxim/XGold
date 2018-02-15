@@ -13,7 +13,7 @@ export default {
   component: App,
   indexRoute: {
     getComponent(location, cb) {
-      System.import('./components/Block')
+      System.import('./components/Display')
         .then(loadRoute(cb))
         .catch(errorLoading);
     },
@@ -30,7 +30,7 @@ export default {
     {
       path: '/block',
       getComponent(location, cb) {
-        System.import('./components/Block')
+        System.import('./components/Display')
           .then(loadRoute(cb))
           .catch(errorLoading);
       },

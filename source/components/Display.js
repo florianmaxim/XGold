@@ -8,22 +8,29 @@ import Logo        from './Logo';
 import Gold        from './Gold';
 import Chain       from './Chain';
 
+import DisplayInfo from './DisplayInfo';
+
+
 import Ethereum    from './Ethereum';
 
-const _ETHEREUM = new Ethereum();
-const _GOLD     = new Gold();
+const _BLOCKCHAIN = new Ethereum();
+const _GOLD       = new Gold();
 
 const DEFAULT = {
 
   input: ':number',
 
-  modes: ['start','buy','chain','none'],
+  modes: ['start', 'data', 'list', 'info', 'none'],
 
   keys: [1,2,3,4,5,6,7,8,9]
 
 }
 
-export default class Block extends Component{
+/** 
+ * This handles the main view
+ * TODO: This should actually be the App component by convention
+*/
+export default class Display extends Component{
 
   constructor(props){
     
@@ -36,7 +43,7 @@ export default class Block extends Component{
 
       block:{
         number: 1234567890,
-        hash: 0x123456789,
+        hash: "0x88e96d4537bea4d9c05d12549907b32561d3bf31f45aae734cdc119f13406cb6",
         price: 1,
         own:false
       },
@@ -61,10 +68,11 @@ export default class Block extends Component{
 
     //Init Gold Canvas
     let element = _GOLD.init()
+
     //Append HTML Canvas Element for the gold
     this.refs.gold.appendChild(element);
 
-    if(_ETHEREUM.init());
+    if(_BLOCKCHAIN.init());
 
     if(this.props.params.id!==undefined){
 
@@ -83,25 +91,10 @@ export default class Block extends Component{
     /////////////////////////////////////////
     // BLOCK: JUST FOLLOW THE CHAIN.
     /////////////////////////////////////////
-
-      //handle countdown
-      setInterval(()=>{
-
-        this.setState({
-          countdown: this.state.countdown>0?this.state.countdown-1:config.refresh/1000,
-            _loaded: this.state._loaded===false&&this.state.countdown===0?true:this.state._loaded
-        })
-
-      }, 1000)
-
-//      _GOLD.generate({});
-
      
-      _ETHEREUM.watchBlockchain(
+      _BLOCKCHAIN.watchBlockchain(
         
         (lastBlock, connectionType) => {
-
-        console.log('('+connectionType+')lastBlock:'+lastBlock.number)
 
         //Gold swallows the block data object that is assembled by 'watchBlockchain'
         _GOLD.generate(lastBlock);
@@ -128,12 +121,12 @@ export default class Block extends Component{
 
     this.setState({
       numpad: this.state.numpad?false:true,
-    })
+    });
+
   }
 
   handleInput(v, event){
 
-    //console.log('pressed key '+v);
     event.stopPropagation();
     event.preventDefault();
 
@@ -158,20 +151,28 @@ export default class Block extends Component{
 
   buy(event, amountInEther) {
 
-    console.log('[Block] - Buy')
+    console.log('[Display] - Buy')
 
-    _ETHEREUM.makeTransaction(this.state.block.price, this.state.block.number);
+    _BLOCKCHAIN.makeTransaction(this.state.block.price, this.state.block.number);
 
   }
 
-  toggleDisplay(){
-   this.setState({
-     mode: this.state.mode<DEFAULT.modes.length-1?(this.state.mode+1):0
-   })}
+  handleMode(){
 
-  handleDisplay(mode){
+    //log(`[Display] Mode: ${mode} "handleMode()"`);
+
+    this.setState({
+      mode: this.state.mode<DEFAULT.modes.length-1?(this.state.mode+1):0
+    });
+  
+  }
+
+  renderMode(mode){
+
+    log(`[Display] Mode: ${mode} "renderMode()"`);
 
     switch(mode){
+
       case 'start':
        return(
          <div className="block-buy">
@@ -207,7 +208,7 @@ export default class Block extends Component{
            </div>
            <div className="block-button" onClick={()=>{this.start(event)}}>
              {
-               _ETHEREUM.isConnected()
+               _BLOCKCHAIN.isConnected()
                ?
                <span>Connected to the blockchain</span>
                :
@@ -223,7 +224,7 @@ export default class Block extends Component{
            <p style={{fontWeight:'200', marginTop: '1px'}}></p>
 
            {
-             this.state._loaded||_ETHEREUM.isConnected()
+             this.state._loaded||_BLOCKCHAIN.isConnected()
              ?
              <div className='block-button' onClick={()=>{this.start()}} style={{color: 'rgba(255,255,82)', borderColor: 'rgba(255,255,82)', backgroundColor: 'black'}}>
                Start
@@ -241,11 +242,10 @@ export default class Block extends Component{
 
         }
 
-        </div>
-      );
+        </div>);
       break;
 
-      case 'buy':
+      case 'data':
         return(
           <div className="block-buy">
 
@@ -262,12 +262,12 @@ export default class Block extends Component{
 
             <div className="block-buy-price">
 
-             {this.state.currency} {this.state.block.price.toFixed(2)} - (BALANCE {((_ETHEREUM.getBalance()/1000000000000000000)).toFixed(2)})<br/>
+             {this.state.currency} {this.state.block.price.toFixed(2)} - (BALANCE {((_BLOCKCHAIN.getBalance()/1000000000000000000)).toFixed(2)})<br/>
 
              <p style={{fontWeight:'200', marginTop: '1px'}}>Price varies with currency exchange rates and may be different tomorrow.</p>
 
              <div>
-             {!_ETHEREUM.isConnected()
+             {!_BLOCKCHAIN.isConnected()
                ?
                <p style={{fontWeight:'200', marginTop: '5px'}}> Next gold will be available in {this.state.countdown}s</p>
                :
@@ -276,7 +276,7 @@ export default class Block extends Component{
               </div>
 
              {
-               _ETHEREUM.isConnected()
+               _BLOCKCHAIN.isConnected()
                ?
                <div>
                  {
@@ -305,6 +305,32 @@ export default class Block extends Component{
 
           </div>
         );
+      break;
+
+      case 'list':
+        return(
+          <div className="block-buy">
+
+            <div className="block-buy-container-price" style={{border: '0px solid red'}}>
+
+              <div style={{width:'100%'}}>
+              <Chain/>
+              </div>
+
+              <div className="block-buy-price" style={{display:'flex',flexDirection:'row'}}>
+
+              <div className="block-button" style={{backgroundColor:'gold',color:'black'}} onClick={()=>{this.buy(event)}}>
+                available
+              </div>
+              <div className="block-button" onClick={()=>{this.buy(event)}}>
+                sold
+              </div>
+
+              </div>
+
+            </div>
+
+          </div>);
       break;
 
       case 'input':
@@ -336,49 +362,18 @@ export default class Block extends Component{
         );
       break;
 
-      case 'chain':
-       return(
-         <div className="block-buy">
+      case 'info':
+        return <DisplayInfo/>;
 
-          <div className="block-buy-container-price" style={{border: '0px solid red'}}>
-
-           <div style={{width:'100%'}}>
-            <Chain/>
-           </div>
-
-           <div className="block-buy-price" style={{display:'flex',flexDirection:'row'}}>
-
-            <div className="block-button" style={{backgroundColor:'gold',color:'black'}} onClick={()=>{this.buy(event)}}>
-              available
-            </div>
-            <div className="block-button" onClick={()=>{this.buy(event)}}>
-              sold
-            </div>
-
-           </div>
-
-          </div>
-
-         </div>
-      );
       break;
 
       case 'none':
        return(
         <div>
-        </div>
-      );
+        </div>);
       break;
     }
-  }
 
-
-  start(event) {
-    this.setState({
-      _started: true,
-      mode: 1,
-    });
-    this.forceUpdate();
   }
 
   render(){
@@ -400,13 +395,11 @@ export default class Block extends Component{
             </div>
 
             <div className="block-middle">
-
-              {this.handleDisplay(DEFAULT.modes[this.state.mode])}
-
+              {this.renderMode(DEFAULT.modes[this.state.mode])}
             </div>
 
             <div className="block-bottom">
-              <div className="block-nav" onClick={this.state._started?()=>{this.toggleDisplay(event)}:''}>
+              <div className="block-nav" onClick={()=>this.handleMode(event)}>
                 <Logo/>
               </div>
             </div>

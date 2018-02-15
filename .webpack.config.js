@@ -19,11 +19,15 @@ module.exports = {
 
   module: {
 
-    loaders: [
+    rules: [
+      {
+        test: /\.txt$/,
+        loader: 'raw-loader'
+      },
       {
         test: /\.(js)$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        use: 'babel-loader'
       },
       {
         test: /\.(scss|css)$/,
