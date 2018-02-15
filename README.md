@@ -1,6 +1,6 @@
 # 🔑 XGold ✨ - Cryptocurrency Counterparts
 
-![Gold](stills/01.jpg)
+![Gold](stills/02.jpg)
 
 ### [https://xgold.cc](https://xgold.cc) [https://xgold.trade](https://xgold.trade) [https://xgold.store](https://xgold.store)
 
