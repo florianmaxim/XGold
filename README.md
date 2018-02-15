@@ -1,6 +1,6 @@
 # 🔑 XGold ✨ - Cryptocurrency Counterparts
 
-Giving Crpyto Money The Counterpart Fiat Money Lost A Long Time Ago.  🌊 ⛏
+ 🌊 💰 Giving Crpyto Money The Counterpart Fiat Money Lost A Long Time Ago. 👷 ⛏
 
 ![Gold](stills/02.jpg)
 
