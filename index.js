@@ -19,10 +19,10 @@ const renderToString = reactDomServer.renderToString;
 const match          = reactRouter.match;
 const RouterContext  = reactRouter.RouterContext;
 
-const routes         = require('./source/Routes.Static').default
+const routes         = require('./source/Routes.Static').default;
 
-const app  = express()
-app.server = http.createServer(app)
+const app        = express();
+      app.server = http.createServer(app);
 
 app.use('/:block/js', express.static(__dirname + '/build/js'));
 app.use('/:block/static', express.static(__dirname + '/build/static'));
