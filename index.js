@@ -3,15 +3,7 @@ require('@babel/register')({ presets: ['@babel/preset-react', '@babel/preset-env
 const config = require('./config.json');
 
 const chalk = require('chalk');
-const log = console.log;
-
-const DEFAULT = {
-  _NAME: '[XGold Server]',
-  _VERSION: '0.0.2',
-  _VERSION_NAME: 'Diamond',
-  _URL: '0.0.0.0',
-  _PORT: 8080
-}
+const log   = console.log;
 
 const http           = require('http');
 const path           = require('path');
@@ -58,10 +50,6 @@ app.get('*', (req, res) => {
 
       else if(ssrData) {
 
-        console.log('Got a match here: '+req.url);
-
-        console.log(JSON.stringify(req.params));
-
         const ReactApp = renderToString( react.createElement(RouterContext, ssrData) );
 
         const RenderedApp = htmlData.replace(`<div id="root"></div>`, `<div id="root">${ReactApp}</div>`);
@@ -82,11 +70,11 @@ app.get('*', (req, res) => {
 
 });
 
-app.server.listen(DEFAULT._PORT, DEFAULT._URL, () => {
+app.server.listen(config.port, config.url, () => {
 
   log(`
     [${chalk.hex('#FFD700').bold(config.name)} ${chalk.red(`(${config.version.number})`)} "${chalk.blue(config.version.name)}"]
-    - Listening on port ${chalk.yellow(DEFAULT._PORT)}
+    - Listening on port ${chalk.yellow(config.port)}
   `);
 
 });
