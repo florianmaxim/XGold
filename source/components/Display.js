@@ -1,15 +1,14 @@
 import * as config from '../../config.json';
 
-import {log} from './Helpers';
+import {log, isMobile} from './Helpers';
 
 import React, {Component} from 'react';
 
-import Logo        from './Logo';
+import GoldButton      from './GoldButton';
 import Gold        from './Gold';
 import Chain       from './Chain';
 
 import DisplayInfo from './DisplayInfo';
-
 
 import Ethereum    from './Ethereum';
 
@@ -66,6 +65,10 @@ export default class Display extends Component{
 
     log(`[${config.name}] (${config.version.number}) "${config.version.name}"`)
 
+    //Init Viewport Polyfill for iPhone (Fixes height units)
+    if(isMobile.any())
+    require('viewport-units-buggyfill').init();
+
     //Init Gold Canvas
     let element = _GOLD.init()
 
@@ -77,22 +80,27 @@ export default class Display extends Component{
     if(this.props.params.id!==undefined){
 
     /////////////////////////////////////////
-    // BLOCK: SPECIFIC
+    // BLOCK: CUSTOM
     /////////////////////////////////////////
 
-      let blockNumber = this.props.params.id;
+      const blockNumber = this.props.params.id;
 
-      console.log('BLOCK: Specific #'+blockNumber);
+      log('[DISPLAY]: Load custom block #'+blockNumber);
 
-      this.getBlock(blockNumber);
+      //this.getBlock(blockNumber);
 
     }else{
 
     /////////////////////////////////////////
-    // BLOCK: JUST FOLLOW THE CHAIN.
+    // BLOCK: CURRENT
     /////////////////////////////////////////
+      
+      log('[DISPLAY]: Follow current block');
+
+      //Init the countdown (until next block is loaded automatically)
+      this.initCountdown();
      
-      _BLOCKCHAIN.watchBlockchain(
+      _BLOCKCHAIN.watch(
         
         (lastBlock, connectionType) => {
 
@@ -104,13 +112,25 @@ export default class Display extends Component{
            mode: 1
          });
 
+        //Set browser url
         history.pushState(null, null, '/block/'+lastBlock.number);
 
       }, config.refresh); 
 
-
-
     }
+
+  }
+
+  initCountdown(){
+
+    setInterval(()=>{
+
+      this.setState({
+        countdown: this.state.countdown>0?this.state.countdown-1:config.refresh/1000,
+          _loaded: this.state._loaded===false&&this.state.countdown===0?true:this.state._loaded
+      })
+
+    }, 1000);
 
   }
 
@@ -385,11 +405,6 @@ export default class Display extends Component{
 
           <div className="block-display">
 
-            <div className='frame-left' style={{marginTop: 100-this.state.animation+'vh', transition:     ((config.refresh/1000)/4)+'s all linear', transitionDelay: ((config.refresh/1000)/4)*0+'s'}}/>
-            <div className='frame-top' style={{marginLeft: -100+this.state.animation+'vw', transition:     ((config.refresh/1000)/4)+'s all linear', transitionDelay: ((config.refresh/1000)/4)*1+'s'}}/>
-            <div className='frame-right' style={{marginBottom: 100-this.state.animation+'vh', transition: ((config.refresh/1000)/4)+'s all linear', transitionDelay: ((config.refresh/1000)/4)*2+'s'}}/>
-            <div className='frame-bottom' style={{marginRight: -100+this.state.animation+'vw', transition: ((config.refresh/1000)/4)+'s all linear', transitionDelay: ((config.refresh/1000)/4)*3+'s'}}/>
-
             <div className="block-top">
 
             </div>
@@ -400,7 +415,7 @@ export default class Display extends Component{
 
             <div className="block-bottom">
               <div className="block-nav" onClick={()=>this.handleMode(event)}>
-                <Logo/>
+                <GoldButton/>
               </div>
             </div>
 

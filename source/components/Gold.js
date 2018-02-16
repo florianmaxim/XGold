@@ -239,7 +239,7 @@ export default class Gold{
 
     console.log(`[GOLD] Block: ${block.number}`)
 
-    let factor = 1;
+    let factor = .5;
 
     let width = 512*factor;
     let height = 512*factor;

@@ -1,15 +1,23 @@
-@import "body";
-@import "_Block";
+@import "_Display";
 @import "_Numpad";
 @import "_Gold";
-@import "_Logo";
+
 @import "_Loader";
+
 @import "_Button";
+@import "_GoldButton";
+
 @import "_Chain";
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:Light');
 @import url('https://fonts.googleapis.com/css?family=Cinzel');
 @import url('https://fonts.googleapis.com/css?family=Roboto:Thin');
+
+body{
+  background-color: black;
+  color: white;
+  margin:0;
+}
 
 .pad{
   position: absolute;
@@ -21,7 +29,6 @@
   align-items: center;
   justify-content: center;
   flex-flow: row wrap;
-  border: 0px solid gold;
 }
 
 .button{

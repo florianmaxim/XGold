@@ -95,7 +95,7 @@ export default class Ethereum{
     }
   }
 
-  watchBlockchain(callback, interval){
+  watch(callback, interval){
 
 
     if(_ON&&this.web3&&this.web3.isConnected()){

@@ -1,7 +1,6 @@
 import App from './App';
 
 import Display from './components/Display';
-import About from './components/About';
 
 export default {
   path: '/',
@@ -10,10 +9,6 @@ export default {
     component: Display,
   },
   childRoutes: [
-    {
-      path: '/about',
-      component: About,
-    },
     {
       path: '/block',
       component: Display,

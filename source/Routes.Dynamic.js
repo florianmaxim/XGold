@@ -20,14 +20,6 @@ export default {
   },
   childRoutes: [
     {
-      path: 'about',
-      getComponent(location, cb) {
-        System.import('./components/About')
-          .then(loadRoute(cb))
-          .catch(errorLoading);
-      },
-    },
-    {
       path: '/block',
       getComponent(location, cb) {
         System.import('./components/Display')
