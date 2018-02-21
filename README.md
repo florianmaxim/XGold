@@ -2,7 +2,7 @@
 
 👷 Giving Crpyto Money The Counterpart Fiat Money Lost A Long Time Ago. ⛏
 
-![Gold](resources/stills/001.jpg)![Gold](resources/stills/003.jpg)
+![Gold](resources/stills/001.jpg)!
 
 ### [https://xgold.cc](https://xgold.cc) [https://xgold.trade](https://xgold.trade) [https://xgold.store](https://xgold.store)
 
