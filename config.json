@@ -1,0 +1,46 @@
+{
+    "port": 8080,
+    
+    "name": "XGold",
+    "slogan": "Cryptocurrency Counterparts",
+
+    "info": {
+        "name": "XGold",
+        "slogan": "Cryptocurrency Counterparts",
+        "button": "Read the golden paper",
+
+        "paper": "This is the fucking paper text."
+    },
+
+    "color": "gold",
+    "background": "black", 
+
+    "version": {
+
+        "number": "0.0.1",
+        "name": "Diamond"
+    },
+    
+    "api": {
+        "public": false
+    },
+
+    "log": true,
+
+    "refresh": 60000,
+
+    "camera": {
+
+        "focus": 105,
+
+        "position": {
+            "x": 0,
+            "y": 0.01,
+            "z": 100
+        }
+    },
+
+    "rates": {
+        "usd" : 123
+    }
+}
