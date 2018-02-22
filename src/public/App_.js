@@ -5,6 +5,7 @@ injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:Light');
   @import url('https://fonts.googleapis.com/css?family=Cinzel');
   @import url('https://fonts.googleapis.com/css?family=Roboto:Thin');
+  @import url('https://fonts.googleapis.com/css?family=Lato');
 
   body {
     margin: 0;

@@ -29,8 +29,6 @@ export const Info = styled.div`
         width: 90vw
     }
 
-    @import url('https://fonts.googleapis.com/css?family=Lato');
-
     margin: 25px;
    
     border: 2.5px solid green;
