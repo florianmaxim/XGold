@@ -4,12 +4,12 @@ export const Outer = styled.div`
 
     width: 100%;
    
-    border: 5px solid red;
+/*     border: 5px solid red;
     box-sizing: border-box;
 
     color: red;
 
-    background:blue;
+    background:blue; */
 
     display:flex;
     align-items: center;
@@ -31,10 +31,10 @@ export const Info = styled.div`
 
     margin: 25px;
    
-    border: 2.5px solid green;
+/*     border: 2.5px solid green;
     box-sizing: border-box;
 
-    background:black;
+    background:black; */
 
     > h1 {
         margin:0;
