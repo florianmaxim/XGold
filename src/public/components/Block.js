@@ -1,49 +1,18 @@
 import React from 'react';
 
-import {Heading} from './Block_';
-
-import ContainerBlocks from '../containers/container-blocks';
+import ContainerSelectedBlock from '../containers/container-selected-block';
 
 export default class Block extends React.Component {
 
     constructor(props){
         super(props)
-
-        this.state = {
-            block: {
-                height: props.match.params.blockHeight
-            }
-        }
     }
 
-    componentDidMount(){
-
-
-    }
-
-    handleOnClick(){
-        this.setState({
-            block: {
-                height: 'Hi!'
-            }
-        })
-    }
+    componentDidMount(){}
 
     render(){
         return(
-            <div onClick={()=>this.handleOnClick()}>
-                <Heading>
-                    <h1>Blocks</h1>
-                    <ContainerBlocks/>
-                </Heading>
-            </div>
+            <ContainerSelectedBlock/>
         );
     }
 }
-
-
-/* export default ({ match }) => (
-
-    <BlockHeight>{match.params.blockHeight}</BlockHeight>
-
-); */

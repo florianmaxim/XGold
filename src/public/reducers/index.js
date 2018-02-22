@@ -1,10 +1,14 @@
-import {combineReducers}   from 'redux';
+import {combineReducers}    from 'redux';
 
-import ReducerBlocks from './reducer-blocks';
+import ReducerBlocks        from './reducer-blocks';
+
+import ReducerBlock         from './reducer-block';
+
 
 const reducer = combineReducers({
 
-    blocks: ReducerBlocks
+    blocks: ReducerBlocks,
+    block: ReducerBlock
 
 });
 

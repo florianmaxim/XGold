@@ -1,5 +1,7 @@
 import { setInterval, setTimeout } from "timers";
 
+let interval;
+
 export default class Blockchain {
 
     connect(){
@@ -24,10 +26,41 @@ export default class Blockchain {
     }
 
     getBlock(cb){
-      /*   
+
+        clearInterval(interval);
+
         web3.eth.getBlock("latest", (error, block) => {
-            return cb(block);
-        }) */
+
+            cb(block);
+        
+        });
+
+        let prev = {hash:0};
+
+        interval = setInterval(() => {
+
+            web3.eth.getBlock("latest", (error, block) => {
+
+                //console.log('PRE'+prev.hash)
+                //console.log('CUR'+block.hash)
+
+                if(prev.hash!==block.hash){
+
+                    //console.log('NEW')
+
+                    cb(block);
+
+                    prev = block;
+
+                }else{
+
+                    console.log('OLD')
+
+                }
+
+            })
+
+        }, 10000)
 
     }
 
@@ -35,7 +68,7 @@ export default class Blockchain {
 
         let prev = {hash:0};
 
-        setInterval(()=>{
+        setInterval(() => {
 
             web3.eth.getBlock("latest", (error, block) => {
 
