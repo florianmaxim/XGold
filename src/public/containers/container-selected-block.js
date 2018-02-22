@@ -13,6 +13,9 @@ class ContainerBlock extends React.Component {
     }
 
     componentDidMount(){
+
+        this.props.getBlock();
+        
         addEventListener('click', ()=>{
             this.props.getBlock();
         })
