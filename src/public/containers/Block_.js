@@ -16,7 +16,7 @@ export const Outer = styled.div`
     justify-content: flex-end;
 
     @media (orientation: portrait) {
-        justify-content: center;
+        justify-content: flex-start;
       }
 
 `;
@@ -25,16 +25,14 @@ export const Info = styled.div`
 
     width: 300px;
 
+    margin: 25px;
+
     @media (orientation: portrait) {
-        width: 90vw
+        width: 75vw;
+        margin: 12.5vw; 
     }
 
-    margin: 25px;
-   
-/*     border: 2.5px solid green;
-    box-sizing: border-box;
-
-    background:black; */
+    word-wrap: break-word;
 
     > h1 {
         margin:0;
@@ -42,6 +40,7 @@ export const Info = styled.div`
         font-size: 3em;
         font-family: Cinzel;
         2px 2px 5px rgba(0, 0, 0, 0.25);
+        word-wrap: break-word;
     }
 
     > h2 {
