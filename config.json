@@ -27,7 +27,7 @@
 
     "log": true,
 
-    "refresh": 60000,
+    "refresh": 30000,
 
     "camera": {
 

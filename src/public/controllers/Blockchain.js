@@ -1,5 +1,7 @@
 import { setInterval, setTimeout } from "timers";
 
+import * as config from '../../../config.json';
+
 let interval;
 
 export default class Blockchain {
@@ -60,7 +62,7 @@ export default class Blockchain {
 
             })
 
-        }, 10000)
+        }, config.refresh)
 
     }
 
