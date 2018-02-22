@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { hydrate } from "react-dom";
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import {Provider} from 'react-redux';
 
@@ -13,11 +13,11 @@ hydrate((
 
   <Provider store={store}>
 
-    <HashRouter>
+    <BrowserRouter>
 
       <App/>
 
-    </HashRouter>
+    </BrowserRouter>
 
   </Provider>
 
