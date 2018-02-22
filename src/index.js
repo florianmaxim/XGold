@@ -56,7 +56,7 @@ app.get('*', (req, res) => {
   
   }else{
 
-    res.write(`<!doctype html><html><head><title></title>${styles}</head><body><div id="root">${html}</div><script src="/bundle.js"></script></body></html>`)
+    res.write(`<!doctype html><html><head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title></title>${styles}</head><body><div id="root">${html}</div><script src="/bundle.js"></script></body></html>`)
     res.end();
     
   }
