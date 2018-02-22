@@ -1,41 +1,20 @@
 import axios from 'axios';
 
-/* 
-const pseudo = [
-  {
-    _id: "1",
-    title: "lala",
-    text: "lolo."
-  },
-  {
-    _id: "1",
-    title: "lele",
-    text: "lulu"
-  }
-]
- */
+import BlockchainController from '../controllers/Blockchain';
 
-const init = {
-    height: 123456789
-}
+const Blockchain = new BlockchainController();
 
-let url = 'https://api.blockcypher.com/v1/eth/main';
-
-export const fetchBlocks = () => {
+export const watchBlocks = () => {
 
   return (dispatch) => {
 
-    axios.get(`${url}`)
+    Blockchain.connect();
 
-      .then((response) => {        
-        dispatch({type: "RECEIVE_BLOCKS", payload: {height:response.data.height}})
-      })
+    Blockchain.watch((block) => {
 
-      .catch((err) => {
-        dispatch({type: "RECEIVE_BLOCKS_ERROR", payload: err})
-      });
-
-    dispatch({type: "RECEIVE_BLOCKS", payload: init})
+      dispatch({type: "RECEIVE_BLOCK", payload: block})
+      
+    })
 
   }
 }

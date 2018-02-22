@@ -12,26 +12,40 @@ class ContainerBlocks extends Component {
 
   componentDidMount(){
 
-    addEventListener('click', () => this.props.fetchBlocks())
+    this.props.watchBlocks();
 
   }
 
   render() {
 
-    if(!this.props.blocks){
       return (
 
-        <h2>
-          No blocks loaded.
-        </h2>
-      )
-    }
+        <div>
 
-    return (
+          {
 
-      <h2>Current Height Of The Ethereum Blockchain: {this.props.blocks.height}</h2>
+            this.props.blocks.map((block, index) => {
 
-    );
+              return (
+
+                <div key={index}>
+
+                  <h1>{block.height}</h1>
+                  <h2>{block.hash}</h2>
+
+                </div>
+
+              );
+
+            })
+
+          }
+
+        </div>
+
+      );
+
+
 
   }
 
@@ -40,7 +54,9 @@ class ContainerBlocks extends Component {
 function props(state) {
 
   return {
+
     blocks: state.blocks
+
   };
 
 }
@@ -49,31 +65,10 @@ function actions(dispatch){
 
   return bindActionCreators({
 
-    fetchBlocks: blocks.fetchBlocks
+    watchBlocks: blocks.watchBlocks
 
   }, dispatch);
 
 }
 
 export default connect(props, actions)(ContainerBlocks);
-
-/*
- {
-
-          this.props.blocks.map((block, index) => {
-
-             return (
-
-               <div key={index}>
-
-                <h1>{block.title}</h1>
-                <h2>{block.text}</h2>
-
-               </div>
-
-             );
-
-          })
-
-        }
-*/

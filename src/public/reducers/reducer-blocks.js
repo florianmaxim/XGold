@@ -1,14 +1,16 @@
-
-const init = null;
+const init = [];
 
 export default function (state = init, action) {
 
   switch(action.type){
 
-    case "RECEIVE_BLOCKS":
-      return action.payload
+    case "RECEIVE_BLOCK":
+
+      return [...state, action.payload];
+
     break;
 
   }
+
   return state;
 }

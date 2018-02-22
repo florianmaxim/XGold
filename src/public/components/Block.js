@@ -16,6 +16,11 @@ export default class Block extends React.Component {
         }
     }
 
+    componentDidMount(){
+
+
+    }
+
     handleOnClick(){
         this.setState({
             block: {
@@ -28,7 +33,7 @@ export default class Block extends React.Component {
         return(
             <div onClick={()=>this.handleOnClick()}>
                 <Heading>
-                    <h1>{this.state.block.height}(ETH)</h1>
+                    <h1>Blocks</h1>
                     <ContainerBlocks/>
                 </Heading>
             </div>

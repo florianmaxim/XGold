@@ -11,6 +11,8 @@ export default () =>
 
         <Route path="/block/:blockHeight" component={Block} />
 
+        <Route path="/block" component={Block} />
+
         <Route path="/about" component={About} />
 
         <Route exactPath="/" component={About} />

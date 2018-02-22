@@ -8,6 +8,8 @@ export const Heading = styled.div`
 
     color: gold;
 
+    font-size: 13px;
+
     > h1 {
         margin:0;
         color: gold;
