@@ -117,7 +117,22 @@ class ContainerBlock extends React.Component {
                 
                 <h2 style={{marginTop:'5px'}}>{this.props.selectedBlock.ownersAddress}</h2>
 
-                <ComponentButtonBuy onClick={()=>{this.props.buyBlock(this.props.selectedBlock)}} caption={this.props.selectedBlock.ownersAddress!=='0x0000000000000000000000000000000000000000'?(this.props.selectedBlock.ownersAddress==this.props.account.coinbase?'sell':'sold'):'purchase'}/>
+                <ComponentButtonBuy onClick={()=>{
+
+                        if(this.props.selectedBlock.ownersAddress==this.props.account.coinbase){
+                            
+                            alert('sell')
+                            this.props.sellBlock(this.props.selectedBlock)
+
+                        }else{
+                            alert('buy')
+                            this.props.buyBlock(this.props.selectedBlock)
+
+                        }
+                        
+                    }} 
+                
+                    caption={this.props.selectedBlock.ownersAddress!=='0x0000000000000000000000000000000000000000'?(this.props.selectedBlock.ownersAddress==this.props.account.coinbase?'sell':'sold'):'purchase'}/>
                 
             </Outer>
         );
@@ -143,7 +158,9 @@ function props(state) {
         overlayFadeOut: actionsOverlay.fadeOut,
   
         watchBlocks: actionsBlocks.watchBlocks,
-        buyBlock:    actionsBlocks.buyBlock,   
+
+        buyBlock:    actionsBlocks.buyBlock,
+        sellBlock:    actionsBlocks.sellBlock,              
 
         getOwnerOfBlock: actionsBlocks.getOwnerOfBlock,
 

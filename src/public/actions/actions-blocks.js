@@ -162,3 +162,21 @@ export const buyBlock = (block) => {
   }
 
 }
+
+
+export const sellBlock = (block) => {
+
+  //Extract to SINGLE connect action!
+  Blockchain.connect();
+
+  return (dispatch) => {
+
+    Blockchain.sellBlock(block.number,(result) => {
+
+      dispatch({type: "SOLD_BLOCK", payload:result})
+
+    }) 
+
+  }
+
+}

@@ -63,6 +63,22 @@ export default class Blockchain {
         });
     }
 
+    sellBlock(blockNumber, cb){
+
+        const data = {
+            from: web3.eth.coinbase,
+            to: CONTRACT_ADDRESS
+        };
+
+        CONTRACT.sellBlock(blockNumber, data, (err, res)=>{
+
+            //console.log(blockNumber+'-'+(res));
+
+            cb(res)
+        });
+
+    }
+
     getCoinbase(cb){
 
         web3.eth.getBalance(web3.eth.coinbase, (error, result) => {
