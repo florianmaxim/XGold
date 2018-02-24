@@ -1,16 +1,27 @@
 pragma solidity ^0.4.6;
 
-contract XGoldContract004 {
+contract XGoldContract005 {
 
     address private creator;
     
     string  public  welcome   = "All the gold is in here.";
+    
+    uint public amount;
 
     /*
         Properties (blockNumber => ownersAddress).
     */
     
     mapping (uint => address) private gold;
+
+    
+    /*
+        Get Amount Of Blocks
+    */
+    
+    function getAmountOfBlocks() constant returns (uint) {
+        return amount;
+    }
     
     /*
         Get owner
@@ -39,6 +50,8 @@ contract XGoldContract004 {
 
         if(isBlockForSale(blockNumber)){
             gold[blockNumber] = msg.sender;
+            
+            amount++;
             return true;
         }else{
             return false;
@@ -71,6 +84,7 @@ contract XGoldContract004 {
             if (!msg.sender.send(0.001 ether))
             throw;
             
+            amount--;
             return true;
             
         }else{
@@ -101,5 +115,6 @@ contract XGoldContract004 {
         suicide(creator);
       }
     }
+
 
 }

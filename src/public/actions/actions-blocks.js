@@ -106,21 +106,6 @@ export const getCoinbase = () => {
 
 }
 
-export const getWelcome = () => {
-
-  Blockchain.connect();
-
-  return (dispatch) => {
-
-    Blockchain.getWelcome((msg) => {
-              
-      dispatch({type: "RECEIVED_WELCOME", payload:msg})
-
-    }) 
-
-  }
-
-}
 
 export const buyBlock = (block) => {
 
@@ -163,7 +148,6 @@ export const buyBlock = (block) => {
 
 }
 
-
 export const sellBlock = (block) => {
 
   //Extract to SINGLE connect action!
@@ -171,11 +155,74 @@ export const sellBlock = (block) => {
 
   return (dispatch) => {
 
+    Blockchain.getCoinbase((account)=>{
+
+      //THIS SHOULD NOT HAPPEN IN HERE AT ALL
+          const init = {
+            number: block.number,
+            hash: block.hash,
+            none: block.nounce,
+            size: block.size,
+            transactions: block.transactions,
+            ownersAddress: "0x0000000000000000000000000000000000000000"
+        };
+
+      dispatch({type: "SOLD_SELECTED_BLOCK", payload:init})
+    })
+
     Blockchain.sellBlock(block.number,(result) => {
 
       dispatch({type: "SOLD_BLOCK", payload:result})
 
     }) 
+
+  }
+
+}
+
+
+export const getContractBalance = () => {
+
+  Blockchain.connect();
+
+  return (dispatch) => {
+
+    Blockchain.getContractBalance((balance)=>{
+
+      dispatch({type: "RECEIVED_CONTRACT_BALANCE", payload:balance})
+
+    });
+    
+  }
+}
+
+export const getContractWelcome = () => {
+
+  Blockchain.connect();
+
+  return (dispatch) => {
+
+    Blockchain.getContractWelcome((msg) => {
+              
+      dispatch({type: "RECEIVED_CONTRACT_WELCOME", payload:msg})
+
+    }); 
+
+  }
+
+}
+
+export const getContractAmountOfBlocks = () => {
+
+  Blockchain.connect();
+
+  return (dispatch) => {
+
+    Blockchain.getContractAmountOfBlocks((amount) => {
+              
+      dispatch({type: "RECEIVED_CONTRACT_AMOUNT_OF_BLOCKS", payload:amount})
+
+    }); 
 
   }
 

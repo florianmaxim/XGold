@@ -28,11 +28,6 @@ export default class Blockchain {
 
     }
 
-    getWelcome(cb){
-        CONTRACT.getWelcome((err, msg)=>{
-            cb(msg)
-        });
-    }
 
     getOwnerOfBlock(blockNumber, cb){
 
@@ -128,5 +123,34 @@ export default class Blockchain {
         })
 
     }
+
+
+    getContractWelcome(cb){
+        CONTRACT.getWelcome((err, msg)=>{
+            cb(msg)
+        });
+    }
     
+    getContractBalance(cb){
+
+        web3.eth.getBalance(config.contractAddress, (err, res) => {
+
+            let balance = new Number(web3.fromWei(res.toNumber(), "ether" )).toFixed(3)
+
+            cb(balance);
+
+        })
+
+    }
+
+    getContractAmountOfBlocks(cb){
+
+        CONTRACT.getAmountOfBlocks((err, res)=>{
+
+            cb(res.toNumber());
+
+        });
+    }
+
+ 
 }

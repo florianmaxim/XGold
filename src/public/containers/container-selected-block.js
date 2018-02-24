@@ -121,11 +121,10 @@ class ContainerBlock extends React.Component {
 
                         if(this.props.selectedBlock.ownersAddress==this.props.account.coinbase){
                             
-                            alert('sell')
                             this.props.sellBlock(this.props.selectedBlock)
 
                         }else{
-                            alert('buy')
+
                             this.props.buyBlock(this.props.selectedBlock)
 
                         }

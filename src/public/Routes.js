@@ -12,11 +12,19 @@ export default () =>
 
         <Route path="/block/:blockNumber" component={Block} />
 
+        <Route path="/#/:blockNumber" component={Block} />
+
+        <Route path="/b/:blockNumber" component={Block} />
+
         <Route path="/block" component={Block} />
 
         <Route path="/list" component={List} />
         
         <Route path="/about" component={About} />
+
+        <Route path="/x" component={About} />
+
+        <Route path="/xgold" component={About} />
 
         <Route exactPath="/" component={Block} />
 

@@ -74,12 +74,10 @@ class ContainerButtonMain extends React.Component {
 
     componentDidMount(){
 
-        //NEEDS TO GO IN APP
+        //NEEDS TO GO SOMEWHERE ELSE
 
         this.props.watchBlocks();
         this.props.getCoinbase();
-
-        this.props.getWelcome();
         
     }
 
@@ -135,8 +133,6 @@ function props(state) {
 
         watchBlocks: actionsBlocks.watchBlocks,
         getCoinbase: actionsBlocks.getCoinbase,
-
-        getWelcome: actionsBlocks.getWelcome
         
     }, dispatch);
   

@@ -26,9 +26,15 @@ export default function (state = {
 
     case "BOUGHT_SELECTED_BLOCK":
 
-    return action.payload;
+      return action.payload;
 
-   break;
+    break;
+
+    case "SOLD_SELECTED_BLOCK":
+
+      return action.payload;
+
+    break;
 
   }
 
