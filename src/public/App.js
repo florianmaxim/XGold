@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
 import Routes from './Routes'
 
@@ -7,16 +9,64 @@ import {Outer}              from './App_';
 import ContainerOverlay     from './containers/container-overlay';
 import ContainerButtonMain  from './containers/container-button-main';
 
+import * as actionsBlocks    from './actions/actions-blocks';
+
 import * as config from '../../config.json';
 
-export default () =>
+export default class App extends React.Component {
 
-  <Outer frame={config.frame}>
+  constructor(props){
+    super(props)
+  }
 
-    <ContainerOverlay/>
+  componentDidMount(){
+    
+/*   
+    this.props.getCoinbase();
 
-    <Routes/>
+    this.props.getWelcome();
 
-    <ContainerButtonMain/>
+    this.props.watchBlocks(); 
+*/
 
-  </Outer>
+  }
+
+  render(){
+    return(
+      <Outer frame={config.frame}>
+
+        <ContainerOverlay/>
+    
+        <Routes/>
+    
+        <ContainerButtonMain/>
+    
+      </Outer>
+    )
+  }
+}
+
+
+/* function props(state) {
+
+  return {
+
+  };
+
+}
+
+function actions(dispatch){
+
+  return bindActionCreators({
+
+      getWelcome: actionsBlocks.getWelcome,
+
+      getCoinbase: actionsBlocks.getCoinbase,
+
+      watchBlocks: actionsBlocks.watchBlocks
+
+  }, dispatch);
+
+}
+
+export default connect(props, actions)(App); */

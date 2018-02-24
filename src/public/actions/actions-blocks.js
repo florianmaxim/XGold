@@ -24,6 +24,7 @@ export const getOwnerOfBlock = (block) => {
 
 }
 
+//TODO: SHOULDNT THE INTERVAL BE IN THE VIEW ONLY?!
 export const watchBlocks = () => {
 
   Blockchain.connect();
@@ -46,13 +47,36 @@ export const watchBlocks = () => {
 
             dispatch({type: "RECEIVED_BLOCK", payload: block})
 
-            dispatch({type: "SELECTED_BLOCK", payload: block})
+            //dispatch({type: "SELECTED_BLOCK", payload: block})
 
           })
           
         })
 
       }, config.refresh)
+
+    }
+}
+
+export const getBlock = (blockNumber) => {
+
+  Blockchain.connect();
+
+    return (dispatch) => {
+
+      Blockchain.getSingleBlock(blockNumber, (block) => {
+
+        //Get owner of block
+
+        Blockchain.getOwnerOfBlock(blockNumber, (ownersAddress) => {
+
+          block.ownersAddress = ownersAddress;
+
+          dispatch({type: "SELECTED_BLOCK", payload: block})
+
+        })
+        
+      })
 
     }
 }
@@ -90,7 +114,7 @@ export const getWelcome = () => {
 
     Blockchain.getWelcome((msg) => {
               
-      dispatch({type: "GET_WELCOME", payload:msg})
+      dispatch({type: "RECEIVED_WELCOME", payload:msg})
 
     }) 
 

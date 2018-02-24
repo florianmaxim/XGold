@@ -4,8 +4,9 @@ import * as config from '../../../config.json';
 
 let prev = {hash:0, number:0};
 
-const CONTRACT_ADDRESS = "0x01b3020880f59f662b2507bf697e9c0e63e3e126"
-const CONTRACT_ABI = [{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"getOwnerOfBlock","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":true,"inputs":[],"name":"getBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":true,"inputs":[],"name":"getWelcome","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"buyBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"type":"function","stateMutability":"payable"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"sellBlock","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"isSenderOwnerOfBlock","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":true,"inputs":[],"name":"welcome","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"isBlockForSale","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function","stateMutability":"nonpayable"}]
+const CONTRACT_ADDRESS = config.contractAddress;
+const CONTRACT_ABI = config.contractABI;
+
 let CONTRACT;
 
 export default class Blockchain {
@@ -95,8 +96,18 @@ export default class Blockchain {
                 prev = block;
 
             }else{
-                console.log('OLD')
+                //console.log('OLD')
             }
+
+        })
+
+    }
+
+    getSingleBlock(blockNumber, cb){
+
+        web3.eth.getBlock(blockNumber, (error, block) => {
+
+            cb(block);
 
         })
 

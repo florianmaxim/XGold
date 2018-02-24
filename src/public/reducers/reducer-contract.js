@@ -1,5 +1,7 @@
 const init = {
-    welcome: ""
+    welcome: "",
+    balance: 0,
+    blocks: 0
 };
 
 export default function (state = init, action) {

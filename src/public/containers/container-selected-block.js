@@ -13,9 +13,9 @@ import ComponentButtonBuy     from '../components/component-button';
 
 import * as config from '../../../config.json';
 
-import Magic from '../controllers/controller-magic';
+import ControllerMagic from '../controllers/controller-magic';
 
-const _MAGIC = new Magic();
+const _ControllerMagic = new ControllerMagic();
 
 const Outer = styled.div`
 
@@ -99,12 +99,8 @@ class ContainerBlock extends React.Component {
 
         this.props.setMode('list');
 
-        //Check owner (Could have changed in between)
-        this.props.getOwnerOfBlock(this.props.selectedBlock);
+        this.props.getBlock(this.props.blockNumber);
 
-    }
-
-    componentWillReceiveProps(){
     }
 
     render(){
@@ -117,11 +113,11 @@ class ContainerBlock extends React.Component {
                 <h2>Nonce: {this.props.selectedBlock.nonce}</h2>
                 <h2>Transactions [{this.props.selectedBlock.transactions.length}]</h2>                    
 
-                <h3>ETH {_MAGIC.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>
+                <h3>ETH {_ControllerMagic.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>
                 
                 <h2 style={{marginTop:'5px'}}>{this.props.selectedBlock.ownersAddress}</h2>
 
-                <ComponentButtonBuy onClick={()=>{this.props.buyBlock(this.props.selectedBlock)}} caption={this.props.selectedBlock.ownersAddress!=='0x0000000000000000000000000000000000000000'?'sold':'purchase'}/>
+                <ComponentButtonBuy onClick={()=>{this.props.buyBlock(this.props.selectedBlock)}} caption={this.props.selectedBlock.ownersAddress!=='0x0000000000000000000000000000000000000000'?(this.props.selectedBlock.ownersAddress==this.props.account.coinbase?'sell':'sold'):'purchase'}/>
                 
             </Outer>
         );
@@ -150,6 +146,8 @@ function props(state) {
         buyBlock:    actionsBlocks.buyBlock,   
 
         getOwnerOfBlock: actionsBlocks.getOwnerOfBlock,
+
+        getBlock: actionsBlocks.getBlock,
         
         setMode: actionsMode.setMode
   

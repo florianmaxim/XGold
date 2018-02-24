@@ -1,3 +1,5 @@
+import * as config from '../../../config.json';
+
 export default class Magic {
 
     constructor(){
@@ -5,7 +7,11 @@ export default class Magic {
     }
 
     calculatePrice(block){
-        return ((new Number((block.size/block.transactions.length)/block.transactions.length))/10).toFixed(3)
+        if(config.priceFixed){
+            return config.priceFixed;
+        }else{
+            return ((new Number((block.size/block.transactions.length)/block.transactions.length))/10).toFixed(3) 
+        }
     }
 
 }

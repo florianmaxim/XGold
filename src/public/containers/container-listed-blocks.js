@@ -119,11 +119,10 @@ class ContainerBlocks extends Component {
   render(){
     return(   
       <Outer>
-        <h1>XLedger</h1>
         {
           this.props.blocks.map((block) => {
             return(
-              <Link style={{width:'inherit'}} to={`/block/${block.number}`} onClick={()=>this.props.selectBlock(block)}>
+              <Link style={{width:'inherit'}} to={`/block/${block.number}`}>
                 <Item>
                   <h3>#{block.number} (ETH {_MAGIC.calculatePrice(block)})</h3>
                   <h3>{new Date(block.timestamp*1000).toGMTString()}</h3>
