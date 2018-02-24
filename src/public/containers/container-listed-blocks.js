@@ -11,7 +11,7 @@ import * as config from '../../../config.json';
 
 import styled from 'styled-components';
 
-import Magic from '../controllers/Magic';
+import Magic from '../controllers/controller-magic';
 
 const _MAGIC = new Magic();
 

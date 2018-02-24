@@ -30,7 +30,7 @@
 
     "frame": false,
 
-    "refresh": 5000,
+    "refresh": 30000,
     "refreshAutoStart": true,
     
     "flash": true,

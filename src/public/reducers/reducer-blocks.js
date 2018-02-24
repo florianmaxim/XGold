@@ -4,7 +4,7 @@ export default (state = init, action) => {
 
   switch(action.type){
 
-    case "RECEIVE_BLOCK":
+    case "RECEIVED_BLOCK":
 
       return [...state, action.payload];
 

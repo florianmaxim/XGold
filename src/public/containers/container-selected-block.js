@@ -13,7 +13,7 @@ import ComponentButtonBuy     from '../components/component-button';
 
 import * as config from '../../../config.json';
 
-import Magic from '../controllers/Magic';
+import Magic from '../controllers/controller-magic';
 
 const _MAGIC = new Magic();
 
@@ -96,7 +96,15 @@ class ContainerBlock extends React.Component {
     }
 
     componentDidMount(){
+
         this.props.setMode('list');
+
+        //Check owner (Could have changed in between)
+        this.props.getOwnerOfBlock(this.props.selectedBlock);
+
+    }
+
+    componentWillReceiveProps(){
     }
 
     render(){
@@ -111,9 +119,9 @@ class ContainerBlock extends React.Component {
 
                 <h3>ETH {_MAGIC.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>
                 
-                <h2 style={{marginTop:'5px'}}>{this.props.account.coinbase}</h2>
+                <h2 style={{marginTop:'5px'}}>{this.props.selectedBlock.ownersAddress}</h2>
 
-                <ComponentButtonBuy caption="purchase"/>
+                <ComponentButtonBuy onClick={()=>{this.props.buyBlock(this.props.selectedBlock)}} caption={this.props.selectedBlock.ownersAddress!=='0x0000000000000000000000000000000000000000'?'sold':'purchase'}/>
                 
             </Outer>
         );
@@ -139,6 +147,9 @@ function props(state) {
         overlayFadeOut: actionsOverlay.fadeOut,
   
         watchBlocks: actionsBlocks.watchBlocks,
+        buyBlock:    actionsBlocks.buyBlock,   
+
+        getOwnerOfBlock: actionsBlocks.getOwnerOfBlock,
         
         setMode: actionsMode.setMode
   

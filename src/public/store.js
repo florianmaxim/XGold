@@ -9,8 +9,12 @@ import * as config from '../../config.json';
 
 let middleware;
 
+const logger = createLogger({
+    collapsed: false
+});
+
 if(config.logActions){
-    middleware = applyMiddleware(thunk, createLogger())
+    middleware = applyMiddleware(thunk, logger)
 }else{
     middleware = applyMiddleware(thunk)
 }

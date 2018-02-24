@@ -22,8 +22,11 @@ class ContainerButtonMain extends React.Component {
     componentDidMount(){
 
         //NEEDS TO GO IN APP
+
         this.props.watchBlocks();
-        //this.props.getCoinbase();
+        this.props.getCoinbase();
+
+        this.props.getWelcome();
         
     }
 
@@ -75,10 +78,12 @@ function props(state) {
         fadeInOverlay: actionsOverlay.fadeIn,
         fadeOutOverlay: actionsOverlay.fadeOut,
 
-        setMode: actionsMode.setMode,
+        setMode: actionsMode.setMode,    
 
         watchBlocks: actionsBlocks.watchBlocks,
-        getCoinbase: actionsBlocks.getCoinbase
+        getCoinbase: actionsBlocks.getCoinbase,
+
+        getWelcome: actionsBlocks.getWelcome
         
     }, dispatch);
   

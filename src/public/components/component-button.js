@@ -61,7 +61,7 @@ export default class ComponentButtonBuy extends React.Component {
 
     render(){
         return(
-            <Button>
+            <Button onClick={this.props.onClick}>
                 {this.props.caption}
             </Button>
         )

@@ -1,15 +1,16 @@
 const init = {
-    coinbase: "0x00000000000000",
-    balance: "0.00"
+    welcome: ""
 };
 
 export default function (state = init, action) {
 
   switch(action.type){
 
-    case "RECEIVED_COINBASE_DATA":
+    case "RECEIVED_WELCOME":
 
-      return action.payload;
+      return {
+          welcome: action.payload
+        };
 
     break;
 
