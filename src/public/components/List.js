@@ -1,10 +1,8 @@
 import React from 'react';
 
-import {Heading} from './List_';
+import ContainerListedBlocks from '../containers/container-listed-blocks';
 
-import ContainerBlocks from '../containers/container-list';
-
-export default class Block extends React.Component {
+export default class ComponentList extends React.Component {
 
     constructor(props){
         super(props)
@@ -16,34 +14,9 @@ export default class Block extends React.Component {
         }
     }
 
-    componentDidMount(){
-
-
-    }
-
-    handleOnClick(){
-        this.setState({
-            block: {
-                height: 'Hi!'
-            }
-        })
-    }
-
     render(){
         return(
-            <div onClick={()=>this.handleOnClick()}>
-                <Heading>
-                    <h1>Blocks</h1>
-                    <ContainerBlocks/>
-                </Heading>
-            </div>
+            <ContainerListedBlocks/>
         );
     }
 }
-
-
-/* export default ({ match }) => (
-
-    <BlockHeight>{match.params.blockHeight}</BlockHeight>
-
-); */

@@ -2,7 +2,7 @@ import { setInterval, setTimeout } from "timers";
 
 import * as config from '../../../config.json';
 
-let interval;
+let prev = {hash:0, number:0};
 
 export default class Blockchain {
 
@@ -17,83 +17,46 @@ export default class Blockchain {
             web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
         }
 
-        //console.log(web3.eth.coinbase)
-
     }
 
-    getBalance(account){
-        let balance = 0;
+    getCoinbase(cb){
 
-        return balance;
+        web3.eth.getBalance(web3.eth.coinbase, (balance) => {
+
+            const account = {
+                coinbase: web3.eth.coinbase,
+                balance: web3.fromWei(balance)
+            }
+
+            cb(account);
+        });
+        
+    }
+
+
+    getBalance(cb){
+
+        web3.eth.getBalance(web3.eth.coinbase, (balance) => {
+            cb(web3.fromWei(balance));
+        });
+
     }
 
     getBlock(cb){
 
-        clearInterval(interval);
+        web3.eth.getBlock('latest', (error, block) => {
 
-        web3.eth.getBlock("latest", (error, block) => {
+            if(prev.hash!==block.hash&&prev.number!==block.number){
 
-            cb(block);
-        
-        });
+                cb(block);
 
-        let prev = {hash:0};
+                prev = block;
 
-        interval = setInterval(() => {
+            }else{
+                console.log('OLD')
+            }
 
-            web3.eth.getBlock("latest", (error, block) => {
-
-                //console.log('PRE'+prev.hash)
-                //console.log('CUR'+block.hash)
-
-                if(prev.hash!==block.hash){
-
-                    //console.log('NEW')
-
-                    cb(block);
-
-                    prev = block;
-
-                }else{
-
-                    console.log('OLD')
-
-                }
-
-            })
-
-        }, config.refresh)
-
-    }
-
-    watch(cb){
-
-        let prev = {hash:0};
-
-        setInterval(() => {
-
-            web3.eth.getBlock("latest", (error, block) => {
-
-                //console.log('PRE'+prev.hash)
-                //console.log('CUR'+block.hash)
-
-                if(prev.hash!==block.hash){
-
-                    //console.log('NEW')
-
-                    cb(block);
-
-                    prev = block;
-
-                }else{
-
-                    console.log('OLD')
-
-                }
-
-            })
-
-        }, 1000)
+        })
 
     }
     

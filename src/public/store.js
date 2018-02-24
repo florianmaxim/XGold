@@ -5,7 +5,14 @@ import thunk                          from "redux-thunk"
 
 import reducer from "./reducers";
 
-const middleware = applyMiddleware(thunk, createLogger())
-//const middleware = applyMiddleware(thunk)
+import * as config from '../../config.json';
+
+let middleware;
+
+if(config.logActions){
+    middleware = applyMiddleware(thunk, createLogger())
+}else{
+    middleware = applyMiddleware(thunk)
+}
 
 export default createStore(reducer, middleware);

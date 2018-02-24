@@ -12,7 +12,7 @@ export default class Block extends React.Component {
 
     render(){
         return(
-            <ContainerSelectedBlock/>
+            <ContainerSelectedBlock blockNumber={this.props.match.params.blockNumber}/>
         );
     }
 }

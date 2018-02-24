@@ -2,117 +2,119 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import {Outer, Info} from './Block_';
+import styled from 'styled-components';
 
-import * as actionsBlock from '../actions/actions-block';
+import * as actionsOverlay from '../actions/actions-overlay';
+
+import * as actionsBlocks from '../actions/actions-blocks';
+import * as actionsMode   from '../actions/actions-mode';
+
+import ComponentButtonBuy     from '../components/component-button';
 
 import * as config from '../../../config.json';
 
-var isMobile = {
-    Android: function() {
-        return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function() {
-        return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function() {
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: function() {
-        return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: function() {
-        return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
-    },
-    any: function() {
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-    }
-};
+import Magic from '../controllers/Magic';
 
-let interval;
+const _MAGIC = new Magic();
+
+const Outer = styled.div`
+
+    position: absolute;
+
+    right:0;
+    top:0;
+
+    width: 300px;
+    height: 75vh;
+
+    margin: 12.5px;
+
+    display: flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:space-between;
+
+    @media (orientation: portrait) {
+        left:0;
+        top:0;
+        width: 90vw;
+        margin: 5vw; 
+    }
+
+    word-wrap: break-word;
+
+    > h1 {
+        width:inherit;
+        margin:0;
+        color: gold;
+        font-size: 3em;
+        font-family: Cinzel;
+        2px 2px 5px rgba(0, 0, 0, 0.25);
+        word-wrap: break-word;
+    }
+
+    > h2 {
+        width:inherit;
+        margin:0;
+        color: gold;
+        font-size: 16px;
+        font-family: Lato;
+        font-weight: 200;
+        2px 2px 5px rgba(0, 0, 0, 0.25);
+        word-wrap: break-word;
+    }
+
+    > h3 {
+        width:inherit;
+        margin:0;
+        margin-top:15px;
+        color: gold;
+        font-size: 16px;
+        font-family: Lato;
+        font-weight: bold;
+        2px 2px 5px rgba(0, 0, 0, 0.25);
+        word-wrap: break-word;
+    }
+
+    > h4 {
+        width:inherit;
+        margin-top:15px;
+        color: gold;
+        font-size: 16px;
+        font-family: Lato;
+        font-weight: 200;
+        2px 2px 5px rgba(0, 0, 0, 0.25);
+        word-wrap: break-word;
+        text-align:center;
+    }
+`;
 
 class ContainerBlock extends React.Component {
 
     constructor(props){
         super(props)
-
-        this.state = {
-            countdown: config.refresh/1000 //in s
-        }
     }
 
     componentDidMount(){
-       
-        this.initCountdown();
-    }
-
-    initCountdown(){
-
-        this.props.getBlock();
-
-        let eventName;
-
-        if(isMobile.any()){
-            eventName = 'touchstart';
-        }else{
-            eventName = 'click';
-        }
-        
-        addEventListener(eventName, (e)=>{
-
-            e.preventDefault();
-
-            //TODO Isnt this the same as watch?!
-            this.props.getBlock(); 
-
-            //Reset timer TODO: Can this go into a callback from the above?!?!
-            this.setState({
-                countdown: config.refresh/1000
-            }, () => {
-
-                //Reset interval
-                clearInterval(interval);
-
-                //Set new interval
-                interval = setInterval(()=>{
-        
-                    this.setState({
-                    countdown: this.state.countdown>1?this.state.countdown-1:config.refresh/1000
-                    })
-            
-                }, 1000);
-
-            })
-
-
-        });
-
-
-        interval = setInterval(()=>{
-    
-          this.setState({
-            countdown: this.state.countdown>1?this.state.countdown-1:config.refresh/1000
-          })
-    
-        }, 1000);
-    
+        this.props.setMode('list');
     }
 
     render(){
         return(
             <Outer>
-                <Info>
-                    <h1>#{this.props.block.number}</h1>
-                    <h2>{this.props.block.hash}</h2>
+                <h1>X{this.props.selectedBlock.number}</h1>
+                <h2>{this.props.selectedBlock.hash}</h2>
 
-                    <h3>Size: {this.props.block.size}</h3>
-                    <h2>Nonce: {this.props.block.nonce}</h2>
-                    <h2>Transactions [{this.props.block.transactions.length}]</h2>                    
+                <h2>Size: {this.props.selectedBlock.size}</h2>
+                <h2>Nonce: {this.props.selectedBlock.nonce}</h2>
+                <h2>Transactions [{this.props.selectedBlock.transactions.length}]</h2>                    
 
-                    <h3>ETH 0.521 (BALANCE 1.39)</h3>
-                    <h2>Price varies with currency exchange rates and may be different tomorrow.</h2>
-                    <h4>Next block will be available in {this.state.countdown}s.</h4>
-                </Info>
+                <h3>ETH {_MAGIC.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>
+                
+                <h2 style={{marginTop:'5px'}}>{this.props.account.coinbase}</h2>
+
+                <ComponentButtonBuy caption="purchase"/>
+                
             </Outer>
         );
     }
@@ -122,7 +124,9 @@ function props(state) {
 
     return {
   
-      block: state.block
+        selectedBlock: state.selectedBlock,
+
+        account: state.account
   
     };
   
@@ -131,8 +135,12 @@ function props(state) {
   function actions(dispatch){
   
     return bindActionCreators({
+
+        overlayFadeOut: actionsOverlay.fadeOut,
   
-        getBlock: actionsBlock.getBlock
+        watchBlocks: actionsBlocks.watchBlocks,
+        
+        setMode: actionsMode.setMode
   
     }, dispatch);
   

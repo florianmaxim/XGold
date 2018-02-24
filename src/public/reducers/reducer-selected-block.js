@@ -1,8 +1,8 @@
 const init = {
-    number: 1234567,
-    hash: "0x5da2bc193007acd2bd45d6562a505b563c6d71a6d908ba5f659296ee2b666c9f",
-    none: 1234567,
-    size: 123,
+    number: "0000000",
+    hash: "0x0000000000000000000000000000000000000000000000000000000000000000",
+    none: "00000000",
+    size: "00000",
     transactions: []
 };
 
@@ -13,6 +13,12 @@ export default function (state = init, action) {
     case "RECEIVE_SELECTED_BLOCK":
 
       return action.payload;
+
+    break;
+
+    case "SELECT_BLOCK":
+
+     return action.payload;
 
     break;
 

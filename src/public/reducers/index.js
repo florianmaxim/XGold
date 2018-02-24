@@ -1,14 +1,26 @@
 import {combineReducers}    from 'redux';
 
+import ReducerAccount       from './reducer-account';
+
+import ReducerSelectedBlock       from './reducer-selected-block';
+
 import ReducerBlocks        from './reducer-blocks';
 
-import ReducerBlock         from './reducer-block';
+import ReducerOverlay       from './reducer-overlay';
 
+import ReducerMode          from './reducer-mode';
 
 const reducer = combineReducers({
 
+    account: ReducerAccount,
+
+    selectedBlock: ReducerSelectedBlock,
+
     blocks: ReducerBlocks,
-    block: ReducerBlock
+
+    overlay: ReducerOverlay,
+
+    mode: ReducerMode
 
 });
 

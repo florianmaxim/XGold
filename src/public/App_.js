@@ -9,14 +9,47 @@ injectGlobal`
 
   body {
     margin: 0;
+    padding:0;
     font-family: Open Sans;
+    background: black;
   }
+
+  *{
+    user-select:none;
+  }
+
+  a{
+    user-select:none;
+    text-decoration:none;
+  }
+
+  html {
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+  ::-webkit-scrollbar {
+      width: 0px;  /* remove scrollbar space */
+      background: transparent;  /* optional: just make scrollbar invisible */
+  }
+  /* optional: show position indicator in red */
+  ::-webkit-scrollbar-thumb {
+      background: #FF0000;
+  }
+
 `;
 
 export const Outer = styled.div`
   width: 100vw;
-  height: 100vh;
+
   box-sizing: border-box;
-  border: 5px solid gold;
+  border: ${props => props.frame ? '5' : '0'}px solid gold;
+  
   background: black;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  user-select:none;
 `;

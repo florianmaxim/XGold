@@ -1,11 +1,22 @@
 import React from 'react';
 
-import {Heading} from './About_';
+import ContainerAbout from '../containers/container-about';
 
-export default About =>
+export default class ComponentAbout extends React.Component {
 
-    <Heading>
+    constructor(props){
+        super(props)
 
-        <h1>XGold</h1>
-        
-    </Heading>;
+        this.state = {
+            block: {
+                height: props.match.params.blockHeight
+            }
+        }
+    }
+
+    render(){
+        return(
+            <ContainerAbout/>
+        );
+    }
+}

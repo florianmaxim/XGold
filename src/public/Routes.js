@@ -10,12 +10,14 @@ export default () =>
 
     <Switch>
 
+        <Route path="/block/:blockNumber" component={Block} />
+
         <Route path="/block" component={Block} />
 
-        <Route path="/blocks" component={List} />
-
+        <Route path="/list" component={List} />
+        
         <Route path="/about" component={About} />
 
-        <Route exactPath="/" component={About} />
+        <Route exactPath="/" component={Block} />
 
     </Switch>

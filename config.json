@@ -26,8 +26,17 @@
     },
 
     "log": true,
+    "logActions": true,
 
-    "refresh": 30000,
+    "frame": false,
+
+    "refresh": 5000,
+    "refreshAutoStart": true,
+    
+    "flash": true,
+    "flashDuration": 0.75,
+    "flashOnStart": false,
+    "flashOnRefresh": false,
 
     "camera": {
 
