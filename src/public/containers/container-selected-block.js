@@ -25,9 +25,9 @@ const Outer = styled.div`
     top:0;
 
     width: 300px;
-    height: 75vh;
+    min-height: 50vh;
 
-    margin: 12.5px;
+    margin: 50px;
 
     display: flex;
     flex-direction:column;
@@ -38,6 +38,7 @@ const Outer = styled.div`
         left:0;
         top:0;
         width: 90vw;
+        min-height: 72.5vh;
         margin: 5vw; 
     }
 

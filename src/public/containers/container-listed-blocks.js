@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 
 import {Link} from 'react-router-dom';
 
+import * as actionsOverlay from '../actions/actions-overlay';
+
 import * as actionsBlocks from '../actions/actions-blocks';
 import * as actionsMode  from '../actions/actions-mode';
 
@@ -17,26 +19,27 @@ const _MAGIC = new Magic();
 
 const Outer = styled.div`
 
-    position: absolute;
+  position: absolute;
 
-    right:0;
-    top:0;
+  right:0;
+  top:0;
 
-    width: 300px;
+  width: 300px;
+  min-height: 50vh;
 
-    margin-top: 12.5px;
-    margin-right: 12.5px;    
+  margin: 50px;
 
-    display: flex;
-    flex-direction:column;
-    align-items:flex-start;
+  display: flex;
+  flex-direction:column;
+  align-items:flex-start;
 
-    @media (orientation: portrait) {
+  @media (orientation: portrait) {
       left:0;
       top:0;
       width: 90vw;
+      min-height: 72.5vh;
       margin: 5vw; 
-    }
+  }
 
     word-wrap: break-word;
 
@@ -63,10 +66,10 @@ const Item = styled.div`
 
   word-break: break-all;
 
-  &:hover {
+/*   &:hover {
     background: gold;
     color:black;
-  }
+  } */
 
   > h2 {
     margin:0;
@@ -122,7 +125,16 @@ class ContainerBlocks extends Component {
         {
           this.props.blocks.map((block) => {
             return(
-              <Link style={{width:'inherit'}} to={`/block/${block.number}`}>
+              <Link 
+                style={{width:'inherit'}} 
+                to={`/block/${block.number}`}
+              
+                onMouseDown={()=>this.props.fadeInOverlay()}
+                onMouseUp={()=>this.props.fadeOutOverlay()}
+
+                onTouchStart={()=>this.props.fadeInOverlay()}
+                onTouchEnd={()=>this.props.fadeOutOverlay()}
+              >
                 <Item>
                   <h3>#{block.number} (ETH {_MAGIC.calculatePrice(block)})</h3>
                   <h3>{new Date(block.timestamp*1000).toGMTString()}</h3>
@@ -151,6 +163,9 @@ function props(state) {
 function actions(dispatch){
 
   return bindActionCreators({
+
+    fadeInOverlay: actionsOverlay.fadeIn,
+    fadeOutOverlay: actionsOverlay.fadeOut,
 
     watchBlocks: actionsBlocks.watchBlocks,
 

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Button = styled.div`
 
     width: 100%;
-    height: 43px;
+    height: 53px;
 
     font-family: Lato;
     font-weight: bold;
@@ -38,6 +38,8 @@ const Button = styled.div`
     justify-content:center;
 
     cursor: pointer;
+
+    box-shadow: 0px -0px 10px rgba(255, 215, 0, .75);
 
     &:hover {
         //color: black;

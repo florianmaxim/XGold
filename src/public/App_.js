@@ -16,6 +16,7 @@ injectGlobal`
 
   *{
     user-select:none;
+    text-shadow: 0px -0px 5px rgba(255, 215, 0, .5);
   }
 
   a{

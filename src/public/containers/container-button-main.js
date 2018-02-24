@@ -11,7 +11,7 @@ import * as actionsBlocks    from '../actions/actions-blocks';
 
 import * as config         from '../../../config.json';
 
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 
 const Container = styled.div`
 
@@ -29,6 +29,32 @@ const Container = styled.div`
     user-select: none;
 
     transform: translateX(-50%);
+`
+
+const Circle = styled.div`
+
+    z-index:1;
+
+    margin-bottom:25px;
+    
+    width: 65px;
+    height: 65px;
+    opacity: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: black;
+
+    user-select: none;
+    
+    border-radius: 50%;
+    border: 4px solid rgba(255, 215, 0, 1);
+
+    box-shadow: 0px 0px 50px rgba(255, 215, 0, .25);
+
+    user-select: none;
 `
   
 const Outer = styled.div`
@@ -48,7 +74,7 @@ const Outer = styled.div`
     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
     -webkit-clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 
-    transform: scale3d(.4,.4,.4);
+    transform: scale3d(.35,.35,.35);
 
     user-select: none;    
 `
@@ -65,6 +91,25 @@ const Inner = styled.div`
 
     user-select: none;    
 `
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+`;
 
 class ContainerButtonMain extends React.Component {
 
@@ -87,19 +132,25 @@ class ContainerButtonMain extends React.Component {
 
             <Container>
                 
-                <Link to={`/${this.props.mode}`} 
+                <Link 
+                    style={{userSelect:'none'}}
+                    to={`/${this.props.mode}`} 
 
-                    onMouseDown={()=>this.props.fadeInOverlay()}
-                    onMouseUp={()=>this.props.fadeOutOverlay()}
+                    onMouseDown={(e)=>{e.stopPropagation();this.props.fadeInOverlay()}}
+                    onMouseUp={(e)=>{e.stopPropagation();this.props.fadeOutOverlay()}}
 
-                    onTouchStart={()=>this.props.fadeInOverlay()}
-                    onTouchEnd={()=>this.props.fadeOutOverlay()}>
+                    onTouchStart={(e)=>{e.stopPropagation();this.props.fadeInOverlay()}}
+                    onTouchEnd={(e)=>{e.stopPropagation();this.props.fadeOutOverlay()}}>
+                    
+                    <Circle style={{opacity: !this.props.overlay?'0':'1', animation: !this.props.overlay?`${fadeIn} ${config.flashDuration}s linear forwards`:`${fadeOut} ${config.flashDuration}s linear forwards`}}>
 
-                    <Outer>
+                        <Outer>
 
-                        <Inner/>
+                            <Inner/>
 
-                    </Outer>
+                        </Outer>
+
+                    </Circle>
 
                 </Link>    
 

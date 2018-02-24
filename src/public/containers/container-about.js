@@ -13,27 +13,28 @@ import * as config from '../../../config.json';
 
 const Outer = styled.div`
 
-    position: absolute;
+  position: absolute;
 
-    right:0;
-    top:0;
+  right:0;
+  top:0;
 
-    width: 300px;
-    height: 75vh;
+  width: 300px;
+  min-height: 50vh;
 
-    margin: 12.5px;
+  margin: 50px;
 
-    display: flex;
-    flex-direction:column;
-    align-items:flex-start;
-    justify-content:space-between;
+  display: flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:space-between;
 
-    @media (orientation: portrait) {
-        left:0;
-        top:0;
-        width: 90vw;
-        margin: 5vw; 
-    }
+  @media (orientation: portrait) {
+      left:0;
+      top:0;
+      width: 90vw;
+      min-height: 72.5vh;
+      margin: 5vw; 
+  }
 
     word-wrap: break-word;
 
