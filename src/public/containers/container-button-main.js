@@ -122,7 +122,7 @@ class ContainerButtonMain extends React.Component {
         //NEEDS TO GO SOMEWHERE ELSE
 
         this.props.watchBlocks();
-
+        
         this.props.getCoinbase();
         
     }
@@ -135,7 +135,13 @@ class ContainerButtonMain extends React.Component {
                 
                 <Link 
                     style={{userSelect:'none'}}
-                    to={`/${this.props.mode}`}>
+                    to={`/${this.props.mode}`} 
+
+                    onMouseDown={(e)=>{e.stopPropagation();this.props.fadeInOverlay()}}
+                    onMouseUp={(e)=>{e.stopPropagation();this.props.fadeOutOverlay()}}
+
+                    onTouchStart={(e)=>{e.stopPropagation();this.props.fadeInOverlay()}}
+                    onTouchEnd={(e)=>{e.stopPropagation();this.props.fadeOutOverlay()}}>
                     
                     <Circle style={{opacity: !this.props.overlay?'0':'1', animation: !this.props.overlay?`${fadeIn} ${config.flashDuration}s linear forwards`:`${fadeOut} ${config.flashDuration}s linear forwards`}}>
 

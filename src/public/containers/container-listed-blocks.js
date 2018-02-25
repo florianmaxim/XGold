@@ -129,12 +129,6 @@ class ContainerBlocks extends Component {
               <Link 
                 style={{width:'inherit'}} 
                 to={`/block/${block.number}`}
-              
-                onMouseDown={()=>this.props.fadeInOverlay()}
-                onMouseUp={()=>this.props.fadeOutOverlay()}
-
-                onTouchStart={()=>this.props.fadeInOverlay()}
-                onTouchEnd={()=>this.props.fadeOutOverlay()}
               >
                 <Item>
                   <h3>#{block.number} (ETH {_MAGIC.calculatePrice(block)})</h3>
