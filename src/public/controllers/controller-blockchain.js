@@ -134,8 +134,6 @@ export default class Blockchain {
 
     sellBlock(blockNumber, cb){
 
-        alert(blockNumber)
-
         const data = {
             from: web3.eth.coinbase,
             to: CONTRACT_ADDRESS,

@@ -315,8 +315,8 @@ export default class Gold{
       emissive:0xffffff,
       emissiveIntensity:.1,
       envMap: reflectionCube,
-      displacementMap: reflectionCube,
-      combine: MixOperation,
+     /*  displacementMap: reflectionCube,
+      combine: MixOperation, */
       reflectivity: .1} );
 
     const materialGold = new MeshPhongMaterial( {

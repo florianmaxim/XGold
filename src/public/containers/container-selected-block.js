@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import styled from 'styled-components';
 
 import * as actionsOverlay from '../actions/actions-overlay';
+import * as actionsElements from '../actions/actions-elements';
 
 import * as actionsBlocks from '../actions/actions-blocks';
 import * as actionsMode   from '../actions/actions-mode';
@@ -52,7 +53,11 @@ const Outer = styled.div`
 
 const Block = styled.div`
 
+    transition: 1s all;
+
     width: 100%;
+
+    opacity: {${props => props.toggle?'1':'0'}};
 
     display: flex;
     flex-direction:column;
@@ -109,6 +114,14 @@ class ContainerBlock extends React.Component {
 
     constructor(props){
         super(props)
+
+        this.state = {
+            elements: {
+                heading: true,
+                data: true,
+                purchase: true
+            }
+        }
     }
 
     componentDidMount(){
@@ -218,25 +231,34 @@ class ContainerBlock extends React.Component {
 
     }
 
-
     render(){
         return(
             <Outer>
                 
-                <Block>
+                <Block 
+                   
+                    onClick = {() => this.props.toggleHeading()}                    
+                    style={{opacity:this.props.elements.heading?'1':'0'}}>
+                    
                     <h1>X{this.props.selectedBlock.number}</h1>
                     <h2>{this.props.selectedBlock.hash}</h2>
                 </Block>
 
-                <Block>
+                <Block 
+                   
+                    onClick = {() => this.props.toggleData()}                    
+                    style={{opacity:this.props.elements.data?'1':'0'}}>
                     <h2>Size: {this.props.selectedBlock.size}</h2>
                     <h2>Nonce: {this.props.selectedBlock.nonce}</h2>
                     <h2>Transactions [{this.props.selectedBlock.transactions.length}]</h2>                    
                 </Block>
 
-                <Block>
-
-                    <h3 style={{marginBottom:'10px'}}>ETH {_ControllerMagic.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>       
+                <Block
+                    
+                    onClick = {() => this.props.togglePurchase()()}                    
+                    style={{opacity:this.props.elements.purchase?'1':'0'}}> 
+                    <h3 
+                        style={{marginBottom:'10px'}}>ETH {_ControllerMagic.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>       
 
                     <ComponentButton 
 
@@ -260,7 +282,9 @@ function props(state) {
 
         account: state.account,
 
-        counter: state.counter        
+        counter: state.counter,
+        
+        elements: state.elements
   
     };
   
@@ -271,6 +295,10 @@ function props(state) {
     return bindActionCreators({
 
         setMode: actionsMode.setMode,
+
+        toggleHeading: actionsElements.toggleHeading,
+        toggleData: actionsElements.toggleData,
+        togglePurchase: actionsElements.togglePurchase,
   
         watchBlocks: actionsBlocks.watchBlocks,
 
