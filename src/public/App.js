@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 
 import Routes from './Routes'
 
+import ContainerGold  from './containers/container-gold';
+
 import ContainerOverlay     from './containers/container-overlay';
 import ContainerButtonMain  from './containers/container-button-main';
 
@@ -55,7 +57,7 @@ injectGlobal`
 export const Outer = styled.div`
 
   z-index:0;
-  
+
   width: 100vw;
   height: 100vh;
 
@@ -78,21 +80,11 @@ export default class App extends React.Component {
     super(props)
   }
 
-  componentDidMount(){
-    
-/*   
-    this.props.getCoinbase();
-
-    this.props.getWelcome();
-
-    this.props.watchBlocks(); 
-*/
-
-  }
-
   render(){
     return(
       <Outer frame={config.frame}>
+
+        <ContainerGold/>
 
         <ContainerOverlay/>
     

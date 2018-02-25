@@ -1,0 +1,60 @@
+import * as config from '../../../config.json';
+
+import React, {Component} from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+import GoldController from '../controllers/controller-gold';
+
+const _GOLD = new GoldController();
+
+class ContainerGold extends Component {
+
+  constructor(props){
+    super(props);
+  }
+
+  componentDidMount(){
+
+    //Init Gold Element
+    let element = _GOLD.init()
+
+    //Append HTML Canvas Element
+    this.refs.gold.appendChild(element);
+
+  }
+
+  componentWillReceiveProps(props){
+
+    //Generate gold block from the block that was just selected
+      _GOLD.generate(props.selectedBlock);
+
+  }
+
+  render(){
+    return(
+        <div ref="gold" style={{width:'100vw',height:'100vh'}}/>
+    );
+}
+
+}
+
+function props(state) {
+
+  return {
+
+    selectedBlock: state.selectedBlock
+
+  };
+
+}
+
+function actions(dispatch){
+
+  return bindActionCreators({
+
+  }, dispatch);
+
+}
+
+export default connect(props, actions)(ContainerGold);

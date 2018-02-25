@@ -32,7 +32,7 @@
     "flashOnRefresh": false,
 
     "priceFixed": 0.0001,
-    "priceToFixed": 5,
+    "priceToFixed": 4,
 
     "camera": {
 
@@ -41,7 +41,7 @@
         "position": {
             "x": 0,
             "y": 0.01,
-            "z": 100
+            "z": 50
         }
     }
 }
