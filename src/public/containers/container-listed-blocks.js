@@ -30,8 +30,9 @@ const Outer = styled.div`
   margin: 50px;
 
   display: flex;
-  flex-direction:column;
+  flex-direction:column-reverse;
   align-items:flex-start;
+  justify-content:flex-end;
 
   @media (orientation: portrait) {
       left:0;

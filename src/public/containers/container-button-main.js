@@ -122,7 +122,7 @@ class ContainerButtonMain extends React.Component {
         //NEEDS TO GO SOMEWHERE ELSE
 
         this.props.watchBlocks();
-        this.props.getCoinbase();
+        //this.props.getCoinbase();
         
     }
 

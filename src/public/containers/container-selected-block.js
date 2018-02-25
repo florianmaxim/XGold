@@ -9,7 +9,10 @@ import * as actionsOverlay from '../actions/actions-overlay';
 import * as actionsBlocks from '../actions/actions-blocks';
 import * as actionsMode   from '../actions/actions-mode';
 
-import ComponentButtonBuy     from '../components/component-button';
+import * as actionsCounter   from '../actions/actions-counter';
+
+
+import ComponentButton     from '../components/component-button';
 
 import * as config from '../../../config.json';
 
@@ -90,6 +93,8 @@ const Outer = styled.div`
     }
 `;
 
+let interval;
+
 class ContainerBlock extends React.Component {
 
     constructor(props){
@@ -100,9 +105,102 @@ class ContainerBlock extends React.Component {
 
         this.props.setMode('list');
 
-        this.props.getBlock(this.props.blockNumber);
+    
+        if(this.props.blockNumber===undefined){
+
+            if(this.props.selectedBlock.number===null){
+                this.props.getBlock();
+            }
+        }else{
+
+            if(this.props.selectedBlock===undefined)
+            {
+                this.props.getBlock(this.props.blockNumber);
+
+            }else{
+                
+                if(this.props.selectedBlock!==this.props.blockNumber){
+                    this.props.getBlock(this.props.blockNumber);
+                }
+              
+            }
+            
+        }
 
     }
+
+    componentWillReceiveProps(props){
+
+        switch(props.selectedBlock.state)
+        {
+            case "owned":
+               
+                this.props.stopCounter();
+              
+            break;
+
+            case "available":
+
+                this.props.stopCounter();
+               
+            break;
+
+            case "pending":
+              
+                
+
+            break;
+
+            default:
+
+                this.props.stopCounter();
+               
+            break;
+            
+        }
+
+    }
+
+    handleButtonAction(){
+        switch(this.props.selectedBlock.state)
+        {
+            case "owned":
+                this.props.sellBlock(this.props.selectedBlock.number);
+                this.props.startCounter();
+            break;
+
+            case "available":
+                this.props.buyBlock(this.props.selectedBlock.number);
+                this.props.startCounter();
+            break;
+
+            default:
+                
+            break;    
+        } 
+    }
+
+    renderButtonCaption(){
+        switch(this.props.selectedBlock.state)
+        {
+            case "owned":
+                return "sell"
+            break;
+
+            case "available":
+                return "buy"
+            break;
+
+            case "pending":
+                return "pending"
+            break;
+
+            default:
+                return "sold"
+            break;    
+        } 
+    }
+
 
     render(){
         return(
@@ -114,26 +212,17 @@ class ContainerBlock extends React.Component {
                 <h2>Nonce: {this.props.selectedBlock.nonce}</h2>
                 <h2>Transactions [{this.props.selectedBlock.transactions.length}]</h2>                    
 
-                <h3>ETH {_ControllerMagic.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>
-                
-                <h2 style={{marginTop:'5px'}}>{this.props.selectedBlock.ownersAddress}</h2>
+                <h3 style={{marginBottom:'5px'}}>ETH {_ControllerMagic.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>       
 
-                <ComponentButtonBuy onClick={()=>{
+                <ComponentButton 
 
-                        if(this.props.selectedBlock.ownersAddress==this.props.account.coinbase){
-                            
-                            this.props.sellBlock(this.props.selectedBlock)
+                    onClick={()=>{this.handleButtonAction()}} 
 
-                        }else{
+                    caption={`${this.renderButtonCaption()} ${this.props.counter!==0?this.props.counter+'s':''}`}
+                />
 
-                            this.props.buyBlock(this.props.selectedBlock)
-
-                        }
-                        
-                    }} 
-                
-                    caption={this.props.selectedBlock.ownersAddress!=='0x0000000000000000000000000000000000000000'?(this.props.selectedBlock.ownersAddress==this.props.account.coinbase?'sell':'sold'):'purchase'}/>
-                
+                <h2 style={{marginTop:'5px'}}>{this.props.selectedBlock.ownersAddress}</h2>                
+                 
             </Outer>
         );
     }
@@ -145,7 +234,9 @@ function props(state) {
   
         selectedBlock: state.selectedBlock,
 
-        account: state.account
+        account: state.account,
+
+        counter: state.counter        
   
     };
   
@@ -155,18 +246,17 @@ function props(state) {
   
     return bindActionCreators({
 
-        overlayFadeOut: actionsOverlay.fadeOut,
+        setMode: actionsMode.setMode,
   
         watchBlocks: actionsBlocks.watchBlocks,
+
+        getBlock: actionsBlocks.getBlock,
 
         buyBlock:    actionsBlocks.buyBlock,
         sellBlock:    actionsBlocks.sellBlock,              
 
-        getOwnerOfBlock: actionsBlocks.getOwnerOfBlock,
-
-        getBlock: actionsBlocks.getBlock,
-        
-        setMode: actionsMode.setMode
+        startCounter: actionsCounter.startCounter,
+        stopCounter: actionsCounter.stopCounter        
   
     }, dispatch);
   

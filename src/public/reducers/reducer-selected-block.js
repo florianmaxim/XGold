@@ -1,40 +1,80 @@
 export default function (state = {
 
-  number: "0000000",
-  hash: "0x0000000000000000000000000000000000000000",
-  none: "00000000",
-  size: "00000",
-  transactions: [],
-  ownersAddress: "0x0000000000000000000000000000000000000000"
+    number: null,
+    hash: "0x0000000000000000000000000000000000000000",
+
+    timestamp: 12345678,  
+
+    nonce: "00000000",
+    size: "00000",
+    transactions: [],
+
+    ownersAddress: "0x0000000000000000000000000000000000000000",
+    state: 'available'
 
   }, action) {
 
   switch(action.type){
 
-    //SHOULD BE: SELECTED_BLOCK
-    case "RECEIVE_SELECTED_BLOCK":
-
-      return action.payload;
-
-    break;
-
     case "SELECTED_BLOCK":
 
-     return action.payload;
+     return {
+
+      number: action.payload.number,
+      hash: action.payload.hash,
+
+      timestamp: action.payload.timestamp,  
+  
+      nonce:  action.payload.nonce,
+      size:  action.payload.size,
+      transactions:  action.payload.transactions,
+  
+      ownersAddress:  action.payload.ownersAddress,
+      state: action.payload.state
+  
+    }
 
     break;
 
-    case "BOUGHT_SELECTED_BLOCK":
+  case "PURCHASE_PENDING":
 
-      return action.payload;
+    return  {
 
-    break;
+      number: state.number,
+      hash: state.hash,
 
-    case "SOLD_SELECTED_BLOCK":
+      timestamp: state.timestamp, 
 
-      return action.payload;
+      nonce: state.nonce,
+      size: state.size,
+      transactions: state.transactions,
 
-    break;
+      ownersAddress: state.ownersAddress,
+      state: 'pending'
+
+    }
+
+  break;
+
+  case "PURCHASE_SUCCEDED":
+
+    return  {
+
+      number: state.number,
+      hash: state.hash,
+
+      timestamp: state.timestamp, 
+
+      nonce: state.nonce,
+      size: state.size,
+      transactions: state.transactions,
+
+      ownersAddress: action.payload,
+      state: 'owned'
+
+    }
+
+  break;
 
   }
 

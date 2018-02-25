@@ -1,6 +1,6 @@
 pragma solidity ^0.4.6;
 
-contract XGoldContract005 {
+contract XGoldContract006 {
 
     address private creator;
     

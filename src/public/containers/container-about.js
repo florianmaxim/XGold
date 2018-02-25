@@ -108,11 +108,12 @@ class ContainerBlocks extends Component {
 
           <h2>{this.props.contract.welcome}</h2>
 
-          <h3>ETH {this.props.contract.balance} (GOLD {this.props.contract.amountOfBlocks})</h3>  
-          
+          <h3 style={{marginTop:'5px'}}>ETH {this.props.contract.balance} (GOLD {this.props.contract.amountOfBlocks})</h3>      
+
+          <ComponentButton caption="read the golden paper" />
+
           <h2 style={{marginTop:'5px'}}>{config.contractAddress}</h2>
           
-          <ComponentButton caption="read the golden paper" />
         </Outer>
     );
 }
