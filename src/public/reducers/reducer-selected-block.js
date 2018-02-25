@@ -76,6 +76,47 @@ export default function (state = {
 
   break;
 
+
+  case "SALE_PENDING":
+
+  return  {
+
+    number: state.number,
+    hash: state.hash,
+
+    timestamp: state.timestamp, 
+
+    nonce: state.nonce,
+    size: state.size,
+    transactions: state.transactions,
+
+    ownersAddress: state.ownersAddress,
+    state: 'pending'
+
+  }
+
+break;
+
+case "SALE_SUCCEDED":
+
+  return  {
+
+    number: state.number,
+    hash: state.hash,
+
+    timestamp: state.timestamp, 
+
+    nonce: state.nonce,
+    size: state.size,
+    transactions: state.transactions,
+
+    ownersAddress: "0x0000000000000000000000000000000000000000",
+    state: 'available'
+
+  }
+
+break;
+
   }
 
   return state;

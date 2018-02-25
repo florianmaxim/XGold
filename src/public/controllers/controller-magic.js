@@ -8,9 +8,9 @@ export default class Magic {
 
     calculatePrice(block){
         if(config.priceFixed){
-            return config.priceFixed;
+            return config.priceFixed.toFixed(config.priceToFixed);
         }else{
-            return ((new Number((block.size/block.transactions.length)/block.transactions.length))/10).toFixed(3) 
+            return ((new Number((block.size/block.transactions.length)/block.transactions.length))/10).toFixed(config.priceToFixed)
         }
     }
 

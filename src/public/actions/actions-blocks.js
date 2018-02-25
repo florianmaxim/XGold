@@ -42,7 +42,7 @@ export const buyBlock = (blockNumber) => {
 
     dispatch({type: "PURCHASE_PENDING"});
 
-    Blockchain.buyBlock(blockNumber,(block) => {
+    Blockchain.buyBlock(blockNumber, () => {
 
       dispatch({type: "PURCHASE_SUCCEDED"});
 
@@ -52,18 +52,18 @@ export const buyBlock = (blockNumber) => {
 
 }
 
-export const sellBlock = (block) => {
+export const sellBlock = (blockNumber) => {
 
   //Extract to SINGLE connect action!
   Blockchain.connect();
 
   return (dispatch) => {
 
-    dispatch({type: "SALE_PENDING", payload: true})
+    dispatch({type: "SALE_PENDING"})
 
-    Blockchain.sellBlock(block.number,(result) => {
+    Blockchain.sellBlock(blockNumber ,(result) => {
 
-      dispatch({type: "SALE_SUCCEDED", payload:result})
+      dispatch({type: "SALE_SUCCEDED"})
 
     }) 
 

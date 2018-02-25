@@ -7,22 +7,12 @@
     "info": {
         "name": "XGold",
         "slogan": "Cryptocurrency Counterparts",
-        "button": "Read the golden paper",
-
-        "paper": "This is the fucking paper text."
+        "button": "Read the golden paper"
     },
-
-    "color": "gold",
-    "background": "black", 
 
     "version": {
-
         "number": "0.0.1",
         "name": "Diamond"
-    },
-    
-    "api": {
-        "public": false
     },
 
     "contractAddress": "0xdaadc29edb10a2d8b66cac5dd539e47f855913a1", 
@@ -33,7 +23,7 @@
 
     "frame": false,
 
-    "refresh": 5000,
+    "refresh": 3000,
     "refreshAutoStart": true,
     
     "flash": true,
@@ -41,7 +31,8 @@
     "flashOnStart": false,
     "flashOnRefresh": false,
 
-    "priceFixed": 0.001,
+    "priceFixed": 0.0001,
+    "priceToFixed": 5,
 
     "camera": {
 
@@ -52,9 +43,5 @@
             "y": 0.01,
             "z": 100
         }
-    },
-
-    "rates": {
-        "usd" : 123
     }
 }

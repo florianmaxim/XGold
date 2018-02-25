@@ -11,6 +11,7 @@ const CONTRACT_ADDRESS =
 const CONTRACT_ABI = 
 
 [{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"getOwnerOfBlock","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getWelcome","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getAmountOfBlocks","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"buyBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"sellBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"isSenderOwnerOfBlock","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"amount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"welcome","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"isBlockForSale","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]
+
 let CONTRACT;
 
 /*
@@ -112,48 +113,55 @@ export default class Blockchain {
         CONTRACT.buyBlock.sendTransaction(blockNumber, data, (err, res) => {
 
             const transactionHash = res;
-
-            console.log(`transactionHash: ${transactionHash}`);
-
-            let sec = 0;
-
-            let stop = 0;
-
-            var myInterval = setInterval(function(){
+            
+            let filter = web3.eth.filter("latest");
+            filter.watch((error, result) => {
 
                 web3.eth.getTransactionReceipt(transactionHash, (err, res) => {
 
                     if(res){
 
-                        //Send back the new owners address (which is the coinbase)
-                        cb(web3.eth.coinbase);
-
-                        console.log('Mined!')
-                        console.log(clearInterval(myInterval));
-                    }else{
-                        sec++;
-                        console.log(sec+'s');
+                        filter.stopWatching();
+                        cb();
+                        
                     }
 
                 });
 
-            },1000);
-
+            });
         });
     }
 
     sellBlock(blockNumber, cb){
 
+        alert(blockNumber)
+
         const data = {
             from: web3.eth.coinbase,
-            to: CONTRACT_ADDRESS
+            to: CONTRACT_ADDRESS,
+            gasPrice: web3.toWei(0.00000001,'ether')
         };
 
-        CONTRACT.sellBlock(blockNumber, data, (err, res)=>{
+        CONTRACT.sellBlock(blockNumber.toString(), data, (err, res) => {
 
-            //console.log(blockNumber+'-'+(res));
+            const transactionHash = res;
+            
+            let filter = web3.eth.filter("latest");
+            filter.watch((error, result) => {
 
-            cb(res)
+                web3.eth.getTransactionReceipt(transactionHash, (err, res) => {
+
+                    if(res){
+
+                        filter.stopWatching();
+                        cb();
+                        
+                    }
+
+                });
+
+            });
+
         });
 
     }
@@ -169,7 +177,7 @@ export default class Blockchain {
 
             cb({
                 coinbase: web3.eth.coinbase,
-                balance: new Number(web3.fromWei(result.toNumber(), "ether" )).toFixed(3)
+                balance: new Number(web3.fromWei(result.toNumber(), "ether" )).toFixed(config.priceToFixed)
             });
 
         });

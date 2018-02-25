@@ -19,9 +19,11 @@ export const startCounter = (value) => {
   
     return (dispatch) => {
 
+        counter = 0;
+
         clearInterval(interval);
 
-        dispatch({type: "SET_COUNTER", payload: 0})
+        dispatch({type: "SET_COUNTER", payload: counter})
 
     }
 }  

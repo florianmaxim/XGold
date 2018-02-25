@@ -47,6 +47,16 @@ const Outer = styled.div`
 
     word-wrap: break-word;
 
+   
+`;
+
+const Block = styled.div`
+
+    width: 100%;
+
+    display: flex;
+    flex-direction:column;
+
     > h1 {
         width:inherit;
         margin:0;
@@ -105,7 +115,8 @@ class ContainerBlock extends React.Component {
 
         this.props.setMode('list');
 
-    
+        
+        //No URL given
         if(this.props.blockNumber===undefined){
 
             if(this.props.selectedBlock.number===null){
@@ -201,28 +212,41 @@ class ContainerBlock extends React.Component {
         } 
     }
 
+    renderCounterTime(seconds){
+
+        return seconds>60?`${Math.floor(seconds / 60)}m`:`${seconds}s`;
+
+    }
+
 
     render(){
         return(
             <Outer>
-                <h1>X{this.props.selectedBlock.number}</h1>
-                <h2>{this.props.selectedBlock.hash}</h2>
+                
+                <Block>
+                    <h1>X{this.props.selectedBlock.number}</h1>
+                    <h2>{this.props.selectedBlock.hash}</h2>
+                </Block>
 
-                <h2>Size: {this.props.selectedBlock.size}</h2>
-                <h2>Nonce: {this.props.selectedBlock.nonce}</h2>
-                <h2>Transactions [{this.props.selectedBlock.transactions.length}]</h2>                    
+                <Block>
+                    <h2>Size: {this.props.selectedBlock.size}</h2>
+                    <h2>Nonce: {this.props.selectedBlock.nonce}</h2>
+                    <h2>Transactions [{this.props.selectedBlock.transactions.length}]</h2>                    
+                </Block>
 
-                <h3 style={{marginBottom:'5px'}}>ETH {_ControllerMagic.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>       
+                <Block>
 
-                <ComponentButton 
+                    <h3 style={{marginBottom:'10px'}}>ETH {_ControllerMagic.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>       
 
-                    onClick={()=>{this.handleButtonAction()}} 
+                    <ComponentButton 
 
-                    caption={`${this.renderButtonCaption()} ${this.props.counter!==0?this.props.counter+'s':''}`}
-                />
+                        onClick={()=>{this.handleButtonAction()}} 
 
-                <h2 style={{marginTop:'5px'}}>{this.props.selectedBlock.ownersAddress}</h2>                
-                 
+                        caption={`${this.renderButtonCaption()} ${this.props.counter!==0?this.renderCounterTime(this.props.counter):''}`}
+                    />
+                    
+                </Block>
+
             </Outer>
         );
     }
