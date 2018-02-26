@@ -2,9 +2,10 @@
 
 # <p align="center">🔑 XGold - A Decentralized App For Trading Virtual Gold On The Ethereum Blockchain ✨</p>
 
-<p align="center">
- <a href="https://xgold.cc"><img align="center" src="https://img.shields.io/badge/App-online_🔑-green.svg" /></a>
-</p>
+[![Decentralized](https://img.shields.io/badge/Blockchain-ETH-blue.svg)](https://ethereum.org)
+[![Decentralized](https://img.shields.io/badge/data-decentralized-blue.svg)](https://ethereum.org) [![GitHub issues](https://img.shields.io/github/issues/florianmaxim/xgold.svg)](https://github.com/florianmaxim/xgold/issues) [![Github All Releases](https://img.shields.io/github/downloads/florianmaxim/xgold/total.svg)](https://github.com/florianmaxim/xgold) 
+![license](https://img.shields.io/github/license/mashape/apistatus.svg)
+
 
 ## <p align="center">We give cryptocurrencies the counterparts fiat money has lost.</p><p align="center">Build out of their own heart.<p align="center">The Blockchain.</p>
 
@@ -22,6 +23,36 @@
 
 <p align="center">
  <img align="center" src="resources/xgold-screen-xgold.png" />
+</p>
+
+## <p align="center">XGold requires a connection to the Ethereum blockchain.</p>
+
+### <p align="center">Don't worry, there is gold left. You'll be online in a sec. Here is how:</p>
+
+# <p align="center">Desktop</p>
+
+## On desktop devices the great Fox and his Metamask extension for Chrome provide you access to the network :
+
+<p align="center">
+    <a target="_blank" href="https://itunes.apple.com/app/cipher-browser-for-ethereum/id1294572970?ls=1&mt=8">
+    <img width="50%" src="https://cloud.githubusercontent.com/assets/13063928/17076160/4f0bcbb0-50b4-11e6-840e-a1207047a595.png
+"/>
+    </a>
+</p>
+
+# <p align="center">Mobile</p>
+
+## On mobile devices the awesome Chiper browser grant to you access to the blockchain :
+
+<p align="center">
+<img width="25%"  src="https://lh3.googleusercontent.com/VkaYCNco0FsqshjYCZx3P2kCuoXBg2TMnFoHOi2WtzfIPAttl-_YvxPgPxAwi4ZujMw=w300-rw"></img>
+</p>
+<p align="center">
+    <a target="_blank" href="https://itunes.apple.com/app/cipher-browser-for-ethereum/id1294572970?ls=1&mt=8">
+    <img height="50" src="https://devimages-cdn.apple.com/app-store/marketing/guidelines/images/exhibit-1-1-preferred.png"/>
+    </a> <a target="_blank" href="https://play.google.com/store/apps/details?id=com.cipherbrowser.cipher">
+    <img height="50" src="https://play.google.com/intl/en_us/badges/images/badge_new.png"/>
+    </a>
 </p>
 
 [![Decentralized](https://img.shields.io/badge/Blockchain-ETH-blue.svg)](https://ethereum.org)
