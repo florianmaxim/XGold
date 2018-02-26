@@ -2,7 +2,7 @@
 
 ## We give crypto currencies the counterparts fiat money lost a long time ago. 
 
-## Build out of their own heart. The Blockchain.
+## Build out of their own heart.<br/>The Blockchain.
 
 ![Gold](resources/xgold-screen-owned-2.png)
 
