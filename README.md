@@ -44,12 +44,14 @@
     </a>
 </p>
 
+
+
 # <p align="center">Mobile</p>
 
 ## On mobile devices the awesome Chiper Browser grants to you access to the blockchain :
 
 <p align="center">
-<img width="25%"  src="https://lh3.googleusercontent.com/VkaYCNco0FsqshjYCZx3P2kCuoXBg2TMnFoHOi2WtzfIPAttl-_YvxPgPxAwi4ZujMw=w300-rw"></img>
+<img width="25%"  src="https://is5-ssl.mzstatic.com/image/thumb/Purple128/v4/4e/9b/c7/4e9bc743-b39b-87a4-81b1-2259b9ec6e76/AppIcon-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-6.png/460x0w.jpg"></img>
 </p>
 <p align="center">
     <a target="_blank" href="https://itunes.apple.com/app/cipher-browser-for-ethereum/id1294572970?ls=1&mt=8">
@@ -123,7 +125,7 @@ Browse to **[localhost:8080](http://localhost:8080)**.
 ## Configuration
 
 
-# Resources
+# Resources & Inspiration
 
 ## Jewelry commercials:
 
@@ -131,7 +133,7 @@ https://www.youtube.com/watch?v=Kxpe0nOXQsg
 
 https://www.youtube.com/watch?v=8Fosqx2C_A8
 
-## De beers
+## De Beers
 https://www.youtube.com/watch?v=uUzmUH55iKo&list=PLEqf8pU7tcmaLTRdrvustF86iJXX2uBi6#t=3.633411
 
 ## Banks
@@ -144,4 +146,4 @@ https://www.youtube.com/watch?v=IvKt98rPkg8
 
 # License
 
-MIT
+## MIT
