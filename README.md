@@ -27,14 +27,14 @@
 
 ## <p align="center">XGold requires a connection to the Ethereum blockchain.</p>
 
-### <p align="center">Don't worry, there is gold left. You'll be online in a sec. Here is how:</p>
+### <p align="center">Don't worry, there is gold left. You'll be online in a sec. Here's how:</p>
 
 # <p align="center">Desktop</p>
 
 ## On desktop devices the great Fox and his Metamask extension for Chrome provide you access to the network :
 
 <p align="center">
-    <a target="_blank" href="https://itunes.apple.com/app/cipher-browser-for-ethereum/id1294572970?ls=1&mt=8">
+    <a target="_blank" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en">
     <img width="50%" src="https://cloud.githubusercontent.com/assets/13063928/17076160/4f0bcbb0-50b4-11e6-840e-a1207047a595.png
 "/>
     </a>
@@ -42,7 +42,7 @@
 
 # <p align="center">Mobile</p>
 
-## On mobile devices the awesome Chiper browser grant to you access to the blockchain :
+## On mobile devices the awesome Chiper Browser grants to you access to the blockchain :
 
 <p align="center">
 <img width="25%"  src="https://lh3.googleusercontent.com/VkaYCNco0FsqshjYCZx3P2kCuoXBg2TMnFoHOi2WtzfIPAttl-_YvxPgPxAwi4ZujMw=w300-rw"></img>
@@ -55,6 +55,7 @@
     </a>
 </p>
 
+# Stats 
 [![Decentralized](https://img.shields.io/badge/Blockchain-ETH-blue.svg)](https://ethereum.org)
 [![Decentralized](https://img.shields.io/badge/data-decentralized-blue.svg)](https://ethereum.org) [![GitHub issues](https://img.shields.io/github/issues/florianmaxim/xgold.svg)](https://github.com/florianmaxim/xgold/issues) [![Github All Releases](https://img.shields.io/github/downloads/florianmaxim/xgold/total.svg)](https://github.com/florianmaxim/xgold) 
 ![license](https://img.shields.io/github/license/mashape/apistatus.svg)
