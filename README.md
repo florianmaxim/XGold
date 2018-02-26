@@ -33,7 +33,7 @@
 
 # <p align="center">Desktop</p>
 
-## On desktop devices the great Fox and his Metamask extension for Chrome provide you access to the network :
+## <p align="center">On desktop devices the great Fox and his Metamask provide you access to the network :</p>
 
 <p align="center">
     <a target="_blank" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en">
@@ -45,7 +45,7 @@
 
 # <p align="center">Mobile</p>
 
-## On mobile devices the awesome Chiper Browser grants to you access to the blockchain :
+## <p align="center">On mobile devices the awesome Chiper Browser grants to you access to the blockchain :</p>
 
 <p align="center">
 <img width="25%"  src="resources/logo-cipher.png"></img>
