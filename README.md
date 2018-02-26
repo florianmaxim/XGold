@@ -1,10 +1,23 @@
 # 🔑 XGold - A Decentralized App For Trading Virtual Gold On The Ethereum Blockchain ✨
 
+[![Decentralized](https://img.shields.io/badge/🔑App-online-green.svg)](https://xgold.cc)
+
 ## <p>We give cryptocurrencies the counterparts fiat money has lost.</p><p>Build out of their own heart.<p>The Blockchain.</p>
 
 ![Gold](resources/xgold-screen-sell.png)
 
+## Once purchased, a block turns gold and will always be yours. The Blockchain never forgets.
+
 ![Gold](resources/xgold-screen-buy.png)
+
+## As long as the Blockchain exists their will be blocks waiting for you to turn them into gold.
+
+![Gold](resources/xgold-screen-xgold.png)
+
+[![Decentralized](https://img.shields.io/badge/Blockchain-ETH-blue.svg)](https://ethereum.org)
+[![Decentralized](https://img.shields.io/badge/data-decentralized-blue.svg)](https://ethereum.org) [![GitHub issues](https://img.shields.io/github/issues/florianmaxim/xgold.svg)](https://github.com/florianmaxim/xgold/issues) [![Github All Releases](https://img.shields.io/github/downloads/florianmaxim/xgold/total.svg)](https://github.com/florianmaxim/xgold) 
+![license](https://img.shields.io/github/license/mashape/apistatus.svg)
+
 
 ### Contract: 0x876BCa49BD8E4667d295363Fd2028142C7ba396C
 
