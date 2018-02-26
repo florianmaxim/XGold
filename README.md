@@ -4,7 +4,9 @@
 
 ![Gold](resources/xgold-screen-0.png)
 
-![Gold](resources/xgold-screen-1.png)!
+![Gold](resources/xgold-screen-1.png)
+
+![Gold](resources/xgold-screen-2.png)!
 
 ### [https://xgold.cc](https://xgold.cc) [https://xgold.trade](https://xgold.trade) [https://xgold.store](https://xgold.store)
 
