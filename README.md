@@ -10,7 +10,7 @@
 
 ![Gold](resources/xgold-screen-buy.png)
 
-## As long as the Blockchain exists their will be blocks waiting for you to turn them into gold.
+## As long as the Blockchain exists there will be blocks waiting for you to be turned into gold.
 
 ![Gold](resources/xgold-screen-xgold.png)
 
