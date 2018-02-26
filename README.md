@@ -2,7 +2,7 @@
 
 ## We give crypto currencies the counterparts fiat money lost a long time ago. We build them out of their own heart. The Blockchain.
 
-![Gold](resources/xgold-owned-1.png)
+![Gold](resources/xgold-owned-2.png)
 
 ![Gold](resources/xgold-available-1.png)
 
