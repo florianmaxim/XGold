@@ -2,9 +2,9 @@
 
 ## We give crypto currencies the counterparts fiat money lost a long time ago. Build out of their own heart. The Blockchain.
 
-![Gold](resources/xgold-owned-2.png)
+![Gold](resources/xgold-screen-owned-2.png)
 
-![Gold](resources/xgold-available-1.png)
+![Gold](resources/xgold-screen-available-1.png)
 
 ### [https://xgold.cc](https://xgold.cc) [https://xgold.trade](https://xgold.trade) [https://xgold.store](https://xgold.store)
 
