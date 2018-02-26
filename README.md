@@ -37,7 +37,7 @@
 
 <p align="center">
     <a target="_blank" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en">
-    <img width="50%" src="resources/logo-metamask.png"/>
+    <img width="50%" src="resources/logo-metamask.jpg"/>
     </a>
 </p>
 
@@ -50,6 +50,7 @@
 <p align="center">
 <img width="25%"  src="resources/logo-cipher.png"></img>
 </p>
+
 <p align="center">
     <a target="_blank" href="https://itunes.apple.com/app/cipher-browser-for-ethereum/id1294572970?ls=1&mt=8">
     <img height="50" src="https://devimages-cdn.apple.com/app-store/marketing/guidelines/images/exhibit-1-1-preferred.png"/>
