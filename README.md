@@ -27,8 +27,6 @@
  <img align="center" src="resources/xgold-screen-xgold.png" />
 </p>
 
-# <p align="center"> Set up and browse to <a href="https://xgold.cc">xgold.cc</a>.</p>
-
 ## <p align="center">XGold requires a connection to the Ethereum blockchain.</p>
 
 ### <p align="center">Don't worry, there is gold left. You'll be online in a sec. Here's how:</p>
@@ -39,19 +37,18 @@
 
 <p align="center">
     <a target="_blank" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en">
-    <img width="50%" src="https://cloud.githubusercontent.com/assets/13063928/17076160/4f0bcbb0-50b4-11e6-840e-a1207047a595.png
-"/>
+    <img width="50%" src="resources/logo-metamask.png"/>
     </a>
 </p>
 
-
+# <p align="center"> Set up and browse to <a href="https://xgold.cc">xgold.cc</a></p>
 
 # <p align="center">Mobile</p>
 
 ## On mobile devices the awesome Chiper Browser grants to you access to the blockchain :
 
 <p align="center">
-<img width="25%"  src="https://lh3.googleusercontent.com/VkaYCNco0FsqshjYCZx3P2kCuoXBg2TMnFoHOi2WtzfIPAttl-_YvxPgPxAwi4ZujMw=w300-rw"></img>
+<img width="25%"  src="resources/logo-cipher.png"></img>
 </p>
 <p align="center">
     <a target="_blank" href="https://itunes.apple.com/app/cipher-browser-for-ethereum/id1294572970?ls=1&mt=8">
@@ -61,7 +58,7 @@
     </a>
 </p>
 
-# <p align="center"> Set up and browse to <a href="https://xgold.cc">xgold.cc</a>.</p>
+# <p align="center"> Set up and browse to <a href="https://xgold.cc">xgold.cc</a></p>
 
 # Stats 
 [![Decentralized](https://img.shields.io/badge/Blockchain-ETH-blue.svg)](https://ethereum.org)
