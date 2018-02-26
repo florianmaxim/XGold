@@ -1,0 +1,47 @@
+{
+    "port": 8080,
+    
+    "name": "XGold",
+    "slogan": "Cryptocurrency Counterparts",
+
+    "info": {
+        "name": "XGold",
+        "slogan": "Cryptocurrency Counterparts",
+        "button": "Read the golden paper"
+    },
+
+    "version": {
+        "number": "0.0.1",
+        "name": "Diamond"
+    },
+
+    "contractAddress": "0xdaadc29edb10a2d8b66cac5dd539e47f855913a1", 
+    "contractABI": [{"constant":false,"inputs":[{"name":"to","type":"address"}],"name":"delegate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"winningProposal","outputs":[{"name":"_winningProposal","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"toVoter","type":"address"}],"name":"giveRightToVote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"toProposal","type":"uint8"}],"name":"vote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"_numProposals","type":"uint8"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}],
+
+    "log": true,
+    "logActions": true,
+
+    "frame": false,
+
+    "refresh": 3000,
+    "refreshAutoStart": true,
+    
+    "flash": true,
+    "flashDuration": 0.75,
+    "flashOnStart": false,
+    "flashOnRefresh": false,
+
+    "priceFixed": 0.0001,
+    "priceToFixed": 4,
+
+    "camera": {
+
+        "focus": 105,
+
+        "position": {
+            "x": 0,
+            "y": 0.01,
+            "z": 50
+        }
+    }
+}
