@@ -12,7 +12,7 @@
  <img align="center" src="resources/xgold-screen-sell.png" />
 </p>
 
-## <p align="center">Once purchased, a block turns gold and will always be yours. The Blockchain never forgets.</p>
+## <p align="center">Once purchased, a block turns gold and will always be yours. </p><p align="center">The Blockchain never forgets.</p>
 
 <p align="center">
  <img align="center" src="resources/xgold-screen-buy.png" />
