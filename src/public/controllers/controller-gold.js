@@ -158,11 +158,11 @@ export default class Gold{
 
     /* --- Helper --- */
 
-    let mat = new MeshPhongMaterial({color: 0xffd700})
+/*     let mat = new MeshPhongMaterial({color: 0xffd700})
     let geo = new SphereGeometry(50,1,1);
     mesh = new Mesh(geo, mat);
     mesh.name = 'gold';
-    scene.add(mesh);
+    scene.add(mesh); */
 
     /* --- Rotation --- */
 
