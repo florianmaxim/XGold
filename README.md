@@ -1,6 +1,6 @@
 # 🔑 XGold - A Decentralized App For Trading Virtual Gold On The Ethereum Blockchain ✨
 
-## <p style="border:0;">We give cryptocurrencies the counterparts fiat money has lost.</p><p style="border:0;">Build out of their own heart. The Blockchain.
+## <p>We give cryptocurrencies the counterparts fiat money has lost.</p><p>Build out of their own heart.<p>The Blockchain.</p>
 
 ![Gold](resources/xgold-screen-sell.png)
 
