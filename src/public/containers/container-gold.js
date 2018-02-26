@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 
 import GoldController from '../controllers/controller-gold';
 
-const _GOLD = new GoldController();
+const ControllerGold = new GoldController();
 
 class ContainerGold extends Component {
 
@@ -17,7 +17,7 @@ class ContainerGold extends Component {
   componentDidMount(){
 
     //Init Gold Element
-    let element = _GOLD.init()
+    let element = ControllerGold.init()
 
     //Append HTML Canvas Element
     this.refs.gold.appendChild(element);
@@ -26,10 +26,10 @@ class ContainerGold extends Component {
 
   componentWillReceiveProps(props){
 
-      if(_GOLD.getGold()&&props.selectedBlock===props.selectedBlock.state==='owned'){
-        _GOLD.updateGold(props.selectedBlock);
+      if(ControllerGold.getGold()&&props.selectedBlock===props.selectedBlock.state==='owned'){
+        ControllerGold.updateGold(props.selectedBlock);
       }else{
-        _GOLD.generateGold(props.selectedBlock);
+        ControllerGold.generateGold(props.selectedBlock);
       }
   }
 
