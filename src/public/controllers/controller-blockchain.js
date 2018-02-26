@@ -103,6 +103,8 @@ export default class Blockchain {
 
     buyBlock(blockNumber, cb){
 
+        console.log('buy blockNumber:'+blockNumber)
+
         const data = {
             from: web3.eth.coinbase,
             to: CONTRACT_ADDRESS,
@@ -112,18 +114,26 @@ export default class Blockchain {
 
         CONTRACT.buyBlock.sendTransaction(blockNumber, data, (err, res) => {
 
+        console.log('transactionHash:'+res)
+
             const transactionHash = res;
             
             let filter = web3.eth.filter("latest");
+
             filter.watch((error, result) => {
+
+                console.log('filter watching:'+result)
 
                 web3.eth.getTransactionReceipt(transactionHash, (err, res) => {
 
                     if(res){
 
+                        console.log('transcation mined')
                         filter.stopWatching();
                         cb();
                         
+                    }else{
+                        console.log('transcation pending')
                     }
 
                 });
@@ -153,6 +163,8 @@ export default class Blockchain {
 
                         filter.stopWatching();
                         cb();
+                        
+                    }else{
                         
                     }
 

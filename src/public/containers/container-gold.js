@@ -26,9 +26,11 @@ class ContainerGold extends Component {
 
   componentWillReceiveProps(props){
 
-    //Generate gold block from the block that was just selected
-      _GOLD.generate(props.selectedBlock);
-
+      if(_GOLD.getGold()){
+        _GOLD.updateGold(props.selectedBlock);
+      }else{
+        _GOLD.generateGold(props.selectedBlock);
+      }
   }
 
   render(){

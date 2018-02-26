@@ -255,7 +255,7 @@ class ContainerBlock extends React.Component {
 
                 <Block
                     
-                    onClick = {() => this.props.togglePurchase()()}                    
+                                      
                     style={{opacity:this.props.elements.purchase?'1':'0'}}> 
                     <h3 
                         style={{marginBottom:'10px'}}>ETH {_ControllerMagic.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>       

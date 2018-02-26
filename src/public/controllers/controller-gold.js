@@ -60,6 +60,8 @@ let lastValueY=0;
 let lastValueX=0;
 let alpha, beta, gamma = 0;
 
+let material;
+
 function degToRad(degrees){
 	return degrees * Math.PI/180;
 }
@@ -68,6 +70,7 @@ function degToRad(degrees){
  * 
  * This is the graphical canvas using the three js framework.
 */
+
 
 export default class Gold{
 
@@ -95,23 +98,6 @@ export default class Gold{
     controls = new OrbitControls(camera);
 
     /* Lights */
-
-/*     var light = new PointLight(0xffffff,2);
-    light.position.y=100;
-    light.position.x=-50;
-    scene.add(light);
-
-    var light = new PointLight(0xffffff,2);
-    light.position.y=100;
-    light.position.x=50;
-    scene.add(light);
-
-    var light = new DirectionalLight(0xffffff);
-    light.position.set(0, 10, 1).normalize();
-    scene.add(light);
-
-    var ambient = new AmbientLight( 0xffffff );
-    scene.add( ambient ); */
 
     var ambient = new AmbientLight( 0xeaf4f9, 1 );
     scene.add( ambient );
@@ -155,16 +141,6 @@ export default class Gold{
       mouseX = ( event.clientX - innerWidth/2 ) / 2;
       mouseY = ( event.clientY - innerHeight/2 ) / 2;
     }, false );
-
-    /* --- Helper --- */
-
-/*     let mat = new MeshPhongMaterial({color: 0xffd700})
-    let geo = new SphereGeometry(50,1,1);
-    mesh = new Mesh(geo, mat);
-    mesh.name = 'gold';
-    scene.add(mesh); */
-
-    /* --- Rotation --- */
 
     function rotate(){ 
 
@@ -256,22 +232,83 @@ export default class Gold{
     return renderer.domElement;
   }
 
-  /**
-    Generates the gold mesh from a block object
-    
-    block.length = 
-    block.height =
-  */
-  generate(block){
+  getGold(){
+    return gold;
+  }
 
-    console.log(`[GOLD] Block: ${block.number}`)
+  updateGold(block){
+
+    console.log('gold updates')
+
+    var path = "static/textures/cube/";
+    var format = '.jpg';
+    var urls = [
+        path + 'px' + format, path + 'nx' + format,
+        path + 'py' + format, path + 'ny' + format,
+        path + 'pz' + format, path + 'nz' + format
+      ];
+    
+    var reflectionCube = new CubeTextureLoader().load( urls );
+    
+    var refractionCube = new CubeTextureLoader().load( urls );
+        refractionCube.mapping = CubeRefractionMapping;
+    
+
+    const materialSilver = new MeshPhongMaterial( {
+      side: DoubleSide,
+    /*   color: 0x564100,
+      specular:0x937300,
+      emissive:0xffffff, */
+      color: 0x000000,
+      specular:0x7c7c7c,
+      emissive:0xffffff,
+      emissiveIntensity:.1,
+      envMap: reflectionCube,
+     /*  displacementMap: reflectionCube,
+      combine: MixOperation, */
+      reflectivity: .1} );
+    
+    const materialGold = new MeshPhongMaterial( {
+      side: DoubleSide,
+      color: 0x564100,
+     specular:0x937300,
+      emissive:0xffffff,
+      emissiveIntensity:.1,
+    
+      envMap: reflectionCube,
+      //displacementMap: reflectionCube,
+      //combine: THREE.MixOperation,
+    
+      reflectivity: .25} );
+    
+
+    //Choose material according to block state
+    material;
+    switch(block.state){
+      case 'available':
+        material = materialSilver;
+      break;
+      case 'owned':
+        material = materialGold;
+      break;
+      default:
+        material = materialSilver;
+      break;  
+    }
+
+    gold.material = material;
+
+    material.needsUpdate = true;
+  }
+
+  generateGold(block){
 
     const factor = isMobile.any()?.5:1;
 
     let width = 512*factor;
     let height = 512*factor;
     let segments = 512*factor;
-    let smooth = 256*factor;
+    let smooth = 512*factor;
 
     //Generate surface data with DiamndSquare algorithm
     let surface  = new DiamondSquare(width, height, segments, smooth).generate();
@@ -298,12 +335,16 @@ export default class Gold{
         path + 'py' + format, path + 'ny' + format,
         path + 'pz' + format, path + 'nz' + format
       ];
-
+    
     var reflectionCube = new CubeTextureLoader().load( urls );
-
+    
     var refractionCube = new CubeTextureLoader().load( urls );
         refractionCube.mapping = CubeRefractionMapping;
+    
 
+
+    //remove old mesh
+    scene.remove(scene.getObjectByName('gold'));
 
     const materialSilver = new MeshPhongMaterial( {
       side: DoubleSide,
@@ -318,25 +359,23 @@ export default class Gold{
      /*  displacementMap: reflectionCube,
       combine: MixOperation, */
       reflectivity: .1} );
-
+    
     const materialGold = new MeshPhongMaterial( {
       side: DoubleSide,
       color: 0x564100,
      specular:0x937300,
       emissive:0xffffff,
       emissiveIntensity:.1,
-
+    
       envMap: reflectionCube,
       //displacementMap: reflectionCube,
       //combine: THREE.MixOperation,
-
+    
       reflectivity: .25} );
-
-    //remove old mesh
-    scene.remove(scene.getObjectByName('gold'));
+    
 
     //Choose material according to block state
-    let material;
+    material;
     switch(block.state){
       case 'available':
         material = materialSilver;
