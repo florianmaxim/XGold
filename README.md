@@ -1,18 +1,28 @@
-# 🔑 XGold - A Decentralized App For Trading Virtual Gold On The Ethereum Blockchain ✨
 
-[![Decentralized](https://img.shields.io/badge/App-online_🔑-green.svg)](https://xgold.cc)
 
-## <p>We give cryptocurrencies the counterparts fiat money has lost.</p><p>Build out of their own heart.<p>The Blockchain.</p>
+# <p align="center">🔑 XGold - A Decentralized App For Trading Virtual Gold On The Ethereum Blockchain ✨</p>
 
-![Gold](resources/xgold-screen-sell.png)
+<p align="center">
+ <a href="https://xgold.cc"><img align="center" src="https://img.shields.io/badge/App-online_🔑-green.svg" /></a>
+</p>
 
-## Once purchased, a block turns gold and will always be yours. The Blockchain never forgets.
+## <p align="center">We give cryptocurrencies the counterparts fiat money has lost.</p><p align="center">Build out of their own heart.<p align="center">The Blockchain.</p>
 
-![Gold](resources/xgold-screen-buy.png)
+<p align="center">
+ <img align="center" src="resources/xgold-screen-sell.png" />
+</p>
 
-## As long as the Blockchain exists there will be blocks waiting for you to be turned into gold.
+## <p align="center">Once purchased, a block turns gold and will always be yours. The Blockchain never forgets.</p>
 
-![Gold](resources/xgold-screen-xgold.png)
+<p align="center">
+ <img align="center" src="resources/xgold-screen-buy.png" />
+</p>
+
+## <p align="center">As long as the Blockchain exists there will be blocks waiting for you to be turned into gold.</p>
+
+<p align="center">
+ <img align="center" src="resources/xgold-screen-xgold.png" />
+</p>
 
 [![Decentralized](https://img.shields.io/badge/Blockchain-ETH-blue.svg)](https://ethereum.org)
 [![Decentralized](https://img.shields.io/badge/data-decentralized-blue.svg)](https://ethereum.org) [![GitHub issues](https://img.shields.io/github/issues/florianmaxim/xgold.svg)](https://github.com/florianmaxim/xgold/issues) [![Github All Releases](https://img.shields.io/github/downloads/florianmaxim/xgold/total.svg)](https://github.com/florianmaxim/xgold) 
