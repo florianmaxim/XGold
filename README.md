@@ -2,6 +2,8 @@
 
 # <p align="center">🔑 XGold - A Decentralized App For Trading Virtual Gold On The Ethereum Blockchain ✨</p>
 
+# <p align="center">Online <a href="https://xgold.cc">xgold.cc</a></p>
+
 [![Decentralized](https://img.shields.io/badge/Blockchain-ETH-blue.svg)](https://ethereum.org)
 [![Decentralized](https://img.shields.io/badge/data-decentralized-blue.svg)](https://ethereum.org) [![GitHub issues](https://img.shields.io/github/issues/florianmaxim/xgold.svg)](https://github.com/florianmaxim/xgold/issues) [![Github All Releases](https://img.shields.io/github/downloads/florianmaxim/xgold/total.svg)](https://github.com/florianmaxim/xgold) 
 ![license](https://img.shields.io/github/license/mashape/apistatus.svg)
@@ -24,6 +26,8 @@
 <p align="center">
  <img align="center" src="resources/xgold-screen-xgold.png" />
 </p>
+
+# <p align="center"> Set up and browse to <a href="https://xgold.cc">xgold.cc</a>.</p>
 
 ## <p align="center">XGold requires a connection to the Ethereum blockchain.</p>
 
@@ -54,6 +58,8 @@
     <img height="50" src="https://play.google.com/intl/en_us/badges/images/badge_new.png"/>
     </a>
 </p>
+
+# <p align="center"> Set up and browse to <a href="https://xgold.cc">xgold.cc</a>.</p>
 
 # Stats 
 [![Decentralized](https://img.shields.io/badge/Blockchain-ETH-blue.svg)](https://ethereum.org)
