@@ -161,7 +161,6 @@ class ContainerBlocks extends Component {
           <Block>
 
             <h1>XGold</h1>
-            <h2 style={{marginTop:'10px'}}>{config.contractAddress}</h2>
 
             <h3 style={{marginBottom:'10px'}}>ETH {this.props.contract.balance} (TOKENS {this.props.contract.amountOfBlocks})</h3>            
           
