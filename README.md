@@ -9,7 +9,7 @@
 ![license](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 
-## <p align="center">We give cryptocurrencies the counterparts fiat money has lost.</p><p align="center">Build out of their own heart.<p align="center">The Blockchain.</p>
+## <p align="center">We give crypto currencies the counterparts fiat money has lost.</p><p align="center">Build out of their own heart.<p align="center">The Blockchain.</p>
 
 <p align="center">
  <img align="center" src="resources/xgold-screen-sell.png" />
@@ -145,3 +145,10 @@ https://www.youtube.com/watch?v=IvKt98rPkg8
 # License
 
 ## MIT
+
+
+<p align="center">
+ <img align="center" src="resources/xgold-screen-opals.png" />
+</p>
+
+## <p align="center">Well, gold a fascinating.</p><p align="center">But have you every heard about opals? <p align="center">On the blockchain?</p>

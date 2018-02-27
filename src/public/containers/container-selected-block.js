@@ -243,20 +243,18 @@ class ContainerBlock extends React.Component {
                     <h1>X{this.props.selectedBlock.number}</h1>
                     <h2>{this.props.selectedBlock.hash}</h2>
                 </Block>
-
                 <Block 
                    
-                    onClick = {() => this.props.toggleData()}                    
-                    style={{opacity:this.props.elements.data?'1':'0'}}>
+                    onClick = {() => this.props.toggleHeading()}                    
+                    style={{opacity:this.props.elements.heading?'1':'0'}}>
                     <h2>Size: {this.props.selectedBlock.size}</h2>
                     <h2>Nonce: {this.props.selectedBlock.nonce}</h2>
                     <h2>Transactions [{this.props.selectedBlock.transactions.length}]</h2>                    
                 </Block>
-
                 <Block
                     
-                                      
-                    style={{opacity:this.props.elements.purchase?'1':'0'}}> 
+                    style={{opacity:this.props.elements.heading?'1':'0'}}               
+                    > 
                     <h3 
                         style={{marginBottom:'10px'}}>ETH {_ControllerMagic.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>       
 
