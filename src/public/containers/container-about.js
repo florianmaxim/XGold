@@ -149,7 +149,7 @@ class ContainerBlocks extends Component {
     this.props.setMode('block');
 
     this.props.getContractWelcome();
-    this.props.getContractBalance();
+    this.props.getContractTotalBalance();
     this.props.getContractAmountOfBlocks();
 
   }
@@ -162,12 +162,21 @@ class ContainerBlocks extends Component {
 
             <h1>XGold</h1>
             <h2 style={{marginTop:'10px'}}>{config.contractAddress}</h2>
+
+            <h3 style={{marginBottom:'10px'}}>ETH {this.props.contract.balance} (TOKENS {this.props.contract.amountOfBlocks})</h3>            
           
           </Block>
 
           <Block>
 
-            <h3 style={{marginBottom:'10px'}}>ETH {this.props.contract.balance} (TOKENS {this.props.contract.amountOfBlocks})</h3>
+            <a href={`https://ropsten.etherscan.io/address/${config.contractAddress}`} target="_blank">
+             <ComponentButton caption="red the golden contract" />
+             </a>
+
+             <a href="https://github.com/florianmaxim/xgold" target="_blank">
+             <ComponentButton caption="red the golden code" />
+             </a>
+
             <ComponentButton caption="read the golden paper" />
             
           </Block>
@@ -195,7 +204,7 @@ function actions(dispatch){
     setMode: actionsMode.setMode,
 
     getContractWelcome:        actionsBlocks.getContractWelcome,
-    getContractBalance:        actionsBlocks.getContractBalance,
+    getContractTotalBalance:        actionsBlocks.getContractTotalBalance,
     getContractAmountOfBlocks: actionsBlocks.getContractAmountOfBlocks,
 
   }, dispatch);

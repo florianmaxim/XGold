@@ -4,13 +4,9 @@ import * as config from '../../../config.json';
 
 let prev = {hash:0, number:0};
 
-const CONTRACT_ADDRESS = 
+const CONTRACT_ADDRESS = config.contractAddress;
 
-"0x589c9f7cc79570f335d26ddf268af29015fcfc12";
-
-const CONTRACT_ABI = 
-
-[{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"getOwnerOfBlock","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTotalBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getWelcome","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"getTypeOfBlock","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"buyGoldBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"sellBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"buyNebulaBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[],"name":"getTotoalAmountOfBlocks","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}]
+const CONTRACT_ABI = config.contractABI;
 
 let CONTRACT;
 
@@ -249,11 +245,11 @@ export default class Blockchain {
         });
     }
     
-    getContractBalance(cb){
+    getContractTotalBalance(cb){
 
-        web3.eth.getBalance(config.contractAddress, (err, res) => {
+        web3.eth.getBalance(CONTRACT_ADDRESS, (err, res) => {
 
-            let balance = new Number(web3.fromWei(res.toNumber(), "ether" )).toFixed(3)
+            let balance = new Number(web3.fromWei(res.toNumber(), "ether" )).toFixed(config.priceToFixed)
 
             cb(balance);
 
@@ -263,7 +259,7 @@ export default class Blockchain {
 
     getContractAmountOfBlocks(cb){
 
-        CONTRACT.getAmountOfBlocks((err, res)=>{
+        CONTRACT.getTotalAmountOfBlocks((err, res)=>{
 
             cb(res.toNumber());
 

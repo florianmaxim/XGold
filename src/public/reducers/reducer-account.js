@@ -15,5 +15,18 @@ export default function (state = init, action) {
 
   }
 
+  switch(action.type){
+
+    case "RECEIVED_CONTRACT_BALANCE":
+
+      return {
+        coinbase: state.coinbase,
+        balance: action.payload
+    }
+
+    break;
+
+  }
+
   return state;
 }

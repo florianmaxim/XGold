@@ -122,13 +122,13 @@ export const watchBlocks = () => {
   Contract
 */
 
-export const getContractBalance = () => {
+export const getContractTotalBalance = () => {
 
   Blockchain.connect();
 
   return (dispatch) => {
 
-    Blockchain.getContractBalance((balance)=>{
+    Blockchain.getContractTotalBalance((balance)=>{
 
       dispatch({type: "RECEIVED_CONTRACT_BALANCE", payload:balance})
 
