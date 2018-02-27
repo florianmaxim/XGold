@@ -170,11 +170,11 @@ class ContainerBlocks extends Component {
           <Block>
 
             <a href={`https://ropsten.etherscan.io/address/${config.contractAddress}`} target="_blank">
-             <ComponentButton caption="red the golden contract" />
+             <ComponentButton caption="read the golden contract" />
              </a>
 
              <a href="https://github.com/florianmaxim/xgold" target="_blank">
-             <ComponentButton caption="red the golden code" />
+             <ComponentButton caption="read the golden code" />
              </a>
 
             <ComponentButton caption="read the golden paper" />
