@@ -4,6 +4,9 @@ import styled from 'styled-components';
 
 const Button = styled.div`
 
+    margin-top:12.5px;
+    margin-bottom:12.5px;
+
     width: 100%;
     height: 53px;
 
@@ -63,7 +66,7 @@ export default class ComponentButtonBuy extends React.Component {
 
     render(){
         return(
-            <Button onClick={this.props.onClick}>
+            <Button style={this.props.style} onClick={this.props.onClick}>
                 {this.props.caption}
             </Button>
         )

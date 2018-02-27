@@ -1,57 +1,96 @@
 pragma solidity ^0.4.6;
 
-contract XGoldContract006 {
+contract XGoldContract013 {
 
     address private creator;
     
-    string  public  welcome   = "All the gold is in here.";
-    
-    uint public amount;
-
-    /*
-        Properties (blockNumber => ownersAddress).
-    */
-    
-    mapping (uint => address) private gold;
-
+    string  private  welcome   = "All the gold is in here.";
     
     /*
-        Get Amount Of Blocks
+        Amount of blocks
     */
     
-    function getAmountOfBlocks() constant returns (uint) {
-        return amount;
+    uint  private amountOfBlocks;
+
+    /*
+        Properties of blocks (blockNumber => ownersAddress).
+    */
+    
+    mapping (uint => address) private blockOwner;
+    
+    /*
+        Block types ['available', 'gold', 'nebula']
+    */
+    mapping (uint => string) private blockType;
+    
+    /*
+        Get amount Of blocks
+    */
+    
+    function getTotoalAmountOfBlocks() constant returns (uint) {
+        return amountOfBlocks;
     }
     
     /*
-        Get owner
+        Get owner of block
     */
     
     function getOwnerOfBlock(uint blockNumber) constant returns (address) {
-        return gold[blockNumber];
+        return blockOwner[blockNumber];
+    }
+    
+    /*
+        Get type of block
+    */
+    
+    function getTypeOfBlock(uint blockNumber) constant returns (string) {
+        return blockType[blockNumber];
     }
 
     /*
         Buy block
     */
     
-    function isBlockForSale(uint blockNumber) returns (bool){
+    function isBlockForSale(uint blockNumber) private returns (bool){
 
-        if(gold[blockNumber] == 0x0){
+        //Is block for sale or am I the owner already?
+        if(blockOwner[blockNumber] == 0x0 || blockOwner[blockNumber] == msg.sender){
             return true;
         }else{
             return false;
         }
 
     }
-
     
-    function buyBlock(uint blockNumber) payable public returns(bool){
+    function buyGoldBlock(uint blockNumber) payable public returns(bool){
 
         if(isBlockForSale(blockNumber)){
-            gold[blockNumber] = msg.sender;
             
-            amount++;
+            //Set myself as the owener
+            blockOwner[blockNumber] = msg.sender;
+            
+            //Set value on 'gold;
+            blockType[blockNumber] = 'gold';
+            
+            amountOfBlocks++;
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+    
+    
+    function buyNebulaBlock(uint blockNumber) payable public returns(bool){
+
+        if(isBlockForSale(blockNumber)){
+            
+            blockOwner[blockNumber] = msg.sender;
+            
+            //Set value on 'nebula'
+            blockType[blockNumber] = 'nebula';
+            
+            amountOfBlocks++;
             return true;
         }else{
             return false;
@@ -63,9 +102,9 @@ contract XGoldContract006 {
         Sell block
     */
     
-    function isSenderOwnerOfBlock(uint blockNumber) returns (bool) {
+    function isSenderOwnerOfBlock(uint blockNumber) private returns (bool) {
 
-        if(gold[blockNumber] == msg.sender){
+        if(blockOwner[blockNumber] == msg.sender){
             return true;
         }else{
             return false;
@@ -77,14 +116,17 @@ contract XGoldContract006 {
 
         if(isSenderOwnerOfBlock(blockNumber)){
             
-            gold[blockNumber] = 0x0;
+            blockOwner[blockNumber] = 0x0;
+            
+            //Set value back on 'available';
+            blockType[blockNumber] = 'available';
             
             //Send money back
             //Check if sending back was successful
             if (!msg.sender.send(0.001 ether))
             throw;
             
-            amount--;
+            amountOfBlocks--;
             return true;
             
         }else{
@@ -93,6 +135,7 @@ contract XGoldContract006 {
 
     }
     
+
     /*
         Get welcome
     */
@@ -103,7 +146,7 @@ contract XGoldContract006 {
     /*
         Get balance
     */
-    function getBalance() constant returns(uint){
+    function getTotalBalance() constant returns(uint){
         return this.balance;
     }
 

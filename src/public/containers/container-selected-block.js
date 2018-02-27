@@ -19,6 +19,13 @@ import * as config from '../../../config.json';
 
 import ControllerMagic from '../controllers/controller-magic';
 
+//VERY DIRTY
+let wasGoldBefore = false;
+
+let startedGold = false;
+let startedNebula = false;
+
+
 const _ControllerMagic = new ControllerMagic();
 
 const Outer = styled.div`
@@ -153,32 +160,24 @@ class ContainerBlock extends React.Component {
 
     }
 
-    componentWillReceiveProps(props){
+    componentWillReceiveProps(newProps){
 
-        switch(props.selectedBlock.state)
+        if(newProps.selectedBlock.state===this.props.selectedBlock.state) return;
+
+        switch(newProps.selectedBlock.state)
         {
-            case "owned":
-               
-                this.props.stopCounter();
-              
-            break;
-
-            case "available":
-
-                this.props.stopCounter();
-               
-            break;
-
-            case "pending":
+            case "gold":
               
                 
-
+                this.props.stopCounter();
+              
             break;
 
-            default:
+            case "nebula":
 
+              
                 this.props.stopCounter();
-               
+          
             break;
             
         }
@@ -190,11 +189,15 @@ class ContainerBlock extends React.Component {
         {
             case "owned":
                 this.props.sellBlock(this.props.selectedBlock.number);
-                this.props.startCounter();
+               
             break;
 
             case "available":
-                this.props.buyBlock(this.props.selectedBlock.number);
+                this.props.buyGoldBlock(this.props.selectedBlock.number);
+                
+                startedGold = true;
+                startedNebula = false;
+
                 this.props.startCounter();
             break;
 
@@ -204,11 +207,21 @@ class ContainerBlock extends React.Component {
         } 
     }
 
+
     renderButtonCaption(){
         switch(this.props.selectedBlock.state)
         {
             case "owned":
                 return "sell"
+            break;
+
+            case "gold":
+                wasGoldBefore = true;
+                return "sell gold"
+            break;
+
+            case "nebula":
+                return "sell gold"
             break;
 
             case "available":
@@ -225,9 +238,61 @@ class ContainerBlock extends React.Component {
         } 
     }
 
+    renderButtonSecondaryCaption(){
+        switch(this.props.selectedBlock.state)
+        {
+            case "gold":
+                if(startedNebula){
+                    return "pending"
+                }
+                if(wasGoldBefore){
+                    return "go nebula"
+                }else{
+                    return "not available"
+                }
+            break;
+
+            case "pending":
+                if(wasGoldBefore){
+                    return "pending"
+                }else{
+                    return "not available"
+                }
+            break;
+
+            case "nebula":
+                return "sell nebula"
+            break;
+
+            default:
+            return "not available"
+        break;    
+        } 
+    }
+
+    handleButtonSecondaryAction(){
+        switch(this.props.selectedBlock.state)
+        {
+            case "gold":
+                this.props.buyNebulaBlock(this.props.selectedBlock.number);
+               
+                startedGold = false;
+                startedNebula = true;
+
+                wasGoldBefore = true;
+               
+                this.props.startCounter();
+            break;
+
+            default:
+                
+            break;    
+        } 
+    }
+
     renderCounterTime(seconds){
 
-        return seconds>60?`${Math.floor(seconds / 60)}m`:`${seconds}s`;
+        return seconds>60?`${Math.floor(seconds / 60)}:${seconds%60}m`:`${seconds}s`;
 
     }
 
@@ -258,11 +323,22 @@ class ContainerBlock extends React.Component {
                     <h3 
                         style={{marginBottom:'10px'}}>ETH {_ControllerMagic.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>       
 
-                    <ComponentButton 
+                    <ComponentButton
+                    
+                        style={{display:this.props.selectedBlock.state!=='nebula'?'flex':'none'}}
 
                         onClick={()=>{this.handleButtonAction()}} 
 
-                        caption={`${this.renderButtonCaption()} ${this.props.counter!==0?this.renderCounterTime(this.props.counter):''}`}
+                        caption={`${this.renderButtonCaption()} ${startedGold&&this.props.counter!==0?this.renderCounterTime(this.props.counter):''}`}
+                    />
+
+                    <ComponentButton
+
+                        style={{display:this.props.selectedBlock.state==='gold'||this.props.selectedBlock.state==='nebula'?'flex':'none',backgroundSize: '100%', background: 'url("static/disturb1_kl.png")'}}
+
+                        onClick={()=>{this.handleButtonSecondaryAction()}} 
+
+                        caption={`${this.renderButtonSecondaryCaption()} ${startedNebula&&this.props.counter!==0?this.renderCounterTime(this.props.counter):''}`}
                     />
                     
                 </Block>
@@ -302,7 +378,9 @@ function props(state) {
 
         getBlock: actionsBlocks.getBlock,
 
-        buyBlock:    actionsBlocks.buyBlock,
+        buyGoldBlock:    actionsBlocks.buyGoldBlock,
+        buyNebulaBlock:    actionsBlocks.buyNebulaBlock,
+
         sellBlock:    actionsBlocks.sellBlock,              
 
         startCounter: actionsCounter.startCounter,

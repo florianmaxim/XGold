@@ -1,3 +1,11 @@
+
+const goldStates = [
+  'available',
+  'sold',
+  'gold', //owned, payed gold price
+  'nebula' //owned payed nebula price
+]
+
 export default function (state = {
 
     number: null,
@@ -36,7 +44,7 @@ export default function (state = {
 
     break;
 
-  case "PURCHASE_PENDING":
+  case "PURCHASE_GOLD_PENDING":
 
     return  {
 
@@ -56,7 +64,7 @@ export default function (state = {
 
   break;
 
-  case "PURCHASE_SUCCEDED":
+  case "PURCHASE_GOLD_SUCCEDED":
 
     return  {
 
@@ -70,7 +78,47 @@ export default function (state = {
       transactions: state.transactions,
 
       ownersAddress: action.payload,
-      state: 'owned'
+      state: 'gold'
+
+    }
+
+  break;
+
+  case "PURCHASE_NEBULA_PENDING":
+
+    return  {
+
+      number: state.number,
+      hash: state.hash,
+
+      timestamp: state.timestamp, 
+
+      nonce: state.nonce,
+      size: state.size,
+      transactions: state.transactions,
+
+      ownersAddress: state.ownersAddress,
+      state: 'gold'
+
+    }
+
+  break;
+
+  case "PURCHASE_NEBULA_SUCCEDED":
+
+    return  {
+
+      number: state.number,
+      hash: state.hash,
+
+      timestamp: state.timestamp, 
+
+      nonce: state.nonce,
+      size: state.size,
+      transactions: state.transactions,
+
+      ownersAddress: action.payload,
+      state: 'nebula'
 
     }
 

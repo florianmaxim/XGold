@@ -6,11 +6,11 @@ let prev = {hash:0, number:0};
 
 const CONTRACT_ADDRESS = 
 
-"0xdaadc29edb10a2d8b66cac5dd539e47f855913a1";
+"0x589c9f7cc79570f335d26ddf268af29015fcfc12";
 
 const CONTRACT_ABI = 
 
-[{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"getOwnerOfBlock","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getWelcome","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getAmountOfBlocks","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"buyBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"sellBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"isSenderOwnerOfBlock","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"amount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"welcome","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"isBlockForSale","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"}]
+[{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"getOwnerOfBlock","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTotalBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getWelcome","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"getTypeOfBlock","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"buyGoldBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"sellBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"buyNebulaBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[],"name":"getTotoalAmountOfBlocks","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}]
 
 let CONTRACT;
 
@@ -101,7 +101,7 @@ export default class Blockchain {
 
     }
 
-    buyBlock(blockNumber, cb){
+    buyGoldBlock(blockNumber, cb){
 
         console.log('buy blockNumber:'+blockNumber)
 
@@ -112,7 +112,7 @@ export default class Blockchain {
             gasPrice: web3.toWei(0.00000001,'ether')
         };
 
-        CONTRACT.buyBlock.sendTransaction(blockNumber, data, (err, res) => {
+        CONTRACT.buyGoldBlock.sendTransaction(blockNumber, data, (err, res) => {
 
         console.log('transactionHash:'+res)
 
@@ -125,6 +125,51 @@ export default class Blockchain {
                 console.log('filter watching:'+result)
 
                 web3.eth.getTransactionReceipt(transactionHash, (err, res) => {
+
+                    console.log('getTransactionReceipt:'+res)
+
+                    if(res){
+
+                        console.log('transcation mined')
+                        filter.stopWatching();
+                        cb();
+                        
+                    }else{
+                        console.log('transcation pending')
+                    }
+
+                });
+
+            });
+        });
+    }
+
+    buyNebulaBlock(blockNumber, cb){
+
+        console.log('buy blockNumber:'+blockNumber)
+
+        const data = {
+            from: web3.eth.coinbase,
+            to: CONTRACT_ADDRESS,
+            value: web3.toWei(config.priceFixed,'ether'),
+            gasPrice: web3.toWei(0.00000001,'ether')
+        };
+
+        CONTRACT.buyNebulaBlock.sendTransaction(blockNumber, data, (err, res) => {
+
+        console.log('transactionHash:'+res)
+
+            const transactionHash = res;
+            
+            let filter = web3.eth.filter("latest");
+
+            filter.watch((error, result) => {
+
+                console.log('filter watching:'+result)
+
+                web3.eth.getTransactionReceipt(transactionHash, (err, res) => {
+
+                    console.log('getTransactionReceipt:'+res)
 
                     if(res){
 

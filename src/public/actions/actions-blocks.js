@@ -10,6 +10,15 @@ let interval;
   Blocks
 */
 
+export const selectBlock = (block) => {
+
+  return (dispatch) => {
+
+      dispatch({type: "SELECTED_BLOCK", payload: block})
+
+  }
+}
+
 export const getBlock = (blockNumber) => {
 
   Blockchain.connect();
@@ -25,26 +34,36 @@ export const getBlock = (blockNumber) => {
     }
 }
 
-export const selectBlock = (block) => {
 
-  return (dispatch) => {
-
-      dispatch({type: "SELECTED_BLOCK", payload: block})
-
-  }
-}
-
-export const buyBlock = (blockNumber) => {
+export const buyGoldBlock = (blockNumber) => {
 
   Blockchain.connect();
 
   return (dispatch) => {
 
-    dispatch({type: "PURCHASE_PENDING"});
+    dispatch({type: "PURCHASE_GOLD_PENDING"});
 
-    Blockchain.buyBlock(blockNumber, () => {
+    Blockchain.buyGoldBlock(blockNumber, () => {
 
-      dispatch({type: "PURCHASE_SUCCEDED"});
+      dispatch({type: "PURCHASE_GOLD_SUCCEDED"});
+
+    })
+
+  }
+
+}
+
+export const buyNebulaBlock = (blockNumber) => {
+
+  Blockchain.connect();
+
+  return (dispatch) => {
+
+    dispatch({type: "PURCHASE_NEBULA_PENDING"});
+
+    Blockchain.buyNebulaBlock(blockNumber, () => {
+
+      dispatch({type: "PURCHASE_NEBULA_SUCCEDED"});
 
     })
 

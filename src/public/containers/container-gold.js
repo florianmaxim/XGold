@@ -26,7 +26,7 @@ class ContainerGold extends Component {
 
   componentWillReceiveProps(props){
 
-      if(ControllerGold.getGold()&&props.selectedBlock===props.selectedBlock.state==='owned'){
+      if(ControllerGold.getGold()&&props.selectedBlock&&props.selectedBlock.state==='nebula'||props.selectedBlock.state==='gold'){
         ControllerGold.updateGold(props.selectedBlock);
       }else{
         ControllerGold.generateGold(props.selectedBlock);
