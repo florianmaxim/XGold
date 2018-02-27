@@ -1,6 +1,6 @@
 
 
-# <p align="center">🔑 XGold - A Decentralized App For Trading Virtual Gold On The Ethereum Blockchain ✨</p>
+# <p align="center">🔑 XGold 🔑<br/> A Decentralized App<br/> For Digital  Gold Trading<br/>On The Ethereum Blockchain ✨</p>
 
 # <p align="center">Online <a href="https://xgold.cc">xgold.cc</a></p>
 
@@ -15,7 +15,7 @@
  <img align="center" src="resources/xgold-screen-sell.png" />
 </p>
 
-## <p align="center">Once purchased, a block turns gold and will always be yours. </p><p align="center">The Blockchain never forgets.</p>
+## <p align="center">Once purchased, a block turns into gold and will always be yours. </p><p align="center">The Blockchain never forgets.</p>
 
 <p align="center">
  <img align="center" src="resources/xgold-screen-buy.png" />
