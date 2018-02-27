@@ -66,7 +66,11 @@ export default class ComponentButtonBuy extends React.Component {
 
     render(){
         return(
-            <Button style={this.props.style} onClick={this.props.onClick}>
+            <Button 
+                style={this.props.style} 
+                onClick={this.props.onClick} 
+                onTouchStart={this.props.onTouchStart} 
+                onMouseDown={this.props.onMouseDown}>
                 {this.props.caption}
             </Button>
         )

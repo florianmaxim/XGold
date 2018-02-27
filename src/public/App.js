@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 
 import Routes from './Routes'
 
+import ContainerStart  from './containers/container-start';
+
 import ContainerGold  from './containers/container-gold';
 
 import ContainerOverlay     from './containers/container-overlay';
@@ -19,8 +21,11 @@ injectGlobal`
 
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:Light');
   @import url('https://fonts.googleapis.com/css?family=Cinzel');
-  @import url('https://fonts.googleapis.com/css?family=Roboto:Thin');
+  @import url('https://fonts.googleapis.com/css?family=Roboto');
   @import url('https://fonts.googleapis.com/css?family=Lato');
+  @import url('https://fonts.googleapis.com/css?family=Dosis');
+  @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
+  
 
   body {
     margin: 0;
@@ -83,6 +88,8 @@ export default class App extends React.Component {
   render(){
     return(
       <Outer frame={config.frame}>
+
+        <ContainerStart/>
 
         <ContainerGold/>
 

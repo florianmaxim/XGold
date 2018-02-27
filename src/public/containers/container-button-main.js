@@ -15,6 +15,8 @@ import styled, {keyframes} from 'styled-components';
 
 const Container = styled.div`
 
+    z-index:2;
+
     position: fixed;
 
     left:50vw;
@@ -32,8 +34,6 @@ const Container = styled.div`
 `
 
 const Circle = styled.div`
-
-    z-index:1;
 
     margin-bottom:25px;
     
@@ -58,8 +58,6 @@ const Circle = styled.div`
 `
   
 const Outer = styled.div`
-
-    z-index:1;
     
     width: 50px;
     height: 110px;

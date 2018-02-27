@@ -12,8 +12,12 @@ import ReducerOverlay       from './reducer-overlay';
 import ReducerMode          from './reducer-mode';
 import ReducerCounter       from './reducer-counter';
 
+import ReducerStarted       from './reducer-started';
+
+
 const reducer = combineReducers({
 
+    started: ReducerStarted,
     elements: ReducerElements,
 
     account: ReducerAccount,
