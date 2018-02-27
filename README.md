@@ -151,4 +151,4 @@ https://www.youtube.com/watch?v=IvKt98rPkg8
  <img align="center" src="resources/xgold-screen-opals.png" />
 </p>
 
-## <p align="center">Well, gold a fascinating.</p><p align="center">But have you every heard about nebulas on the blockchain?</p>
+## <p align="center">Well, gold is fascinating.</p><p align="center">But have you every heard about nebulas on the blockchain?</p>
