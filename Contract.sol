@@ -1,6 +1,6 @@
 pragma solidity ^0.4.6;
 
-contract XGoldContract013 {
+contract XGoldContract019 {
 
     address private creator;
     
@@ -10,24 +10,43 @@ contract XGoldContract013 {
         Amount of blocks
     */
     
-    uint  private amountOfBlocks;
+    uint  public amountOfBlocks;
 
     /*
         Properties of blocks (blockNumber => ownersAddress).
     */
     
-    mapping (uint => address) private blockOwner;
+    mapping (uint => address) public blockOwner;
     
     /*
         Block types ['available', 'gold', 'nebula']
     */
-    mapping (uint => string) private blockType;
+    mapping (uint => string) public blockType;
+    
+    
+    /*
+        Get blocks of sender
+    */
+    
+    function getBlocksOfSender() constant returns (uint[]) {
+        
+        uint[] list;
+        
+        uint count = 1;
+        for(uint i = 0; i<amountOfBlocks; i++){
+            if(blockOwner[i]==msg.sender){
+                list[count] = i;
+            }
+        }
+        
+        return list;
+    }
     
     /*
         Get amount Of blocks
     */
     
-    function getTotoalAmountOfBlocks() constant returns (uint) {
+    function getTotalAmountOfBlocks() constant returns (uint) {
         return amountOfBlocks;
     }
     
@@ -72,7 +91,7 @@ contract XGoldContract013 {
             //Set value on 'gold;
             blockType[blockNumber] = 'gold';
             
-            amountOfBlocks++;
+            amountOfBlocks = amountOfBlocks+1;
             return true;
         }else{
             return false;
@@ -90,7 +109,7 @@ contract XGoldContract013 {
             //Set value on 'nebula'
             blockType[blockNumber] = 'nebula';
             
-            amountOfBlocks++;
+            amountOfBlocks = amountOfBlocks-1;
             return true;
         }else{
             return false;
