@@ -222,6 +222,12 @@ export default class Gold{
 
       var delta = clock.getDelta();
 
+      if(config.gold.autoRotate)
+      if(gold){
+        gold.rotation.x += delta/config.gold.autoRotateSpeed
+        gold.rotation.z += delta/config.gold.autoRotateSpeed
+      }
+
       if(uniforms1)
       uniforms1.time.value += delta * 5;
       if(uniforms2)

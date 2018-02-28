@@ -19,14 +19,14 @@ import * as config from '../../../config.json';
 import { ENGINE_METHOD_CIPHERS } from 'constants';
 import { setTimeout } from 'timers';
 
-const once = false;
+let once = false;
 
 const animation = keyframes`
 from {
   opacity: 1
 }
 to {
-  opacity: 0.5
+  opacity: ${config.startUpOpacityTo}
 }
 `
 const ComponentOverlay = styled.div`
@@ -39,11 +39,14 @@ const ComponentOverlay = styled.div`
     height: 100vh;
 
     background: url(static/disturb1.jpg);
+    //background: red;
     background-size: cover;
 
-    animation-duration: 30s;
-
-    transition: 5s;
+    animation-name: ${(props) => props.animate?animation:''},
+    animation-duration: ${config.startUpTime/1000}s;
+  
+    transition: ${config.startUpFinalTransitionTime/1000}s opacity;
+    transition-delay: 2000;
 `;
 
 class ContainerStart extends Component {
@@ -53,7 +56,7 @@ class ContainerStart extends Component {
 
     this.state = {
         display: true,
-        countdown: 30
+        countdown: config.startUpTime/1000
     }
   }
 
@@ -66,19 +69,24 @@ class ContainerStart extends Component {
       this.setState({countdown:this.state.countdown-1})
     }, 1000)
 
+    once = true;
+
   }
 
   handleStart(){
 
-      if(thisstate.countdown>=0) return;
-      
+      if(this.state.countdown>=0) return;
+
+   
+
       this.props.start();
-
-      setTimeout(()=>{
-        this.setState({display:false})
-      }, 5000)
-
     }
+
+  componentWillReceiveProps(props){
+    setTimeout(()=>{
+      this.setState({display:false})
+    }, config.startUpFinalTransitionTime)
+  }  
 
   renderPhrase(){
     return "Gosh, the Blockchain looks glittering."
@@ -88,37 +96,46 @@ class ContainerStart extends Component {
   render(){
     return(
 
-      <div>
+      <div style={{
+        display: this.state.display?'flex':'none'
+      }}>
      
-        <ComponentOverlay style={{
-            animationName: !once?animation:'',
+        <ComponentOverlay 
+
+          animate
+        
+          style={{
+
             zIndex:2,
-            opacity: !this.props.started?'.85':'0',   
-            display: this.state.display?'flex':'none'                
+            opacity: this.props.started?'0':config.startUpOpacityTo,                 
             }}/>
 
         <ComponentOuter 
           style={{
-              position: 'absolute',
+  
               zIndex:3,
-              display: this.state.display?'flex':'none'      
+              transition: `${config.startUpFinalTransitionTime/1000}s opacity`,
+              opacity: this.props.started?'0':'1',     
+
               }}>
             
             <ComponentInner>
-              <h1 style={{ wordWrap:'normal', fontFamily: 'Roboto', fontSize: '3em', marginBottom: '50px'}}>{this.renderPhrase()}</h1>
+              <h1 style={{ textShadow: '0px 0px 5px rgba(0,0,0,0)', color: 'white', wordWrap:'normal', fontFamily:  'Roboto', fontWeight: '600', fontSize: '3.25em', marginBottom: '50px'}}>The Blockchain looks glittering.</h1>
             </ComponentInner>
 
             <ComponentInner>
             <ComponentButton 
-                onTouchStart={() => {this.handleStart();}} 
-                onMouseDown={() => {this.handleStart();}}
-                caption={`${config.start.button} ${this.state.countdown<=0?'':' in '+this.state.countdown+'s'}`}/>
+                
+                onClick={() => {this.handleStart();}} 
+
+                caption={`${config.startButtonCaption} ${this.state.countdown<=0?'':' in '+this.state.countdown+'s'}`}/>
+            
             </ComponentInner>
 
         </ComponentOuter>  
 
       </div>
-      
+
     );
 }
 

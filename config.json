@@ -39,12 +39,12 @@
 
     "camera": {
 
-        "focus": 95,
+        "focus": 125,
 
         "position": {
             "x": 0,
             "y": 0.01,
-            "z": 125
+            "z": 100
         }
     },
 
@@ -53,7 +53,13 @@
         "I mean, the blockchain looks amazing!"      
     ],
 
-    "start" : {
-        "button" : "buy a block"
+    "startButtonCaption" :"so buy it",
+    "startUpTime": 15000,
+    "startUpOpacityTo": 0.85,
+    "startUpFinalTransitionTime": 3000,
+
+    "gold": {
+        "autoRotate": true,
+        "autoRotateSpeed" : 10
     }
 }

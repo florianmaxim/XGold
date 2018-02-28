@@ -122,7 +122,7 @@ class ContainerBlocks extends Component {
 
   render(){
     return(   
-      <Outer>
+      <Outer style={{display: this.props.started?'flex':'none'}}>
         {
           this.props.blocks.map((block) => {
             return(
@@ -149,7 +149,8 @@ function props(state) {
 
   return {
 
-    blocks: state.blocks
+    blocks: state.blocks,
+    started: state.started
 
   };
 

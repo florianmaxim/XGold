@@ -69,7 +69,9 @@ export default class ComponentButtonBuy extends React.Component {
                 style={this.props.style} 
                 onClick={this.props.onClick} 
                 onTouchStart={this.props.onTouchStart} 
-                onMouseDown={this.props.onMouseDown}>
+                onMouseDown={this.props.onMouseDown}
+                onTouchEnd={this.props.onTouchEnd} 
+                onMouseUp={this.props.onMouseUp}>
                 {this.props.caption}
             </Button>
         )

@@ -86,7 +86,7 @@ class ContainerBlocks extends Component {
 
   render(){
     return(
-        <ComponentOuter>
+        <ComponentOuter style={{display: this.props.started?'flex':'none'}}>
 
           <ComponentInner>
 
@@ -120,7 +120,9 @@ function props(state) {
 
   return {
 
-    contract: state.contract
+    contract: state.contract,
+
+    started: state.started
 
   };
 

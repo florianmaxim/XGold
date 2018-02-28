@@ -129,7 +129,7 @@ class ContainerButtonMain extends React.Component {
 
         return(
 
-            <Container style={{transition: '3s all', opacity: this.props.started?'1':'0'}}>
+            <Container style={{transition: '3s all', display: this.props.started?'flex':'none', opacity: this.props.started?'1':'0'}}>
                 
                 <Link 
                     style={{userSelect:'none'}}

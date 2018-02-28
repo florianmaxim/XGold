@@ -26,7 +26,6 @@ let wasGoldBefore = false;
 let startedGold = false;
 let startedNebula = false;
 
-
 const _ControllerMagic = new ControllerMagic();
 
 
@@ -280,11 +279,11 @@ class ContainerBlock extends React.Component {
 
     render(){
         return(
-            <ComponentOuter>
+            <ComponentOuter style={{display: this.props.started?'flex':'none'}}>
                 
                 <Block   
                     onClick = {() => this.props.toggleHeading()}                    
-                    style={{transitionDelay:this.props.started?'0s':'5s', opacity:this.props.elements.heading&&this.props.started?'1':'0'}}>
+                    style={{opacity:this.props.elements.heading&&this.props.started?'1':'0'}}>
                     
                     <h1>X{this.props.selectedBlock.number}</h1>
                     <h2 style={{marginTop:'10px',marginBottom:'10px'}}>{this.props.selectedBlock.hash}</h2>
@@ -292,7 +291,7 @@ class ContainerBlock extends React.Component {
                 <Block 
                    
                     onClick = {() => this.props.toggleHeading()}                    
-                    style={{transitionDelay:this.props.started?'0s':'5s',opacity:this.props.elements.heading&&this.props.started?'1':'0'}}>
+                    style={{opacity:this.props.elements.heading&&this.props.started?'1':'0'}}>
                     <h2>Size: {this.props.selectedBlock.size}</h2>
                     <h2>Nonce: {this.props.selectedBlock.nonce}</h2>
                     <h2>Transactions [{this.props.selectedBlock.transactions.length}]</h2>                    
