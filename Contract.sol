@@ -1,6 +1,6 @@
 pragma solidity ^0.4.6;
 
-contract XGoldContract019 {
+contract XGoldContract023 {
 
     address private creator;
     
@@ -24,22 +24,34 @@ contract XGoldContract019 {
     mapping (uint => string) public blockType;
     
     
+    struct Block {
+        uint number;
+        address owner;
+    }
+    
+    mapping (uint => Block) public blocks;
+
+    
     /*
         Get blocks of sender
     */
     
+    
     function getBlocksOfSender() constant returns (uint[]) {
         
-        uint[] list;
-        
-        uint count = 1;
+        uint[] memory list;
+
         for(uint i = 0; i<amountOfBlocks; i++){
             if(blockOwner[i]==msg.sender){
-                list[count] = i;
+        
+               // list[i] = blockOwner[i].index();
+                
             }
+           
         }
         
         return list;
+        
     }
     
     /*
@@ -82,16 +94,26 @@ contract XGoldContract019 {
     }
     
     function buyGoldBlock(uint blockNumber) payable public returns(bool){
+        
+        Block memory _block;
 
         if(isBlockForSale(blockNumber)){
+            
+            amountOfBlocks = amountOfBlocks+1;
+
+            //HOW DOES THIS SHIT WORK?!
+            //_block.number = blockNumber;
+            //_block.owner = msg.sender;
+            
+           // blocks[amountOfBlocks] = _block;
             
             //Set myself as the owener
             blockOwner[blockNumber] = msg.sender;
             
             //Set value on 'gold;
             blockType[blockNumber] = 'gold';
+
             
-            amountOfBlocks = amountOfBlocks+1;
             return true;
         }else{
             return false;

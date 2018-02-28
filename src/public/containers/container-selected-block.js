@@ -334,7 +334,7 @@ class ContainerBlock extends React.Component {
 
                     <ComponentButton
 
-                        style={{display:this.props.selectedBlock.state==='gold'||this.props.selectedBlock.state==='nebula'?'flex':'none',backgroundSize: '100%', background: 'url("static/disturb1_kl.png")'}}
+                        style={{display:this.props.selectedBlock.state==='gold'||this.props.selectedBlock.state==='nebula'?'flex':'none'}}
 
                         onClick={()=>{this.handleButtonSecondaryAction()}} 
 
