@@ -1,6 +1,6 @@
 pragma solidity ^0.4.6;
 
-contract XGoldContract023 {
+contract XGoldContract040 {
 
     address private creator;
     
@@ -11,185 +11,58 @@ contract XGoldContract023 {
     */
     
     uint  public amountOfBlocks;
-
-    /*
-        Properties of blocks (blockNumber => ownersAddress).
-    */
-    
-    mapping (uint => address) public blockOwner;
     
     /*
-        Block types ['available', 'gold', 'nebula']
+        Block
     */
-    mapping (uint => string) public blockType;
-    
     
     struct Block {
-        uint number;
         address owner;
+        uint number;
+        string state;
     }
-    
+
+    /*
+        blocks
+    */
     mapping (uint => Block) public blocks;
-
     
-    /*
-        Get blocks of sender
-    */
+    Block[] public arrayBlocks;
     
-    
-    function getBlocksOfSender() constant returns (uint[]) {
-        
-        uint[] memory list;
-
-        for(uint i = 0; i<amountOfBlocks; i++){
-            if(blockOwner[i]==msg.sender){
-        
-               // list[i] = blockOwner[i].index();
-                
-            }
-           
-        }
-        
-        return list;
-        
-    }
-    
-    /*
-        Get amount Of blocks
-    */
-    
-    function getTotalAmountOfBlocks() constant returns (uint) {
-        return amountOfBlocks;
-    }
-    
-    /*
-        Get owner of block
-    */
-    
-    function getOwnerOfBlock(uint blockNumber) constant returns (address) {
-        return blockOwner[blockNumber];
-    }
-    
-    /*
-        Get type of block
-    */
-    
-    function getTypeOfBlock(uint blockNumber) constant returns (string) {
-        return blockType[blockNumber];
-    }
-
     /*
         Buy block
     */
     
-    function isBlockForSale(uint blockNumber) private returns (bool){
-
-        //Is block for sale or am I the owner already?
-        if(blockOwner[blockNumber] == 0x0 || blockOwner[blockNumber] == msg.sender){
-            return true;
-        }else{
-            return false;
-        }
-
-    }
-    
     function buyGoldBlock(uint blockNumber) payable public returns(bool){
         
-        Block memory _block;
+        
+        amountOfBlocks = amountOfBlocks+1;
+        
+        blocks[amountOfBlocks] = Block(msg.sender, blockNumber, "gold");
+        
+        arrayBlocks.push(Block(msg.sender, blockNumber, "gold"));
 
-        if(isBlockForSale(blockNumber)){
-            
-            amountOfBlocks = amountOfBlocks+1;
+        return true;
 
-            //HOW DOES THIS SHIT WORK?!
-            //_block.number = blockNumber;
-            //_block.owner = msg.sender;
+    }
+    
+    
+    function getBlocksOfSender() constant returns (uint[]) {
+        
+        
+        uint[] list;
+        
+        for(uint i = 0;i<amountOfBlocks+1;i++){
             
-           // blocks[amountOfBlocks] = _block;
-            
-            //Set myself as the owener
-            blockOwner[blockNumber] = msg.sender;
-            
-            //Set value on 'gold;
-            blockType[blockNumber] = 'gold';
-
-            
-            return true;
-        }else{
-            return false;
+            if(blocks[i].owner == msg.sender){
+                
+                list.push(blocks[i].number);
+            }
         }
-
+        
+        return list;
     }
     
-    
-    function buyNebulaBlock(uint blockNumber) payable public returns(bool){
-
-        if(isBlockForSale(blockNumber)){
-            
-            blockOwner[blockNumber] = msg.sender;
-            
-            //Set value on 'nebula'
-            blockType[blockNumber] = 'nebula';
-            
-            amountOfBlocks = amountOfBlocks-1;
-            return true;
-        }else{
-            return false;
-        }
-
-    }
-
-    /*
-        Sell block
-    */
-    
-    function isSenderOwnerOfBlock(uint blockNumber) private returns (bool) {
-
-        if(blockOwner[blockNumber] == msg.sender){
-            return true;
-        }else{
-            return false;
-        }
-
-    }
-    
-    function sellBlock(uint blockNumber) payable public returns(bool){
-
-        if(isSenderOwnerOfBlock(blockNumber)){
-            
-            blockOwner[blockNumber] = 0x0;
-            
-            //Set value back on 'available';
-            blockType[blockNumber] = 'available';
-            
-            //Send money back
-            //Check if sending back was successful
-            if (!msg.sender.send(0.001 ether))
-            throw;
-            
-            amountOfBlocks--;
-            return true;
-            
-        }else{
-            return false;
-        }
-
-    }
-    
-
-    /*
-        Get welcome
-    */
-    function getWelcome() constant returns(string){
-        return welcome;
-    }
-
-    /*
-        Get balance
-    */
-    function getTotalBalance() constant returns(uint){
-        return this.balance;
-    }
 
     /*
         Kill

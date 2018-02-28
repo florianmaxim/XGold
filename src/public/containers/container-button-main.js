@@ -60,7 +60,7 @@ const Circle = styled.div`
 const Outer = styled.div`
     
     width: 50px;
-    height: 110px;
+    height: 15vh;
     opacity: 1;
 
     display: flex;
@@ -129,7 +129,7 @@ class ContainerButtonMain extends React.Component {
 
         return(
 
-            <Container>
+            <Container style={{transition: '3s all', opacity: this.props.started?'1':'0'}}>
                 
                 <Link 
                     style={{userSelect:'none'}}
@@ -166,7 +166,9 @@ function props(state) {
     return {
   
       overlay: state.overlay,
-      mode: state.mode
+      mode: state.mode,
+
+      started: state.started
   
     };
   

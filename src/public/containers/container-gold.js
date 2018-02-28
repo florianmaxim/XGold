@@ -35,7 +35,7 @@ class ContainerGold extends Component {
 
   render(){
     return(
-        <div ref="gold" style={{width:'100vw',height:'100vh'}}/>
+        <div ref="gold" style={{zIndex:0, width:'100vw',height:'100vh'}}/>
     );
 }
 
@@ -45,7 +45,8 @@ function props(state) {
 
   return {
 
-    selectedBlock: state.selectedBlock
+    selectedBlock: state.selectedBlock,
+    started: state.started
 
   };
 

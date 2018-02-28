@@ -44,11 +44,16 @@
         "position": {
             "x": 0,
             "y": 0.01,
-            "z": 200
+            "z": 125
         }
     },
 
     "phrases": [
-        "Well, the Blockchain looks glittering."     
-    ]
+        "Well, the Blockchain looks glittering.",
+        "I mean, the blockchain looks amazing!"      
+    ],
+
+    "start" : {
+        "button" : "buy a block"
+    }
 }

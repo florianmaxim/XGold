@@ -4,8 +4,7 @@ import styled from 'styled-components';
 
 const Button = styled.div`
 
-    margin-top:12.5px;
-    margin-bottom:12.5px;
+    margin-top:12.5px;  
 
     width: 100%;
     height: 53px;

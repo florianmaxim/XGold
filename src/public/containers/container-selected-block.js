@@ -12,6 +12,7 @@ import * as actionsMode   from '../actions/actions-mode';
 
 import * as actionsCounter   from '../actions/actions-counter';
 
+import {ComponentOuter} from '../components/component-outer';
 
 import ComponentButton     from '../components/component-button';
 
@@ -28,46 +29,27 @@ let startedNebula = false;
 
 const _ControllerMagic = new ControllerMagic();
 
-const Outer = styled.div`
-
-    position: absolute;
-
-    right:0;
-    top:0;
-
-    width: 300px;
-    min-height: 50vh;
-
-    margin: 50px;
-
-    display: flex;
-    flex-direction:column;
-    align-items:flex-start;
-    justify-content:space-between;
-
-    @media (orientation: portrait) {
-        left:0;
-        top:0;
-        width: 90vw;
-        min-height: 72.5vh;
-        margin: 5vw; 
-    }
-
-    word-wrap: break-word;
-
-   
-`;
 
 const Block = styled.div`
 
+    margin:0;
+
     transition: 1s all;
+
+    display: flex;
+    flex-direction:column;
 
     width: 100%;
 
     opacity: {${props => props.toggle?'1':'0'}};
 
-    display: flex;
-    flex-direction:column;
+    @media (orientation: portrait ){
+
+        //border: 5px solid gold;
+
+        width: 75vw;
+       
+    }
 
     > h1 {
         width:inherit;
@@ -298,27 +280,26 @@ class ContainerBlock extends React.Component {
 
     render(){
         return(
-            <Outer>
+            <ComponentOuter>
                 
-                <Block 
-                   
+                <Block   
                     onClick = {() => this.props.toggleHeading()}                    
-                    style={{opacity:this.props.elements.heading?'1':'0'}}>
+                    style={{transitionDelay:this.props.started?'0s':'5s', opacity:this.props.elements.heading&&this.props.started?'1':'0'}}>
                     
                     <h1>X{this.props.selectedBlock.number}</h1>
-                    <h2>{this.props.selectedBlock.hash}</h2>
+                    <h2 style={{marginTop:'10px',marginBottom:'10px'}}>{this.props.selectedBlock.hash}</h2>
                 </Block>
                 <Block 
                    
                     onClick = {() => this.props.toggleHeading()}                    
-                    style={{opacity:this.props.elements.heading?'1':'0'}}>
+                    style={{transitionDelay:this.props.started?'0s':'5s',opacity:this.props.elements.heading&&this.props.started?'1':'0'}}>
                     <h2>Size: {this.props.selectedBlock.size}</h2>
                     <h2>Nonce: {this.props.selectedBlock.nonce}</h2>
                     <h2>Transactions [{this.props.selectedBlock.transactions.length}]</h2>                    
                 </Block>
                 <Block
                     
-                    style={{opacity:this.props.elements.heading?'1':'0'}}               
+                    style={{transitionDelay:this.props.started?'0s':'5s',opacity:this.props.elements.heading&&this.props.started?'1':'0'}}               
                     > 
                     <h3 
                         style={{marginBottom:'10px'}}>ETH {_ControllerMagic.calculatePrice(this.props.selectedBlock)} (ETH {this.props.account.balance})</h3>       
@@ -343,7 +324,7 @@ class ContainerBlock extends React.Component {
                     
                 </Block>
 
-            </Outer>
+            </ComponentOuter>
         );
     }
 }
@@ -358,7 +339,9 @@ function props(state) {
 
         counter: state.counter,
         
-        elements: state.elements
+        elements: state.elements,
+
+        started: state.started,
   
     };
   

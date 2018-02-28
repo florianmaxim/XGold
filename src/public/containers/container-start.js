@@ -2,91 +2,49 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 
 import ComponentButton     from '../components/component-button';
 
+import {ComponentOuter}     from '../components/component-outer';
+import {ComponentInner}     from '../components/component-inner';
+
 import * as actionsStart  from '../actions/actions-start';
 import * as actionsMode  from '../actions/actions-mode';
+
+import * as actionsOverlay  from '../actions/actions-overlay';
+
 
 import * as config from '../../../config.json';
 import { ENGINE_METHOD_CIPHERS } from 'constants';
 import { setTimeout } from 'timers';
 
-const Outer = styled.div`
+const once = false;
 
-  z-index:2;
+const animation = keyframes`
+from {
+  opacity: 1
+}
+to {
+  opacity: 0.5
+}
+`
+const ComponentOverlay = styled.div`
 
-  position: absolute;
+    position:fixed;
+    left:0;
+    top:0;
 
-  right:0;
-  top:0;
-
-  margin:0;
-  padding:0;
-  padding:5vh;
-  padding-top:10vh;
-  
-
-  width: 100vw;
-  height: 100vh;
-
-  box-sizing: border-box;
-  //border: 5px solid gold;
-
-  opacity: 85%;
-
-  color: gold;
-
-  background: url("static/disturb1_kl.png");
-  background-size: cover;
-
-  display: flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-
-    transition: 1s opacity;
-    transition-timing-function: ease;
-    transition-delay: 0s;
-
-    > h1 {
-
-    margin:0;
-    padding:0;
-    color: white;
-    font-size: 3em;
-    font-family: 'Nanum Gothic', sans-serif;
-    font-weight:bold;
-    
-    word-break: keep-all;
-    
-    text-align:center;
-
-    text-shadow: 0px 0px 25px rgba(255, 215, 0, .25);
-     
-  }
-`;
-
-const VideoContainer = styled.div`
-    z-index:2;
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100vw;
     height: 100vh;
-    pointer-events: none;
-`;
 
-const iFrameStyle = {
-    zIndex:'1',
-    position:'fixed',
-    transform: 'translateX(-25%) translateY(-250vh)',
-    left:'50vw',
-    top:'50vh',
-    width:'500%',
-    height:'500%'
-}
+    background: url(static/disturb1.jpg);
+    background-size: cover;
+
+    animation-duration: 30s;
+
+    transition: 5s;
+`;
 
 class ContainerStart extends Component {
 
@@ -94,7 +52,8 @@ class ContainerStart extends Component {
     super(props);
 
     this.state = {
-        display: true
+        display: true,
+        countdown: 30
     }
   }
 
@@ -103,39 +62,63 @@ class ContainerStart extends Component {
     //Next mode:
     this.props.setMode('block');
 
+    setInterval(()=>{
+      this.setState({countdown:this.state.countdown-1})
+    }, 1000)
+
   }
 
   handleStart(){
 
+      if(thisstate.countdown>=0) return;
+      
       this.props.start();
 
       setTimeout(()=>{
         this.setState({display:false})
-      }, 1000)
- 
+      }, 5000)
+
     }
 
   renderPhrase(){
-    return config.phrases[Math.floor(Math.random()*config.phrases.length)]
+    return "Gosh, the Blockchain looks glittering."
+    //return config.phrases[Math.floor(Math.random()*config.phrases.length)]
   }
 
   render(){
     return(
 
-        <Outer style={{
-                opacity: !this.props.started?'1':'0',
-                display: this.state.display?'flex':'none'                
-            }}>
+      <div>
+     
+        <ComponentOverlay style={{
+            animationName: !once?animation:'',
+            zIndex:2,
+            opacity: !this.props.started?'.85':'0',   
+            display: this.state.display?'flex':'none'                
+            }}/>
+
+        <ComponentOuter 
+          style={{
+              position: 'absolute',
+              zIndex:3,
+              display: this.state.display?'flex':'none'      
+              }}>
             
-            <h1>{this.renderPhrase()}</h1>
+            <ComponentInner>
+              <h1 style={{ wordWrap:'normal', fontFamily: 'Roboto', fontSize: '3em', marginBottom: '50px'}}>{this.renderPhrase()}</h1>
+            </ComponentInner>
 
+            <ComponentInner>
             <ComponentButton 
-                onTouchStart={() => this.handleStart()} 
-                onMouseDown={() => this.handleStart()}
-                caption="let's buy it" style={{margin: '25px', marginTop: '10vh'}} />
+                onTouchStart={() => {this.handleStart();}} 
+                onMouseDown={() => {this.handleStart();}}
+                caption={`${config.start.button} ${this.state.countdown<=0?'':' in '+this.state.countdown+'s'}`}/>
+            </ComponentInner>
 
-        </Outer>
-       
+        </ComponentOuter>  
+
+      </div>
+      
     );
 }
 
@@ -157,7 +140,10 @@ function actions(dispatch){
 
     start: actionsStart.start,
 
-    setMode: actionsMode.setMode
+    setMode: actionsMode.setMode,
+
+    fadeInOverlay: actionsOverlay.fadeIn,
+    fadeOutOverlay: actionsOverlay.fadeOut,
 
   }, dispatch);
 

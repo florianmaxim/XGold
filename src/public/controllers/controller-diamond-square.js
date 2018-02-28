@@ -60,7 +60,7 @@ export default class DiamondSquare{
                           this.terrain[x][this.segments] = average;
                   }
               }
-          }
+          }    
           return this.terrain;
       };
   };
