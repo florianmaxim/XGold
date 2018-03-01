@@ -24,13 +24,18 @@ class ContainerGold extends Component {
 
   }
 
-  componentWillReceiveProps(props){
+  componentWillReceiveProps(newProps){
 
-      if(ControllerGold.getGold()&&props.selectedBlock&&props.selectedBlock.state==='nebula'||props.selectedBlock.state==='gold'){
-        ControllerGold.updateGold(props.selectedBlock);
-      }else{
-        ControllerGold.generateGold(props.selectedBlock);
+    if(newProps.selectedBlock.number!==this.props.selectedBlock.number){
+      ControllerGold.generateGold(newProps.selectedBlock);
+    }else{
+      if(newProps.selectedBlock.state!==this.props.selectedBlock.state)
+      {
+        ControllerGold.updateGold(newProps.selectedBlock);
       }
+     
+    }
+    
   }
 
   render(){

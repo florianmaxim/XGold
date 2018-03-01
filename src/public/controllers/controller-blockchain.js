@@ -69,26 +69,15 @@ export default class Blockchain {
 
                 _block.ownersAddress = res;
 
-                //Define the init state (TODO: Can't this happen somewhere else?!)
-                switch(_block.ownersAddress)
-                 {
-                    case web3.eth.coinbase:
-                        _block.state = 'owned'
-                    break;
+                CONTRACT.getStateOfBlock(block.number, data, (err, res) => {
 
-                    case "0x0000000000000000000000000000000000000000":
-                        _block.state = 'available'
-                    break;
+                    _block.state = res;
 
-                    default:
-                        _block.state = 'sold'
-                    break;
-                    
-                 } 
+                    //console.log(_block)
 
-                //console.log(_block)
+                    cb(_block);
 
-                cb(_block);
+                });    
 
             }); 
 
@@ -237,14 +226,43 @@ export default class Blockchain {
 
 
 /*
- Contract
-*/
+    Get blocks of sender
+*/    
+
+    getBlocksOfSender(cb){
+
+        CONTRACT.getBlocksOfSender((err, res) => {
+
+            //Assembly of human readable array
+            let blocks = [];
+
+            res.map((key, index) => {
+
+                const blockNumber = key.c[0];
+
+                blocks.push(blockNumber)
+
+            })
+
+            cb(blocks);
+
+        })    
+        
+    }
+
+/*
+    Get contract welcome
+*/    
+
     getContractWelcome(cb){
         CONTRACT.getWelcome((err, msg)=>{
             cb(msg)
         });
     }
-    
+
+/*
+    Get contract balance
+*/    
     getContractTotalBalance(cb){
 
         web3.eth.getBalance(CONTRACT_ADDRESS, (err, res) => {
@@ -257,6 +275,10 @@ export default class Blockchain {
 
     }
 
+
+/*
+    Get contract amount of blocks
+*/    
     getContractAmountOfBlocks(cb){
 
         CONTRACT.getTotalAmountOfBlocks((err, res)=>{

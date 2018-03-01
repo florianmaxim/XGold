@@ -1,6 +1,8 @@
 import {combineReducers}    from 'redux';
 
 import ReducerSelectedBlock from './reducer-selected-block';
+import ReducerOwnedBlocks   from './reducer-owned-blocks';
+
 import ReducerBlocks        from './reducer-blocks';
 
 import ReducerAccount       from './reducer-account';
@@ -24,6 +26,7 @@ const reducer = combineReducers({
     contract: ReducerContract,
 
     selectedBlock: ReducerSelectedBlock,
+    ownedBlocks: ReducerOwnedBlocks,
     blocks: ReducerBlocks,
 
     counter: ReducerCounter,

@@ -98,6 +98,10 @@ class ContainerBlocks extends Component {
 
           <ComponentInner>
 
+            <a target="_blank" href={``} target="_blank">
+             <ComponentButton caption="buy the message" />
+             </a>
+
             <a target="_blank" href={`https://ropsten.etherscan.io/address/${config.contractAddress}`} target="_blank">
              <ComponentButton caption="read the golden contract" />
              </a>

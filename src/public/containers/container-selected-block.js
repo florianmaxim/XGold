@@ -227,7 +227,7 @@ class ContainerBlock extends React.Component {
                     return "pending"
                 }
                 if(wasGoldBefore){
-                    return "go nebula"
+                    return "buy nebula"
                 }else{
                     return "not available"
                 }

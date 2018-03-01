@@ -15,8 +15,13 @@
         "name": "Diamond"
     },
 
-    "contractAddress": "0x6a1babfe2bb6e3e24adf12d3c7967da104590b49", 
-    "contractABI": [{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"getOwnerOfBlock","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTotalBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getWelcome","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getTotalAmountOfBlocks","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"getTypeOfBlock","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"buyGoldBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"sellBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"buyNebulaBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"}],
+
+    "contractABI" : [{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"getOwnerOfBlock","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTotalBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getWelcome","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getTotalAmountOfBlocks","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"buyGoldBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"sellBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"buyNebulaBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"getStateOfBlock","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getBlocksOfSender","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"isSenderOwnerOfBlock","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"amountOfBlocks","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"arrayBlocks","outputs":[{"name":"owner","type":"address"},{"name":"number","type":"uint256"},{"name":"state","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"blocks","outputs":[{"name":"owner","type":"address"},{"name":"number","type":"uint256"},{"name":"state","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"isBlockForSale","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"}],
+
+    "contractAddress" : "0x5c932ea74e57b2926129e64b656b0cd34d84abe9",
+
+    "LAST_FUNC_contractAddress": "0x6a1babfe2bb6e3e24adf12d3c7967da104590b49", 
+    "LAST_FUNC_contractABI": [{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"getOwnerOfBlock","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getTotalBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getWelcome","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getTotalAmountOfBlocks","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"getTypeOfBlock","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"buyGoldBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"sellBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"blockNumber","type":"uint256"}],"name":"buyNebulaBlock","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"}],
 
     "log": true,
     "logActions": false,
@@ -39,12 +44,12 @@
 
     "camera": {
 
-        "focus": 125,
+        "focus": 70,
 
         "position": {
             "x": 0,
             "y": 0.01,
-            "z": 100
+            "z": 200
         }
     },
 
@@ -53,13 +58,13 @@
         "I mean, the blockchain looks amazing!"      
     ],
 
-    "startButtonCaption" :"so buy it",
-    "startUpTime": 15000,
+    "startButtonCaption" :"get a piece",
+    "startUpTime": 5000,
     "startUpOpacityTo": 0.85,
     "startUpFinalTransitionTime": 3000,
 
     "gold": {
         "autoRotate": true,
-        "autoRotateSpeed" : 10
+        "autoRotateSpeed" : 25
     }
 }

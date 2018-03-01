@@ -11,6 +11,8 @@ import {ComponentInner}     from '../components/component-inner';
 
 import * as actionsStart  from '../actions/actions-start';
 import * as actionsMode  from '../actions/actions-mode';
+import * as actionsBlocks  from '../actions/actions-blocks';
+
 
 import * as actionsOverlay  from '../actions/actions-overlay';
 
@@ -77,8 +79,6 @@ class ContainerStart extends Component {
 
       if(this.state.countdown>=0) return;
 
-   
-
       this.props.start();
     }
 
@@ -120,7 +120,7 @@ class ContainerStart extends Component {
               }}>
             
             <ComponentInner>
-              <h1 style={{ textShadow: '0px 0px 5px rgba(0,0,0,0)', color: 'white', wordWrap:'normal', fontFamily:  'Roboto', fontWeight: '600', fontSize: '3.25em', marginBottom: '50px'}}>The Blockchain looks glittering.</h1>
+              <h1 style={{ textShadow: '0px 0px 5px rgba(0,0,0,0)', color: 'white', wordWrap:'normal', fontFamily:  'Roboto', fontWeight: '600', fontSize: '3.25em', marginBottom: '50px'}}>Yes, the blockchain looks beautiful.</h1>
             </ComponentInner>
 
             <ComponentInner>
@@ -145,7 +145,9 @@ function props(state) {
 
   return {
 
-    started: state.started
+    started: state.started,
+
+    contract: state.contract
 
   };
 
@@ -161,6 +163,8 @@ function actions(dispatch){
 
     fadeInOverlay: actionsOverlay.fadeIn,
     fadeOutOverlay: actionsOverlay.fadeOut,
+
+    getContractWelcome: actionsBlocks.getContractWelcome
 
   }, dispatch);
 

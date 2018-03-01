@@ -258,8 +258,6 @@ export default class Gold{
 
   updateGold(block){
 
-    console.log('gold updates')
-
     var path = "static/textures/cube/";
     var format = '.jpg';
     var urls = [

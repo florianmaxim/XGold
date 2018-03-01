@@ -11,6 +11,7 @@ import * as actionsOverlay from '../actions/actions-overlay';
 
 import * as actionsBlocks from '../actions/actions-blocks';
 import * as actionsMode  from '../actions/actions-mode';
+import * as actionsAccount  from '../actions/actions-account';
 
 import * as config from '../../../config.json';
 
@@ -20,25 +21,26 @@ import Magic from '../controllers/controller-magic';
 
 const _MAGIC = new Magic();
 
-class ContainerBlocks extends Component {
+class ContainerOwnedBlocks extends Component {
 
   constructor(props){
     super(props);
   }
 
   componentDidMount(){
-    this.props.setMode('account');
-  }
 
-  handleSelect(){
-    this.props.history.push('/block');
+    //Actually still sets next mode TODO This can be handled smarter!
+    this.props.setMode('about');
+
+    this.props.getBlocksOfSender();
+
   }
 
   render(){
-    return(   
+    return(
       <ComponentOuter style={{display: this.props.started?'flex':'none', flexDirection: 'column-reverse', justifyContent: 'flex-end'}}>
         {
-          this.props.blocks.map((block) => {
+          this.props.ownedBlocks.map((block) => {
             return(
               <Link 
                 style={{width:'inherit'}} 
@@ -55,7 +57,7 @@ class ContainerBlocks extends Component {
         }
       </ComponentOuter>
     );
-  }
+}
 
 }
 
@@ -63,8 +65,13 @@ function props(state) {
 
   return {
 
-    blocks: state.blocks,
-    started: state.started
+    contract: state.contract,
+
+    started: state.started,
+
+    account: state.account,
+
+    ownedBlocks: state.ownedBlocks
 
   };
 
@@ -74,17 +81,11 @@ function actions(dispatch){
 
   return bindActionCreators({
 
-    fadeInOverlay: actionsOverlay.fadeIn,
-    fadeOutOverlay: actionsOverlay.fadeOut,
-
-    watchBlocks: actionsBlocks.watchBlocks,
-
     setMode: actionsMode.setMode,
-
-    selectBlock: actionsBlocks.selectBlock
+    getBlocksOfSender: actionsAccount.getBlocksOfSender
 
   }, dispatch);
 
 }
 
-export default connect(props, actions)(ContainerBlocks);
+export default connect(props, actions)(ContainerOwnedBlocks);
