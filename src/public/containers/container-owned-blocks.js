@@ -4,8 +4,15 @@ import {connect} from 'react-redux';
 
 import {Link} from 'react-router-dom';
 
+import {ComponentList} from '../components/component-list';
 import {ComponentItem} from '../components/component-item';
+
 import {ComponentOuter} from '../components/component-outer';
+import {ComponentInner} from '../components/component-inner';
+
+
+import {ComponentButton} from '../components/component-button';
+
 
 import * as actionsOverlay from '../actions/actions-overlay';
 
@@ -14,8 +21,6 @@ import * as actionsMode  from '../actions/actions-mode';
 import * as actionsAccount  from '../actions/actions-account';
 
 import * as config from '../../../config.json';
-
-import styled from 'styled-components';
 
 import Magic from '../controllers/controller-magic';
 
@@ -38,23 +43,29 @@ class ContainerOwnedBlocks extends Component {
 
   render(){
     return(
-      <ComponentOuter style={{display: this.props.started?'flex':'none', flexDirection: 'column-reverse', justifyContent: 'flex-end'}}>
-        {
-          this.props.ownedBlocks.map((block) => {
-            return(
-              <Link 
-                style={{width:'inherit'}} 
-                to={`/block/${block.number}`}
-              >
-                <ComponentItem>
-                  <h3>#{block.number} (ETH {_MAGIC.calculatePrice(block)})</h3>
-                  <h3>{new Date(block.timestamp*1000).toGMTString()}</h3>
-                  <h2>{block.hash}</h2>
-                </ComponentItem>
-              </Link>
-            ) 
-          })
-        }
+      <ComponentOuter style={{display: this.props.started?'flex':'none'}}>
+        <ComponentInner>
+          <div style={{height: '300px', width: '100%', overflowX: 'hidden', overflowY: 'scroll', boxSizing: 'border-box'}}>
+          {/* <div style={{width: '300px', height:'2000px', background: 'linear-gradient(red, yellow)'}}/> */}
+            {
+                this.props.ownedBlocks.map((block) => {
+                  return(
+                    <Link 
+                    style={{width:'inherit'}} 
+                    to={`/block/${block.number}`}
+                    >
+                      <ComponentItem>
+                        <h3>#{block.number} (ETH {_MAGIC.calculatePrice(block)})</h3>
+                        <h3>{new Date(block.timestamp*1000).toGMTString()}</h3>
+                        <h2>{block.hash}</h2>
+                      </ComponentItem>
+                    </Link>
+                  ) 
+                })
+              }
+          </div>
+          <ComponentButton caption="wallet" />
+        </ComponentInner>
       </ComponentOuter>
     );
 }

@@ -98,19 +98,21 @@ class ContainerBlocks extends Component {
 
           <ComponentInner>
 
-            <a target="_blank" href={``} target="_blank">
-             <ComponentButton caption="buy the message" />
-             </a>
-
-            <a target="_blank" href={`https://ropsten.etherscan.io/address/${config.contractAddress}`} target="_blank">
-             <ComponentButton caption="read the golden contract" />
+             <a target="_blank" href={`https://ropsten.etherscan.io/address/${config.contractAddress}`} target="_blank">
+             <ComponentButton 
+              style={{marginTop:'12.5px'}}
+              caption="read the golden contract" />
              </a>
 
              <a target="_blank" href="https://github.com/florianmaxim/xgold">
-             <ComponentButton caption="read the golden code" />
+             <ComponentButton 
+              style={{marginTop:'12.5px'}}
+              caption="read the golden code" />
              </a>
 
-            <ComponentButton caption="read the golden paper" />
+             <ComponentButton
+               style={{marginTop:'12.5px'}} 
+               caption="read the golden paper" />
             
           </ComponentInner>
           

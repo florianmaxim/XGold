@@ -30,8 +30,11 @@ from {
 to {
   opacity: ${config.startUpOpacityTo}
 }
-`
+`;
+
 const ComponentOverlay = styled.div`
+
+    overflow: hidden;
 
     position:fixed;
     left:0;
@@ -97,7 +100,8 @@ class ContainerStart extends Component {
     return(
 
       <div style={{
-        display: this.state.display?'flex':'none'
+        display: this.state.display?'flex':'none',
+        overflow: 'hidden'
       }}>
      
         <ComponentOverlay 
@@ -120,7 +124,7 @@ class ContainerStart extends Component {
               }}>
             
             <ComponentInner>
-              <h1 style={{ textShadow: '0px 0px 5px rgba(0,0,0,0)', color: 'white', wordWrap:'normal', fontFamily:  'Roboto', fontWeight: '600', fontSize: '3.25em', marginBottom: '50px'}}>Yes, the blockchain looks beautiful.</h1>
+              <h1 style={{marginBottom: '25px', fontSize: '3em', fontFamily: 'Lato', color: 'white'}}>Yes, the blockchain looks beautiful.</h1>
             </ComponentInner>
 
             <ComponentInner>

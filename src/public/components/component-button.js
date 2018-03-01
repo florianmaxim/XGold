@@ -4,8 +4,6 @@ import styled from 'styled-components';
 
 const Button = styled.div`
 
-    margin-top:12.5px;  
-
     width: 100%;
     height: 53px;
 
@@ -57,7 +55,7 @@ const Button = styled.div`
        //border: 2.5px solid gold;
       }
 `
-export default class ComponentButtonBuy extends React.Component {
+export default class ComponentButton extends React.Component {
 
     constructor(props){
         super(props)
@@ -77,3 +75,5 @@ export default class ComponentButtonBuy extends React.Component {
         )
     }
 }
+
+export {ComponentButton}

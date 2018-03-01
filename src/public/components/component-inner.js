@@ -17,10 +17,7 @@ const ComponentInner = styled.div`
 
     @media (orientation: portrait ){
 
-        //border: 5px solid gold;
-
-        width: 75vw;
-       
+        width: 90vw;
     }
 
     > h1 {

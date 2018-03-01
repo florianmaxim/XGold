@@ -49,7 +49,7 @@
         "position": {
             "x": 0,
             "y": 0.01,
-            "z": 200
+            "z": 150
         }
     },
 
@@ -66,5 +66,7 @@
     "gold": {
         "autoRotate": true,
         "autoRotateSpeed" : 25
-    }
+    },
+
+    "helperBorder": 0
 }

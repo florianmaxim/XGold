@@ -102,7 +102,7 @@ export default class Gold{
 
     scene.add(camera);
 
-    controls = new OrbitControls(camera);
+    controls = new OrbitControls(camera, renderer.domElement);
 
     /* Lights */
 
@@ -144,7 +144,7 @@ export default class Gold{
       gamma = value.gamma;
     }, false);
 
-    addEventListener( 'mousemove', function(event) {
+    renderer.domElement.addEventListener( 'mousemove', function(event) {
       mouseX = ( event.clientX - innerWidth/2 ) / 2;
       mouseY = ( event.clientY - innerHeight/2 ) / 2;
     }, false );

@@ -37,7 +37,6 @@ injectGlobal`
   }
 
   *{
-    user-select:none;
     text-shadow: 0px -0px 5px rgba(255, 215, 0, .5);
   }
 
@@ -47,16 +46,17 @@ injectGlobal`
   }
 
   html {
-    overflow: scroll;
-    overflow-x: hidden;
+    
   }
-  ::-webkit-scrollbar {
+   ::-webkit-scrollbar {
       width: 0px;  /* remove scrollbar space */
-      background: transparent;  /* optional: just make scrollbar invisible */
+      border: 0px solid gold;
+      background: black;  /* optional: just make scrollbar invisible */
   }
   /* optional: show position indicator in red */
   ::-webkit-scrollbar-thumb {
-      background: #FF0000;
+      background:gold;
+      width:0px;
   }
 
 `;
@@ -66,7 +66,7 @@ export const Outer = styled.div`
   z-index:0;
 
   width: 100vw;
-  height: 100vh;
+
 
   box-sizing: border-box;
   border: ${props => props.frame ? '5' : '0'}px solid gold;
@@ -92,13 +92,11 @@ export default class App extends React.Component {
       <Outer frame={config.frame}>
 
         <ContainerStart/>
-
-        <ContainerGold/>
-
-        <ContainerOverlay/>
     
         <Routes/>
-    
+        
+        <ContainerGold/>
+
         <ContainerButtonMain/>
     
       </Outer>

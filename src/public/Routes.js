@@ -19,6 +19,10 @@ export default () =>
         <Route path="/block" component={Block} />
 
         <Route path="/list" component={List} />
+        <Route path="/chain" component={List} />
+        <Route path="/blockchain" component={List} />
+        <Route path="/follow" component={List} />        
+        
 
         <Route path="/account" component={Account} />
         <Route path="/wallet" component={Account} />

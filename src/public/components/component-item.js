@@ -2,10 +2,8 @@ import styled from 'styled-components';
 
 const ComponentItem = styled.div`
 
-  width:inherit;
-
-  margin: 12.5px;
-  //padding:10px;
+  margin:0;
+  padding:0;
 
   background: transparent;
   color:gold;
@@ -16,13 +14,13 @@ const ComponentItem = styled.div`
       width: 90vw;
   }
 
-  &:hover {
+/*   &:hover {
     background: gold;
     color:black;
-  }
+  } */
 
   > h2 {
-    width:inherit;
+
     margin:0;
     color: inherit;
     font-size: 16px;
@@ -34,7 +32,7 @@ const ComponentItem = styled.div`
   }
 
   > h3 {
-    width:inherit;
+
     margin:0;
     color: inherit;
     font-size: 16px;
@@ -46,7 +44,7 @@ const ComponentItem = styled.div`
   }
 
   > h4 {
-    width:inherit;
+
     margin:0;
     color: inherit;
     font-size: 16px;

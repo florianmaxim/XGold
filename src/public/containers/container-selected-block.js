@@ -13,6 +13,7 @@ import * as actionsMode   from '../actions/actions-mode';
 import * as actionsCounter   from '../actions/actions-counter';
 
 import {ComponentOuter} from '../components/component-outer';
+import {ComponentInner} from '../components/component-inner';
 
 import ComponentButton     from '../components/component-button';
 
@@ -27,74 +28,6 @@ let startedGold = false;
 let startedNebula = false;
 
 const _ControllerMagic = new ControllerMagic();
-
-
-const Block = styled.div`
-
-    margin:0;
-
-    transition: 1s all;
-
-    display: flex;
-    flex-direction:column;
-
-    width: 100%;
-
-    opacity: {${props => props.toggle?'1':'0'}};
-
-    @media (orientation: portrait ){
-
-        //border: 5px solid gold;
-
-        width: 75vw;
-       
-    }
-
-    > h1 {
-        width:inherit;
-        margin:0;
-        color: gold;
-        font-size: 3em;
-        font-family: Cinzel;
-        2px 2px 5px rgba(0, 0, 0, 0.25);
-        word-wrap: break-word;
-    }
-
-    > h2 {
-        width:inherit;
-        margin:0;
-        color: gold;
-        font-size: 16px;
-        font-family: Lato;
-        font-weight: 200;
-        2px 2px 5px rgba(0, 0, 0, 0.25);
-        word-wrap: break-word;
-    }
-
-    > h3 {
-        width:inherit;
-        margin:0;
-        margin-top:15px;
-        color: gold;
-        font-size: 16px;
-        font-family: Lato;
-        font-weight: bold;
-        2px 2px 5px rgba(0, 0, 0, 0.25);
-        word-wrap: break-word;
-    }
-
-    > h4 {
-        width:inherit;
-        margin-top:15px;
-        color: gold;
-        font-size: 16px;
-        font-family: Lato;
-        font-weight: 200;
-        2px 2px 5px rgba(0, 0, 0, 0.25);
-        word-wrap: break-word;
-        text-align:center;
-    }
-`;
 
 let interval;
 
@@ -281,22 +214,22 @@ class ContainerBlock extends React.Component {
         return(
             <ComponentOuter style={{display: this.props.started?'flex':'none'}}>
                 
-                <Block   
+                <ComponentInner   
                     onClick = {() => this.props.toggleHeading()}                    
                     style={{opacity:this.props.elements.heading&&this.props.started?'1':'0'}}>
                     
                     <h1>X{this.props.selectedBlock.number}</h1>
                     <h2 style={{marginTop:'10px',marginBottom:'10px'}}>{this.props.selectedBlock.hash}</h2>
-                </Block>
-                <Block 
+                </ComponentInner>
+                <ComponentInner 
                    
                     onClick = {() => this.props.toggleHeading()}                    
                     style={{opacity:this.props.elements.heading&&this.props.started?'1':'0'}}>
                     <h2>Size: {this.props.selectedBlock.size}</h2>
                     <h2>Nonce: {this.props.selectedBlock.nonce}</h2>
                     <h2>Transactions [{this.props.selectedBlock.transactions.length}]</h2>                    
-                </Block>
-                <Block
+                </ComponentInner>
+                <ComponentInner
                     
                     style={{transitionDelay:this.props.started?'0s':'5s',opacity:this.props.elements.heading&&this.props.started?'1':'0'}}               
                     > 
@@ -314,14 +247,14 @@ class ContainerBlock extends React.Component {
 
                     <ComponentButton
 
-                        style={{display:this.props.selectedBlock.state==='gold'||this.props.selectedBlock.state==='nebula'?'flex':'none'}}
+                        style={{marginTop:'12.5px',display:this.props.selectedBlock.state==='gold'||this.props.selectedBlock.state==='nebula'?'flex':'none'}}
 
                         onClick={()=>{this.handleButtonSecondaryAction()}} 
 
                         caption={`${this.renderButtonSecondaryCaption()} ${startedNebula&&this.props.counter!==0?this.renderCounterTime(this.props.counter):''}`}
                     />
                     
-                </Block>
+                </ComponentInner>
 
             </ComponentOuter>
         );

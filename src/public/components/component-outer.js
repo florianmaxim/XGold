@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
+import * as config from '../../../config.json';
+
 const ComponentOuter = styled.div`
+
+    z-index: 1;
 
     position: fixed;
 
@@ -8,25 +12,30 @@ const ComponentOuter = styled.div`
     top:0;
 
     width: 300px;
-    //border: 5px solid white;
+    height: 75vh;
 
-    margin: 50px;
+    margin-right: 50px;
+
+    padding:0;
+    
+    border: ${config.helperBorder}px solid white;
+    box-sizing: border-box;
 
     display: flex;
 
     flex-direction:column;
     align-items:center;
-    justify-content:space-between;
+    justify-content:flex-end;
 
     @media (orientation: portrait ){
 
+        justify-content:flex-end;
+
         left:0;
-        bottom:25vh;
 
         width: 100vw;
 
         margin:0;
-        margin-top:12.5vh;
                
     }
 

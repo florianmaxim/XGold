@@ -683,8 +683,8 @@ export function OrbitControls( object, domElement ) {
 
 		if ( state !== STATE.NONE ) {
 
-			addEventListener( 'mousemove', onMouseMove, false );
-			addEventListener( 'mouseup', onMouseUp, false );
+			this.domElement.addEventListener( 'mousemove', onMouseMove, false );
+			this.domElement.addEventListener( 'mouseup', onMouseUp, false );
 
 			scope.dispatchEvent( startEvent );
 
@@ -871,16 +871,16 @@ export function OrbitControls( object, domElement ) {
 
 	//
 
-	addEventListener( 'contextmenu', onContextMenu, false );
+	this.domElement.addEventListener( 'contextmenu', onContextMenu, false );
 
-	addEventListener( 'mousedown', onMouseDown, false );
-	addEventListener( 'wheel', onMouseWheel, false );
+	this.domElement.addEventListener( 'mousedown', onMouseDown, false );
+	this.domElement.addEventListener( 'wheel', onMouseWheel, false );
 
-	addEventListener( 'touchstart', onTouchStart, false );
-	addEventListener( 'touchend', onTouchEnd, false );
-	addEventListener( 'touchmove', onTouchMove, false );
+	this.domElement.addEventListener( 'touchstart', onTouchStart, false );
+	this.domElement.addEventListener( 'touchend', onTouchEnd, false );
+	this.domElement.addEventListener( 'touchmove', onTouchMove, false );
 
-	addEventListener( 'keydown', onKeyDown, false );
+	this.domElement.addEventListener( 'keydown', onKeyDown, false );
 
 	// force an update at start
 
