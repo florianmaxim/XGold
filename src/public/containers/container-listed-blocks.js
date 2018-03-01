@@ -63,7 +63,7 @@ class ContainerBlocks extends Component {
                 })
               }
           </div>
-          <ComponentButton caption="blockchain" />
+          <ComponentButton caption={`blockchain (${this.props.blocks.length})`} />
         </ComponentInner>
       </ComponentOuter>
     );

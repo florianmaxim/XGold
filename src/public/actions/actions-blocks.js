@@ -14,6 +14,8 @@ export const selectBlock = (block) => {
 
   return (dispatch) => {
 
+      console.log(block.state)
+
       dispatch({type: "SELECTED_BLOCK", payload: block})
 
   }
@@ -54,6 +56,8 @@ export const buyGoldBlock = (blockNumber) => {
 }
 
 export const buyNebulaBlock = (blockNumber) => {
+
+  console.log('triggered buy nebula action')
 
   Blockchain.connect();
 

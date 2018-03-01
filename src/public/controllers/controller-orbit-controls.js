@@ -683,8 +683,8 @@ export function OrbitControls( object, domElement ) {
 
 		if ( state !== STATE.NONE ) {
 
-			this.domElement.addEventListener( 'mousemove', onMouseMove, false );
-			this.domElement.addEventListener( 'mouseup', onMouseUp, false );
+			addEventListener( 'mousemove', onMouseMove, false );
+			addEventListener( 'mouseup', onMouseUp, false );
 
 			scope.dispatchEvent( startEvent );
 

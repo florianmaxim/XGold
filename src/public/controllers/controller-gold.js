@@ -24,8 +24,42 @@ import {
 import {OrbitControls} from './controller-orbit-controls';
 import DiamondSquare   from './controller-diamond-square';
 
-var clock = new Clock();
-var uniforms1, uniforms2;
+const vertexShader = `
+  varying vec2 vUv;
+
+  void main()
+  {
+    vUv = uv;
+    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+    gl_Position = projectionMatrix * mvPosition;
+  }
+`;
+const fragmentShader = `
+
+  uniform float time;
+
+  uniform sampler2D texture;
+
+  varying vec2 vUv;
+
+  void main( void ) {
+
+    vec2 position = - 1.0 + 2.0 * vUv;
+
+    float a = atan( position.y, position.x );
+    float r = sqrt( dot( position, position ) );
+
+    vec2 uv;
+    uv.x = cos( a ) / r;
+    uv.y = sin( a ) / r;
+    uv /= 10.0;
+    uv += time * 0.05;
+
+    vec3 color = texture2D( texture, uv ).rgb;
+
+    gl_FragColor = vec4( color * r * 1.5, 1.0 );
+
+}`;
 
 const isMobile = {
     Android: function() {
@@ -50,8 +84,14 @@ const isMobile = {
 
 let renderer, scene, camera, controls = false;
 
-let gold = false;
 let mesh = false;
+var clock = new Clock();
+var uniforms1, uniforms2;
+
+let materialNebula;
+
+let gold;
+let material;
 
 let mouseX, mouseY = false;
 
@@ -66,8 +106,6 @@ let newPosY = 0;
 let lastValueY=0;
 let lastValueX=0;
 let alpha, beta, gamma = 0;
-
-let material;
 
 function degToRad(degrees){
 	return degrees * Math.PI/180;
@@ -130,6 +168,38 @@ export default class Gold{
     light.position.set(0, 10, 1).normalize();
     scene.add(light);
 
+
+    /* 
+      Init materials
+    */
+
+      clock = new Clock();
+
+      uniforms1 = {
+        time: { value: 1.0 }
+      };
+    
+      uniforms2 = {
+        time: { value: 1.0 },
+        texture: { value: new TextureLoader().load( 'static/disturb1.jpg' ) }
+      };
+  
+      uniforms2.texture.value.wrapS = uniforms2.texture.value.wrapT = RepeatWrapping;
+  
+      materialNebula = new ShaderMaterial( {
+    
+        uniforms: [ 'fragmentShader', uniforms2 ][ 1 ],
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader,
+    
+        side: DoubleSide,
+        combine: MixOperation,
+        reflectivity: 1
+    
+      } );
+
+      materialNebula.needsUpdate = true;
+    
     /* --- Event Listener --- */
 
     addEventListener('resize', () =>{
@@ -299,89 +369,24 @@ export default class Gold{
     
       reflectivity: .25} );
     
-
-      clock = new Clock();
-
-      const vertexShader = `
-        varying vec2 vUv;
-    
-        void main()
-        {
-          vUv = uv;
-          vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-          gl_Position = projectionMatrix * mvPosition;
-        }
-      `;
-      
-      const fragmentShader = `
-    
-        uniform float time;
-    
-        uniform sampler2D texture;
-    
-        varying vec2 vUv;
-    
-        void main( void ) {
-    
-          vec2 position = - 1.0 + 2.0 * vUv;
-    
-          float a = atan( position.y, position.x );
-          float r = sqrt( dot( position, position ) );
-    
-          vec2 uv;
-          uv.x = cos( a ) / r;
-          uv.y = sin( a ) / r;
-          uv /= 10.0;
-          uv += time * 0.05;
-    
-          vec3 color = texture2D( texture, uv ).rgb;
-    
-          gl_FragColor = vec4( color * r * 1.5, 1.0 );
-    
-        }`;
-    
-    
-      
-        uniforms1 = {
-        time: { value: 1.0 }
-      };
-    
-      uniforms2 = {
-        time: { value: 1.0 },
-        texture: { value: new TextureLoader().load( 'static/disturb1.jpg' ) }
-      };
-    
-      uniforms2.texture.value.wrapS = uniforms2.texture.value.wrapT = RepeatWrapping;
-    
-      const materialNebula = new ShaderMaterial( {
-    
-        uniforms: [ 'fragmentShader', uniforms2 ][ 1 ],
-        vertexShader: vertexShader,
-        fragmentShader: fragmentShader,
-    
-        side: DoubleSide,
-        combine: MixOperation,
-        reflectivity: 1
-    
-      } );
     
         //Choose material according to block state
-        material;
-        switch(block.state){
-          case 'nebula':
-            material = materialNebula;
-          break;
-          case 'available':
-            material = materialSilver;
-          break;
-          case 'gold':
-            material = materialGold;
-          break;
-        }
-
-    gold.material = material;
+    switch(block.state){
+      case 'nebula':
+        material = materialNebula;
+      break;
+      case 'available':
+        material = materialSilver;
+      break;
+      case 'gold':
+        material = materialGold;
+      break;
+    }
 
     material.needsUpdate = true;
+
+    gold.material = material;
+    
   }
 
   generateGold(block){
@@ -426,8 +431,7 @@ export default class Gold{
     
 
 
-    //remove old mesh
-    scene.remove(scene.getObjectByName('gold'));
+ 
 
     const materialSilver = new MeshPhongMaterial( {
       side: DoubleSide,
@@ -442,6 +446,20 @@ export default class Gold{
      /*  displacementMap: reflectionCube,
       combine: MixOperation, */
       reflectivity: .1} );
+
+    const materialBlue = new MeshPhongMaterial( {
+      side: DoubleSide,
+      color: 0x0000ff,
+      specular:0x937300,
+      emissive:0xffffff,
+      emissiveIntensity:.1,
+    
+      envMap: reflectionCube,
+      //displacementMap: reflectionCube,
+      //combine: THREE.MixOperation,
+    
+      reflectivity: .25} 
+    );
     
     const materialGold = new MeshPhongMaterial( {
       side: DoubleSide,
@@ -454,75 +472,10 @@ export default class Gold{
       //displacementMap: reflectionCube,
       //combine: THREE.MixOperation,
     
-      reflectivity: .25} );
-
-  clock = new Clock();
-
-  const vertexShader = `
-    varying vec2 vUv;
-
-    void main()
-    {
-      vUv = uv;
-      vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-      gl_Position = projectionMatrix * mvPosition;
-    }
-  `;
-  
-  const fragmentShader = `
-
-    uniform float time;
-
-    uniform sampler2D texture;
-
-    varying vec2 vUv;
-
-    void main( void ) {
-
-      vec2 position = - 1.0 + 2.0 * vUv;
-
-      float a = atan( position.y, position.x );
-      float r = sqrt( dot( position, position ) );
-
-      vec2 uv;
-      uv.x = cos( a ) / r;
-      uv.y = sin( a ) / r;
-      uv /= 10.0;
-      uv += time * 0.05;
-
-      vec3 color = texture2D( texture, uv ).rgb;
-
-      gl_FragColor = vec4( color * r * 1.5, 1.0 );
-
-    }`;
-
-
-  
-    uniforms1 = {
-    time: { value: 1.0 }
-  };
-
-  uniforms2 = {
-    time: { value: 1.0 },
-    texture: { value: new TextureLoader().load( 'static/disturb1.jpg' ) }
-  };
-
-  uniforms2.texture.value.wrapS = uniforms2.texture.value.wrapT = RepeatWrapping;
-
-  const materialNebula = new ShaderMaterial( {
-
-    uniforms: [ 'fragmentShader', uniforms2 ][ 1 ],
-    vertexShader: vertexShader,
-    fragmentShader: fragmentShader,
-
-    side: DoubleSide,
-    combine: MixOperation,
-    reflectivity: 1
-
-  } );
+      reflectivity: .25} 
+    );
 
     //Choose material according to block state
-    material;
     switch(block.state){
       case 'available':
         material = materialSilver;
@@ -530,14 +483,20 @@ export default class Gold{
       case 'gold':
         material = materialGold;
       break;
+      case 'nebula':
+        material = materialNebula;
+      break;
       default:
         material = materialSilver;
       break;  
     }
 
+    
+
     gold = new Mesh( geometry, material );
     gold.name = 'gold';
 
+    scene.remove(scene.getObjectByName('gold'));
     scene.add( gold );
   }
 

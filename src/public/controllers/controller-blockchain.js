@@ -88,8 +88,6 @@ export default class Blockchain {
 
     buyGoldBlock(blockNumber, cb){
 
-        console.log('buy blockNumber:'+blockNumber)
-
         const data = {
             from: web3.eth.coinbase,
             to: CONTRACT_ADDRESS,

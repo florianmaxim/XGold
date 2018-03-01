@@ -64,7 +64,7 @@ class ContainerOwnedBlocks extends Component {
                 })
               }
           </div>
-          <ComponentButton caption="wallet" />
+          <ComponentButton caption={`wallet (${this.props.ownedBlocks.length})`} />
         </ComponentInner>
       </ComponentOuter>
     );

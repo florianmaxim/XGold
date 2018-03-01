@@ -27,7 +27,7 @@ class ContainerGold extends Component {
   componentWillReceiveProps(newProps){
 
     if(newProps.selectedBlock.number!==this.props.selectedBlock.number){
-      ControllerGold.generateGold(newProps.selectedBlock);
+      ControllerGold.generateGold(newProps.selectedBlock);   
     }else{
       if(newProps.selectedBlock.state!==this.props.selectedBlock.state)
       {
