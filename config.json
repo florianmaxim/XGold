@@ -61,7 +61,7 @@
     "startButtonCaption" :"buy a block",
     "startUpTime": 5000,
     "startUpOpacityTo": 0.85,
-    "startUpFinalTransitionTime": 5000,
+    "startUpFinalTransitionTime": 1000,
 
     "gold": {
         "autoRotate": true,
