@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const ComponentItem = styled.div`
 
   margin:0;
+  margin-bottom: 12.5px;
   padding:0;
 
   background: transparent;

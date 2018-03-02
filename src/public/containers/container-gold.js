@@ -40,7 +40,7 @@ class ContainerGold extends Component {
 
   render(){
     return(
-        <div ref="gold" style={{width:'100vw',height:'100vh'}}/>
+        <div ref="gold" style={{position: 'fixed', left: '0', top: '0', width:'100vw',height:'100vh'}}/>
     );
 }
 

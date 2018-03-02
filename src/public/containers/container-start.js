@@ -51,7 +51,114 @@ const ComponentOverlay = styled.div`
     animation-duration: ${config.startUpTime/1000}s;
   
     transition: ${config.startUpFinalTransitionTime/1000}s opacity;
-    transition-delay: 2000;
+    
+`;
+
+const LogoOuter = styled.div`
+
+    z-index:5;
+
+    position:fixed;
+
+    left:5vw;
+    top:5vw;
+
+    width: 10vw;
+    height: 10vw;
+
+    max-width:75px;
+    max-height:75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:transparent;
+
+    border: 10px solid transparent;
+
+    box-sizing: border-box;
+  
+    
+
+    font-family: Lato;
+    font-size:2vw;
+    max-font-size:1.5em;
+
+    box-shadow: 0px 0px 15px rgba(255,255,255,0);
+    color:white;
+    opacity:.5;
+
+    &:hover {
+      color: white;
+      text-shadow: 0px 0px 2px rgba(0,0,0,.5);
+      box-shadow: 0px 0px 15px rgba(255,255,255,.5);
+      opacity:.9;
+    }
+
+    cursor: pointer;
+
+    @media(orientation: portrait){
+      top:auto;
+      bottom:10vh;
+      left:50vw;
+      font-size:5vw;
+      transform: translateX(-50%);
+    }
+
+    transition: ${config.startUpFinalTransitionTime/1000}s opacity;
+`;
+
+const LogoText = styled.div`
+
+    z-index:5;
+
+    position:fixed;
+
+    left:15vw;
+    top:5vw;
+
+    width: 100%;
+    text-align:center;
+    height: 10vw;
+
+    max-height:75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:transparent;
+
+    border: 10px solid transparent;
+
+    box-sizing: border-box;
+
+    font-family: Lato;
+    font-size:2vw;
+    max-font-size:1.5em;
+    color: white;
+    text-shadow: 0px 0px 2px rgba(0,0,0,.5);
+    opacity:.5;
+
+    transition: .5s all;
+
+    &:hover {
+      
+      opacity:.9;
+    }
+
+    cursor: pointer;
+
+    @media(orientation: portrait){
+      top:auto;
+      bottom:2.5vh;
+      left:50vw;
+      font-size:3vw;
+      transform: translateX(-50%);
+    }
+
+    transition: ${config.startUpFinalTransitionTime/1000}s opacity;
 `;
 
 class ContainerStart extends Component {
@@ -61,7 +168,8 @@ class ContainerStart extends Component {
 
     this.state = {
         display: true,
-        countdown: config.startUpTime/1000
+        countdown: config.startUpTime/1000,
+        logo: false
     }
   }
 
@@ -103,6 +211,15 @@ class ContainerStart extends Component {
         display: this.state.display?'flex':'none',
         overflow: 'hidden'
       }}>
+
+        <a href="https://florianmaxim.com">
+          <LogoOuter style={{display:!this.props.started&&config.logoEnabled?'flex':'none'}}>
+            {config.logoInitials}
+          </LogoOuter>
+          <LogoText style={{display:!this.props.started&&config.logoEnabled?'flex':'none'}}>
+            {config.logoText}
+          </LogoText>
+        </a>
      
         <ComponentOverlay 
 

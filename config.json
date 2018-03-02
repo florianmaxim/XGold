@@ -61,12 +61,17 @@
     "startButtonCaption" :"buy a block",
     "startUpTime": 5000,
     "startUpOpacityTo": 0.85,
-    "startUpFinalTransitionTime": 3000,
+    "startUpFinalTransitionTime": 5000,
 
     "gold": {
         "autoRotate": true,
         "autoRotateSpeed" : 25
     },
 
-    "helperBorder": 0
+    "helperBorder": 0,
+
+    "logoEnabled": true,
+    "logoURL": "https://florianmaxim.com",
+    "logoInitials": "f",
+    "logoText": "Made with 🌽 by Florian Maxim"
 }

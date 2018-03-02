@@ -14,7 +14,9 @@ const ComponentOuter = styled.div`
     width: 300px;
     height: 75vh;
 
-    margin-right: 50px;
+    margin-right: 12.5vw;
+    margin-bottom: 12.5vw;
+    
 
     padding:0;
     
