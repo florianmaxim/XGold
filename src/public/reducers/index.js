@@ -16,8 +16,11 @@ import ReducerCounter       from './reducer-counter';
 
 import ReducerStarted       from './reducer-started';
 
+import Reducer3DView        from './reducer-3d-view';
 
 const reducer = combineReducers({
+
+    threeDimensionalView: Reducer3DView,
 
     started: ReducerStarted,
     elements: ReducerElements,

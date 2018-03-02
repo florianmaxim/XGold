@@ -26,6 +26,10 @@ class ContainerGold extends Component {
 
   componentWillReceiveProps(newProps){
 
+    if(newProps.threeDimensionalView.rotation!==this.props.threeDimensionalView.rotation){
+      ControllerGold.updateRotation(newProps.threeDimensionalView.rotation);
+    }
+
     if(newProps.selectedBlock.number!==this.props.selectedBlock.number){
       ControllerGold.generateGold(newProps.selectedBlock);   
     }else{
@@ -49,6 +53,8 @@ class ContainerGold extends Component {
 function props(state) {
 
   return {
+
+    threeDimensionalView: state.threeDimensionalView,
 
     selectedBlock: state.selectedBlock,
     started: state.started

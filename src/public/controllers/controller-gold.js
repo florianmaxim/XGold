@@ -18,7 +18,9 @@ import {
   TextureLoader,
   ShaderMaterial,
   Clock,
-  RepeatWrapping
+  RepeatWrapping,
+  MeshStandardMaterial,
+  MeshBasicMaterial
 } from 'three';
 
 import {OrbitControls} from './controller-orbit-controls';
@@ -107,6 +109,9 @@ let lastValueY=0;
 let lastValueX=0;
 let alpha, beta, gamma = 0;
 
+let rotationEnabled = true;
+let controlsEnabled = true;
+
 function degToRad(degrees){
 	return degrees * Math.PI/180;
 }
@@ -143,7 +148,7 @@ export default class Gold{
     controls = new OrbitControls(camera, renderer.domElement);
 
     /* Lights */
-
+ 
     var ambient = new AmbientLight( 0xeaf4f9, 1 );
     scene.add( ambient );
 
@@ -292,7 +297,7 @@ export default class Gold{
 
       var delta = clock.getDelta();
 
-      if(config.gold.autoRotate)
+      if(rotationEnabled)
       if(gold){
         gold.rotation.x += delta/config.gold.autoRotateSpeed
         gold.rotation.z += delta/config.gold.autoRotateSpeed
@@ -303,9 +308,11 @@ export default class Gold{
       if(uniforms2)
       uniforms2.time.value = clock.elapsedTime;
 
-        rotate();
 
-        controls.update();
+        if(controlsEnabled){
+          rotate();
+          controls.update();
+        }
 
         requestAnimationFrame(animate);
 
@@ -324,6 +331,10 @@ export default class Gold{
 
   getGold(){
     return gold;
+  }
+
+  updateRotation(mode){
+    rotationEnabled = mode;
   }
 
   updateGold(block){
@@ -354,7 +365,8 @@ export default class Gold{
       envMap: reflectionCube,
      /*  displacementMap: reflectionCube,
       combine: MixOperation, */
-      reflectivity: .1} );
+      reflectivity: .1} 
+    );
     
     const materialGold = new MeshPhongMaterial( {
       side: DoubleSide,
@@ -366,8 +378,8 @@ export default class Gold{
       envMap: reflectionCube,
       //displacementMap: reflectionCube,
       //combine: THREE.MixOperation,
-    
-      reflectivity: .25} );
+      reflectivity: .25} 
+    );
     
     
         //Choose material according to block state
@@ -391,12 +403,14 @@ export default class Gold{
 
   generateGold(block){
 
-    const factor = isMobile.any()?.5:1;
+    let factor = isMobile.any()?.5:1;
 
-    let width = 512*factor;
-    let height = 512*factor;
-    let segments = 512*factor;
-    let smooth = 512*factor;
+    const start = 512 // 512
+
+    let width = start*factor;
+    let height = start*factor;
+    let segments = start*factor;
+    let smooth = start*factor;
 
     //Generate surface data with DiamndSquare algorithm
     let surface  = new DiamondSquare(width, height, segments, smooth).generate();
@@ -425,13 +439,10 @@ export default class Gold{
       ];
     
     var reflectionCube = new CubeTextureLoader().load( urls );
-    
+  
     var refractionCube = new CubeTextureLoader().load( urls );
         refractionCube.mapping = CubeRefractionMapping;
     
-
-
- 
 
     const materialSilver = new MeshPhongMaterial( {
       side: DoubleSide,
@@ -491,13 +502,12 @@ export default class Gold{
       break;  
     }
 
-    
-
     gold = new Mesh( geometry, material );
     gold.name = 'gold';
 
     scene.remove(scene.getObjectByName('gold'));
     scene.add( gold );
+
   }
 
 }

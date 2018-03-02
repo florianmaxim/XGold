@@ -54,7 +54,7 @@ const ComponentOverlay = styled.div`
     
 `;
 
-const LogoOuter = styled.div`
+const LogoContainer = styled.div`
 
     z-index:5;
 
@@ -62,6 +62,23 @@ const LogoOuter = styled.div`
 
     left:5vw;
     top:5vw;
+
+    @media(orientation: portrait){
+      top:auto;
+      bottom:5vh;
+      left:50vw;
+      font-size:5vw;
+      transform: translateX(-50%);
+      flex-direction: column;
+    }
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+`;
+
+const LogoOuter = styled.div`
 
     width: 10vw;
     height: 10vw;
@@ -79,8 +96,6 @@ const LogoOuter = styled.div`
 
     box-sizing: border-box;
   
-    
-
     font-family: Lato;
     font-size:2vw;
     max-font-size:1.5em;
@@ -92,18 +107,13 @@ const LogoOuter = styled.div`
     &:hover {
       color: white;
       text-shadow: 0px 0px 2px rgba(0,0,0,.5);
-      box-shadow: 0px 0px 15px rgba(255,255,255,.5);
       opacity:.9;
     }
 
     cursor: pointer;
 
     @media(orientation: portrait){
-      top:auto;
-      bottom:10vh;
-      left:50vw;
       font-size:5vw;
-      transform: translateX(-50%);
     }
 
     transition: ${config.startUpFinalTransitionTime/1000}s opacity;
@@ -111,15 +121,10 @@ const LogoOuter = styled.div`
 
 const LogoText = styled.div`
 
-    z-index:5;
+    margin-top: 0.1vw;
+    margin-left: 2.5vw;    
 
-    position:fixed;
-
-    left:15vw;
-    top:5vw;
-
-    width: 100%;
-    text-align:center;
+    width: auto;
     height: 10vw;
 
     max-height:75px;
@@ -128,6 +133,7 @@ const LogoText = styled.div`
     align-items: center;
     justify-content: center;
 
+    color: white;
     background:transparent;
 
     border: 10px solid transparent;
@@ -135,27 +141,24 @@ const LogoText = styled.div`
     box-sizing: border-box;
 
     font-family: Lato;
-    font-size:2vw;
-    max-font-size:1.5em;
-    color: white;
+    font-size:1vw;
     text-shadow: 0px 0px 2px rgba(0,0,0,.5);
+    text-align:center;
+    
     opacity:.5;
 
     transition: .5s all;
 
-    &:hover {
-      
+    &:hover { 
       opacity:.9;
     }
 
     cursor: pointer;
 
     @media(orientation: portrait){
-      top:auto;
-      bottom:2.5vh;
-      left:50vw;
       font-size:3vw;
-      transform: translateX(-50%);
+      margin-top: 1vh;
+      margin-left: 0vw;
     }
 
     transition: ${config.startUpFinalTransitionTime/1000}s opacity;
@@ -212,14 +215,29 @@ class ContainerStart extends Component {
         overflow: 'hidden'
       }}>
 
-        <a href="https://florianmaxim.com">
-          <LogoOuter style={{display:!this.props.started&&config.logoEnabled?'flex':'none'}}>
+        
+
+        <LogoContainer>
+          <LogoOuter 
+            onTouchEnd={()=>this.setState({logo:this.state.logo?false:true})}
+            onMouseOver={()=>this.setState({logo:true})}
+            onMouseOut={()=>this.setState({logo:false})}         
+            style={{
+              boxShadow: this.state.logo?'0px 0px 25px rgba(255,255,255,.5)':'0px 0px 0px rgba(255,255,255,0)',
+              display:!this.props.started&&config.logoEnabled?'flex':'none'
+            }}>
             {config.logoInitials}
           </LogoOuter>
-          <LogoText style={{display:!this.props.started&&config.logoEnabled?'flex':'none'}}>
+          <a href="https://florianmaxim.com" target="blank">
+          <LogoText 
+            style={{
+              opacity:this.state.logo?'1':'0',
+              display:!this.props.started&&config.logoEnabled?'flex':'none'
+            }}>
             {config.logoText}
           </LogoText>
-        </a>
+          </a>
+        </LogoContainer>
      
         <ComponentOverlay 
 
@@ -241,7 +259,7 @@ class ContainerStart extends Component {
               }}>
             
             <ComponentInner>
-              <h1 style={{marginBottom: '25px', fontSize: '3em', fontFamily: 'Lato', color: 'white'}}>Yes, the blockchain looks beautiful.</h1>
+              <h1 style={{textShadow: '0px 0px 10px rgba(255,255,255,.25)', marginBottom: '25px', fontSize: '3em', fontFamily: 'Lato', color: 'white'}}>Yes, the blockchain looks beautiful.</h1>
             </ComponentInner>
 
             <ComponentInner>

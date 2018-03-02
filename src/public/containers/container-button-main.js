@@ -6,12 +6,14 @@ import { Link, Redirect } from 'react-router-dom';
 
 import * as actionsOverlay from '../actions/actions-overlay';
 import * as actionsMode    from '../actions/actions-mode';
+import * as actions3DView    from '../actions/actions-3d-view';
 
 import * as actionsBlocks    from '../actions/actions-blocks';
 
 import * as config         from '../../../config.json';
 
 import styled, {keyframes} from 'styled-components';
+
 
 const Container = styled.div`
 
@@ -32,7 +34,6 @@ const Container = styled.div`
 
     transform: translateX(-50%);
 `
-
 const Blockchain = styled.div`
 
     z-index:2;
@@ -55,8 +56,7 @@ const Blockchain = styled.div`
 
     width: 50px;
     height: 50px;
-`;
-
+`
 const Wallet = styled.div`
 
     z-index:2;
@@ -79,8 +79,7 @@ const Wallet = styled.div`
 
     width: 50px;
     height: 50px;
-`;
-
+`
 const Line = styled.div`
 
     width: 50px;
@@ -97,7 +96,6 @@ const Line = styled.div`
     border-radius: 2.5px;
     box-shadow: 0px -0px 10px rgba(255, 215, 0, .75);
 `
-
 const Circle = styled.div`
 
     margin-bottom:25px;
@@ -121,7 +119,6 @@ const Circle = styled.div`
 
     user-select: none;
 `
-  
 const Outer = styled.div`
     
     width: 50px;
@@ -141,7 +138,6 @@ const Outer = styled.div`
 
     user-select: none;    
 `
-  
 const Inner = styled.div`
     width: 45px;
     height: 19px;
@@ -162,8 +158,7 @@ const fadeIn = keyframes`
   to {
     opacity: 1;
   }
-`;
-
+`
 const fadeOut = keyframes`
   from {
     opacity: 1;
@@ -172,7 +167,7 @@ const fadeOut = keyframes`
   to {
     opacity: 0;
   }
-`;
+`
 
 class ContainerButtonMain extends React.Component {
 
@@ -188,6 +183,10 @@ class ContainerButtonMain extends React.Component {
         
         this.props.getCoinbase();
         
+    }
+
+    handleSet3DViewRotation(){
+        this.props.set3DViewRotation(this.props.threeDimensionalView.rotation?false:true);
     }
 
     render(){
@@ -211,11 +210,9 @@ class ContainerButtonMain extends React.Component {
                         to={`/block/${this.props.modeSelectedBlock?this.props.modeSelectedBlock.number:''}`} 
 
                         onMouseDown={(e)=>{e.stopPropagation();this.props.fadeInOverlay()}}
-                        onMouseUp={(e)=>{e.stopPropagation();this.props.fadeOutOverlay()}}
+                        onMouseUp={(e)=>{e.stopPropagation();this.handleSet3DViewRotation();this.props.fadeOutOverlay()}}
 
-                        onTouchStart={(e)=>{e.stopPropagation();this.props.fadeInOverlay()}}
-                        onTouchEnd={(e)=>{e.stopPropagation();this.props.fadeOutOverlay()}}>
-                        
+>
                         <Circle style={{opacity: !this.props.overlay?'0':'1', animation: !this.props.overlay?`${fadeIn} ${config.flashDuration}s linear forwards`:`${fadeOut} ${config.flashDuration}s linear forwards`}}>
 
                             <Outer>
@@ -253,7 +250,9 @@ function props(state) {
       overlay: state.overlay,
       mode: state.mode,
 
-      started: state.started
+      started: state.started,
+
+      threeDimensionalView: state.threeDimensionalView
   
     };
   
@@ -270,6 +269,8 @@ function props(state) {
 
         watchBlocks: actionsBlocks.watchBlocks,
         getCoinbase: actionsBlocks.getCoinbase,
+
+        set3DViewRotation: actions3DView.set3DViewRotation
         
     }, dispatch);
   
